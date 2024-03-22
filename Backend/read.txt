@@ -1,0 +1,10 @@
+class AvailableRoomViewSet(generics.ListCreateAPIView):
+    queryset = Room.objects.filter(status='available')  # Lọc sẵn phòng trống
+    serializer_class = AvailableRoomSerializer
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     room_type_id = self.request.query_params.get('room_type')
+    #     if room_type_id:
+    #         queryset = queryset.filter(room_type_id=room_type_id)
+    #     return queryset
+    

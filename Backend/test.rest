@@ -1,0 +1,24 @@
+POST http://127.0.0.1:8000/api/signup/
+Content-Type: application/json
+
+{ "username": "lazio", "password": "123456", "email": "ziolata@gmail.com" }
+
+###
+
+POST http://127.0.0.1:8000/api/login/ 
+Content-Type: application/json
+{ "email": "lazio51@mail.com", "password": "12345678" }
+
+###
+
+POST http://127.0.0.1:8000/api/hotel/booking/
+Content-Type: application/json
+{
+    "fullname": "Lazio3",
+    "phone": 769589973,
+    "address": "TP.BMT",
+    "check_in_date": "2024-03-13",
+    "check_out_date": "2024-03-16",
+    "number_of_guests": 2,
+    "room_id": 5
+}
