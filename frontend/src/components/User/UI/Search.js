@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import RoomList from "../../../Pages/RoomList";
 import SearchForm from "../Form/SearchForm";
+
 import axios from "axios";
-import Header from "../../../Pages/header";
-import Footer from "../../../Pages/footer";
-const Search = () => {
+import Header from "../../../Pages/User/Layout/header";
+import Footer from "../../../Pages/User/Layout/footer";
+function Search() {
   const [availableRooms, setAvailableRooms] = useState([]);
   const [filteredRooms, setFilteredRooms] = useState([]);
   const [searchParams, setSearchParams] = useState({
@@ -92,12 +93,11 @@ const Search = () => {
   return (
     <div className="App">
       <Header />
-      {/* <HeaderSlide /> */}
       <SearchForm onSearch={handleSearch} {...searchParams} />
       <RoomList rooms={filteredRooms} onBookNow={handleBookNow} />
       <Footer />
     </div>
   );
-};
+}
 
 export default Search;

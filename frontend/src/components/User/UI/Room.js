@@ -1,16 +1,15 @@
 import React, { Component } from "react";
-import Header from "../../../Pages/header";
-import Footer from "../../../Pages/footer";
 import RoomPage from "../../../Pages/RoomPage";
+import Header from "../../../Pages/User/Layout/header";
+import Footer from "../../../Pages/User/Layout/footer";
 
-export default class Room extends Component {
-  render() {
-    return (
-      <>
-        <Header />
-        <RoomPage />
-        <Footer />
-      </>
-    );
-  }
+function Room() {
+  return (
+    <>
+      <Header />
+      <RoomPage />
+      <Footer />
+    </>
+  );
 }
+export default Room;

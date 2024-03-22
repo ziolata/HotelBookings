@@ -1,18 +1,15 @@
 import React, { Component } from "react";
-import Header from "../../../Pages/header";
 import RoomDetailsPage from "../../../Pages/RoomDetailPage";
-import Footer from "../../../Pages/footer";
+import Header from "../../../Pages/User/Layout/header";
+import Footer from "../../../Pages/User/Layout/footer";
 
-export default class RoomDetailUI extends Component {
-  render() {
-    return (
-      <>
-        <Header />
-        {/* <SearchPage /> */}
-        <RoomDetailsPage />
-        {/* <Main /> */}
-        <Footer />
-      </>
-    );
-  }
+function RoomDetailUI() {
+  return (
+    <>
+      <Header />
+      <RoomDetailsPage />
+      <Footer />
+    </>
+  );
 }
+export default RoomDetailUI;

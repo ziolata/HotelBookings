@@ -1,8 +1,5 @@
 import React, { Component, useState, useEffect } from "react";
 import axios from "axios";
-
-import refreshPage from "./refreshPage";
-import { Redirect, useNavigate } from "react-router-dom";
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
@@ -35,9 +32,6 @@ function Signup() {
         }
       });
   }
-  // if (redirect) {
-  //   return <Redirect to="/login" replace />;
-  // }
   return (
     <section className="vh-100" style={{ backgroundColor: "#eee" }}>
       <div className="container h-100">

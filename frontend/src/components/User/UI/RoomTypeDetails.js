@@ -1,18 +1,15 @@
 import React, { Component } from "react";
-import Header from "../../../Pages/header";
-import Footer from "../../../Pages/footer";
 import RoomTypeDetailsPage from "../../../Pages/RoomTypeDetails";
+import Header from "../../../Pages/User/Layout/header";
+import Footer from "../../../Pages/User/Layout/footer";
 
-export default class RoomTypeDetailI extends Component {
-  render() {
-    return (
-      <>
-        <Header />
-        {/* <SearchPage /> */}
-        <RoomTypeDetailsPage />
-        {/* <Main /> */}
-        <Footer />
-      </>
-    );
-  }
+function RoomTypeDetailI() {
+  return (
+    <>
+      <Header />
+      <RoomTypeDetailsPage />
+      <Footer />
+    </>
+  );
 }
+export default RoomTypeDetailI;

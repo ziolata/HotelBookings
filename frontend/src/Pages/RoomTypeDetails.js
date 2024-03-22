@@ -43,7 +43,7 @@ function RoomTypeDetailsPage() {
   }, []);
   useEffect(() => {
     getRoomDifferent();
-  }, [roomId]); 
+  }, [roomId]);
   const handleDifferentRoom = (roomId) => {
     window.location.href = `/room-type/${roomId}/`;
   };
@@ -119,13 +119,13 @@ function RoomTypeDetailsPage() {
                   className="border mx-1 rounded-2"
                   target="_blank"
                   data-type="image"
-                  href="https://cdn.alongwalk.info/vn/wp-content/uploads/2022/02/23014734/image-10-hinh-anh-khach-san-du-khach-muon-duoc-nhin-thay-nhat-164553045440951.jpg"
+                  href="https://duonggiahotel.vn/wp-content/uploads/2023/01/4048e2d8302ae874b13b.jpg"
                 >
                   <img
                     width={60}
                     height={60}
                     className="rounded-2"
-                    src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big2.webp"
+                    src="https://duonggiahotel.vn/wp-content/uploads/2023/01/4048e2d8302ae874b13b.jpg"
                   />
                 </a>
                 <a
@@ -133,13 +133,13 @@ function RoomTypeDetailsPage() {
                   className="border mx-1 rounded-2"
                   target="_blank"
                   data-type="image"
-                  href="https://cdn.alongwalk.info/vn/wp-content/uploads/2022/02/23014734/image-10-hinh-anh-khach-san-du-khach-muon-duoc-nhin-thay-nhat-164553045440951.jpg"
+                  href="https://duonggiahotel.vn/wp-content/uploads/2023/03/phong-family-vip-duong-gia-hoel.jpg"
                 >
                   <img
                     width={60}
                     height={60}
                     className="rounded-2"
-                    src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big3.webp"
+                    src="https://duonggiahotel.vn/wp-content/uploads/2023/03/phong-family-vip-duong-gia-hoel.jpg"
                   />
                 </a>
                 <a
@@ -161,13 +161,13 @@ function RoomTypeDetailsPage() {
                   className="border mx-1 rounded-2"
                   target="_blank"
                   data-type="image"
-                  href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big.webp"
+                  href="https://duonggiahotel.vn/wp-content/uploads/2023/03/phong-family-vip-duong-gia-hoel2.jpg"
                 >
                   <img
                     width={60}
                     height={60}
                     className="rounded-2"
-                    src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big.webp"
+                    src="https://duonggiahotel.vn/wp-content/uploads/2023/03/phong-family-vip-duong-gia-hoel2.jpg"
                   />
                 </a>
               </div>

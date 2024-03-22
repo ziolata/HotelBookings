@@ -8,9 +8,7 @@ import {
 } from "mdb-react-ui-kit";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-
-import { Redirect, useLocation } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
+import AuthContext from "../../../context/AuthContext";
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;

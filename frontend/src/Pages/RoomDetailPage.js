@@ -46,36 +46,10 @@ function RoomDetailsPage() {
   };
   return (
     <>
-      <div className="p-3 text-center bg-white border-bottom">
-        {/* Jumbotron */}
-        {/* Heading */}
-        {/* <div className="bg-primary">
-        <div className="container py-4">
-          
-          <nav className="d-flex">
-            <h6 className="mb-0">
-              <a href="" className="text-white-50">
-                Home
-              </a>
-              <span className="text-white-50 mx-2"> &gt; </span>
-              <a href="" className="text-white-50">
-                Library
-              </a>
-              <span className="text-white-50 mx-2"> &gt; </span>
-              <a href="" className="text-white">
-                <u>Data</u>
-              </a>
-            </h6>
-          </nav>
-          
-        </div> */}
-      </div>
-      {/* Heading */}
-      {/* content */}
       <section className="py-5">
-      <div className=" text-center  border-bottom bg-light">
+        <div className=" text-center  border-bottom bg-light">
           <div className="">
-            <div className="container p-2">
+            <div className="container mt-4 p-2">
               <nav className="d-flex">
                 <h6 className="mb-2">
                   <a href="/" className="text-dark">
@@ -86,8 +60,8 @@ function RoomDetailsPage() {
                     Room
                   </a>
                   <span className="text-black mx-2"> / </span>
-                  <a href="/room-type/" className="text-dark">
-                    Room-Details
+                  <a href="#" className="text-dark">
+                    Details
                   </a>
                   {/* <span className="text-white-50 mx-2"> &gt; </span>
                 <a href="" className="text-white">
@@ -132,7 +106,7 @@ function RoomDetailsPage() {
                     width={60}
                     height={60}
                     className="rounded-2"
-                    src="https://cdn.alongwalk.info/vn/wp-content/uploads/2022/02/23014734/image-10-hinh-anh-khach-san-du-khach-muon-duoc-nhin-thay-nhat-164553045440951.jpg"
+                    src="https://duonggiahotel.vn/wp-content/uploads/2023/01/4048e2d8302ae874b13b.jpg"
                   />
                 </a>
                 <a
