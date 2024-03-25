@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import RoomDetailsPage from "../../../Pages/RoomDetailPage";
-import Header from "../../../Pages/User/Layout/header";
-import Footer from "../../../Pages/User/Layout/footer";
+import React from "react";
+import Header from "../Layout/header";
+import Footer from "../Layout/footer";
+import RoomDetailsPage from "../../../Pages/User/RoomDetailPage";
 
 function RoomDetailUI() {
   return (

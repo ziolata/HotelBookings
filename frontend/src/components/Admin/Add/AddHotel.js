@@ -3,35 +3,39 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import AuthContext from "../../../context/AuthContext";
 function AddHotel() {
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [province, setProvince] = useState("");
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState(null);
-  const [rating, setRating] = useState("");
+  const { authTokens } = useContext(AuthContext);
+  const csrftoken = Cookies.get("csrftoken");
+  const token = localStorage.getItem("authTokens");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [infoHotel, setInfoHotel] = useState({
+    name: "",
+    address: "",
+    province: "",
+    description: "",
+    rating: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInfoHotel({ ...infoHotel, [name]: value });
+  };
+  const [image, setImage] = useState(null);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
   };
-  const csrftoken = Cookies.get("csrftoken");
-  const token = localStorage.getItem("authTokens");
-
-  const { authTokens } = useContext(AuthContext);
   const handlePost = async () => {
     try {
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("address", address);
-      formData.append("province", province);
-      formData.append("description", description);
-      formData.append("image", image);
-      formData.append("rating", rating);
-
       const response = await axios.post(
         `http://127.0.0.1:8000/api/hotel/`,
-        formData,
+        {
+          name: infoHotel.name,
+          address: infoHotel.address,
+          province: infoHotel.province,
+          description: infoHotel.description,
+          rating: infoHotel.rating,
+          image: image,
+        },
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -44,12 +48,6 @@ function AddHotel() {
       if (response.status === 201) {
         setSuccessMessage("Khách sạn đã được thêm thành công.");
         setErrorMessage("");
-        setName("");
-        setAddress("");
-        setProvince("");
-        setDescription("");
-        setImage(null);
-        setRating("");
       }
     } catch (error) {
       console.error("Lỗi:", error);
@@ -95,8 +93,8 @@ function AddHotel() {
                             placeholder="Tên khách sạn"
                             required
                             style={{ width: 300 }}
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            name="name"
+                            onChange={handleChange}
                           />
                           <div className="invalid-feedback">
                             Tên khách sạn không thể để trống !!!
@@ -117,8 +115,8 @@ function AddHotel() {
                             placeholder="Địa chỉ"
                             required
                             style={{ width: 300 }}
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
+                            name="address"
+                            onChange={handleChange}
                           />
                           <div className="invalid-feedback">
                             Địa chỉ không thể để trống !!!
@@ -139,8 +137,8 @@ function AddHotel() {
                             placeholder="Chọn tỉnh thành phố"
                             required
                             style={{ width: 300 }}
-                            value={province}
-                            onChange={(e) => setProvince(e.target.value)}
+                            name="province"
+                            onChange={handleChange}
                           />
                           <div className="invalid-feedback">
                             Tỉnh/Thành phố không thể để trống !!!
@@ -161,8 +159,8 @@ function AddHotel() {
                             placeholder="Mô tả"
                             required
                             style={{ width: 300 }}
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
+                            name="description"
+                            onChange={handleChange}
                           />
                           <div className="invalid-feedback"></div>
                         </div>
@@ -182,8 +180,8 @@ function AddHotel() {
                             placeholder="Số sao của khách sạn"
                             required
                             style={{ width: 300 }}
-                            value={rating}
-                            onChange={(e) => setRating(e.target.value)}
+                            name="rating"
+                            onChange={handleChange}
                           />
                           <div className="invalid-feedback">
                             Số sao không thể để trống !!!

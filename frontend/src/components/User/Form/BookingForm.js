@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import calculateNumberOfDays from "../../../Pages/caculator";
+
 import { useParams } from "react-router-dom";
 import AuthContext, { AuthProvider } from "../../../context/AuthContext";
+import calculateNumberOfDays from "../../../Pages/Other/caculator";
 
 const BookingForm = ({ room, onBookingConfirmed }) => {
-  const [customerName, setCustomerName] = useState("");
-  const [customerEmail, setCustomerEmail] = useState(""); // Added for email sending
+  const { authTokens } = useContext(AuthContext);
+  const token = localStorage.getItem("authTokens"); // Lấy token lưu trữ
+  const [errorMessage, setErrorMessage] = useState("");
   const [fullname, setFullName] = useState("");
   const [phone, setCustomerPhone] = useState("");
   const [address, setCustomerAddress] = useState("");
@@ -28,9 +30,7 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
     price: "",
   });
   const { roomId } = useParams();
-  const [errorMessage, setErrorMessage] = useState("");
-  const token = localStorage.getItem("authTokens"); // Lấy token lưu trữ
-  const { authTokens } = useContext(AuthContext);
+
   const getRoom = async () => {
     try {
       const response = await axios({
@@ -78,7 +78,7 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
     } catch (error) {
       console.error("Lỗi:", error);
       if (error.response && error.response.data) {
-        setErrorMessage(error.response.data.detail); // Lưu thông báo lỗi từ API
+        setErrorMessage(error.response.data.error); // Lưu thông báo lỗi từ API
       }
     }
   };
@@ -189,7 +189,9 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                               </div>
                             </div>
                           </div>
-
+                          <div className="col-12">
+                            {errorMessage && renderErrorMessage()}{" "}
+                          </div>
                           <form action="#!">
                             <div className="row gy-3 overflow-hidden">
                               <div className="col-12">
@@ -326,10 +328,6 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                                     Đặt ngay
                                   </button>
                                 </div>
-                              </div>
-                              <div className="col-12">
-                                {errorMessage && renderErrorMessage()}{" "}
-                                {/* Hiển thị thông báo lỗi */}
                               </div>
                             </div>
                           </form>

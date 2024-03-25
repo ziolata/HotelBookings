@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import RoomList from "../../../Pages/RoomList";
-import SearchForm from "../Form/SearchForm";
 
+import SearchForm from "../Form/SearchForm";
 import axios from "axios";
-import Header from "../../../Pages/User/Layout/header";
-import Footer from "../../../Pages/User/Layout/footer";
+import Header from "../Layout/header";
+import Footer from "../Layout/footer";
+import RoomList from "../../../Pages/User/RoomList";
 function Search() {
   const [availableRooms, setAvailableRooms] = useState([]);
   const [filteredRooms, setFilteredRooms] = useState([]);
@@ -21,11 +21,11 @@ function Search() {
       try {
         const response = await axios.get("/api/hotel/room/available/");
         setAvailableRooms(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching available rooms:", error);
       }
     };
-
     fetchRooms();
   }, []);
 

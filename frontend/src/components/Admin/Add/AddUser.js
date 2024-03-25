@@ -9,13 +9,7 @@ function AddUser() {
   const { authTokens, userinfo } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const history = useHistory();
-  const [fullname, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [username, SetUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [role_id, setRoleID] = useState("");
-  const [phone_number, setPhoneNumber] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [Role, setRole] = useState([]);
@@ -33,14 +27,6 @@ function AddUser() {
   };
   const handlePost = async () => {
     try {
-      const formData = new FormData();
-      formData.append("fullname", Signup);
-      formData.append("username", Signup);
-      formData.append("email", Signup);
-      formData.append("address", Signup);
-      formData.append("password", Signup);
-      formData.append("role_id", Signup);
-      formData.append("phone_number", Signup);
       const response = await axios.post(`http://127.0.0.1:8000/api/signup/`, {
         fullname: Signup.fullname,
         username: Signup.username,
@@ -54,13 +40,6 @@ function AddUser() {
       if (response.status === 201) {
         setSuccessMessage("Thêm người dùng thành công.");
         setErrorMessage("");
-        setName("");
-        setEmail("");
-        SetUserName("");
-        setPassword("");
-        setRoleID("");
-        setPhoneNumber("");
-        setAddress("");
       }
     } catch (error) {
       console.error("Lỗi:", error);
@@ -69,7 +48,6 @@ function AddUser() {
     }
   };
   useEffect(() => {
-    // Hàm gọi API để lấy danh sách các loại phòng khi component được tạo
     async function fetchRoomTypes() {
       try {
         const response = await axios.get("http://127.0.0.1:8000/api/role/", {
@@ -78,13 +56,13 @@ function AddUser() {
             Authorization: `Bearer ` + String(authTokens.access),
           },
         });
-        setRole(response.data); // Cập nhật trạng thái mới với danh sách các loại phòng từ API
+        setRole(response.data);
       } catch (error) {
         console.error("Lỗi khi lấy danh sách loại phòng:", error);
       }
     }
 
-    fetchRoomTypes(); // Gọi hàm lấy danh sách loại phòng
+    fetchRoomTypes();
   }, []);
   useEffect(() => {
     if (

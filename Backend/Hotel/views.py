@@ -12,6 +12,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.decorators import api_view, permission_classes
+from datetime import datetime
 class HotelList(generics.ListCreateAPIView):
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
@@ -42,13 +43,6 @@ class RoomDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
     permission_classes = [permissions.AllowAny]
-# class BookingViewSet(viewsets.ModelViewSet):
-#     queryset = Booking.objects.all()
-#     serializer_class = BookingSerializer
-#     # permission_classes = [permissions.IsAuthenticated]
-
-#     def perform_create(self, serializer):
-#         serializer.save(user=self.request.user)
 
 class SearchAvailableRoomsView(APIView):
     permission_classes = [permissions.AllowAny]
@@ -110,12 +104,26 @@ class BookingViewSet(generics.ListCreateAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
     permission_classes = [IsAuthenticated]
+
     def create(self, request):
         request.data['status'] = 'Pending'  # Gán trường "status" thành "Pending" trước khi tạo serializer
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = request.user
         serializer.save(user_id=user, status='Pending')  
+        check_in_date = datetime.strptime(request.data['check_in_date'], '%Y-%m-%d').date()
+        check_out_date = datetime.strptime(request.data['check_out_date'], '%Y-%m-%d').date()
+        current_date = timezone.now().date()
+        if check_in_date < current_date:
+            return Response({"error": "Ngày check-in phải lớn hơn hoặc bằng ngày hiện tại."}, status=status.HTTP_400_BAD_REQUEST)
+        confirmed_bookings = Booking.objects.filter(status='Confirmed', check_in_date__lte=check_out_date, check_out_date__gte=check_in_date)
+        if confirmed_bookings.exists():
+            return Response({"error": "Không thể đặt phòng vì có đơn booking đã xác nhận trong khoảng thời gian này."}, status=status.HTTP_400_BAD_REQUEST)
+        # current_time = timezone.now().date()
+        # bookings = Booking.objects.filter(status='Confirmed', check_in_date__lte=current_time, check_out_date__gte=current_time)
+        # for booking in bookings:
+        #     booking.room_id.status = 'booked'
+        #     booking.room_id.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def perform_create(self, serializer,request):
@@ -133,6 +141,7 @@ class BookingViewSet(generics.ListCreateAPIView):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
         return super().update(request, *args, **kwargs)
+
     def destroy(self, request, *args, **kwargs):
         booking = self.get_object()
 
@@ -140,6 +149,7 @@ class BookingViewSet(generics.ListCreateAPIView):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
         return super().destroy(request, *args, **kwargs)
+
     def partial_update(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)
 
@@ -149,6 +159,8 @@ class BookingViewSet(generics.ListCreateAPIView):
         check_out_date = request.query_params.get('check_out_date', None)
         hotel_id = request.query_params.get('hotel_id', None)
         if check_in_date and check_out_date:
+            check_in_date = datetime.strptime(check_in_date, '%Y-%m-%d').date()
+            check_out_date = datetime.strptime(check_out_date, '%Y-%m-%d').date()
             queryset = queryset.filter(check_in_date__gte=check_in_date, check_out_date__lte=check_out_date)
         if hotel_id:
             queryset = queryset.filter(room_id__hotel_id=hotel_id)

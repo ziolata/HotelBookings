@@ -154,7 +154,6 @@ const SearchForm = ({
                       id="number-of-guests"
                       className="form-control"
                       name="numberOfGuests"
-                      value={formData.numberOfGuests}
                       onChange={handleInputChange}
                     >
                       <option value="1">1</option>

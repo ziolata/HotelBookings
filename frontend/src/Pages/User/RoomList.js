@@ -1,18 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
 
 const RoomList = ({ rooms }) => {
-  // const history = useHistory();
-
-  const handleBookNow = (roomId) => {
-    // Lưu trữ id phòng đã chọn
-    localStorage.setItem("selectedRoomId", roomId);
-
-    // Chuyển hướng sang trang booking
-    // history.push("/booking");
-    window.location.href = "/booking";
-  };
-
   const handleRoomClick = (roomId) => {
     window.location.href = `/booking/roomid=${roomId}/`;
   };

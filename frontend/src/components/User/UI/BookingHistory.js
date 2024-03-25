@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../../../Pages/User/Layout/header";
-import Footer from "../../../Pages/User/Layout/footer";
+import Header from "../Layout/header";
+import Footer from "../Layout/footer";
 import BookingHistoryPage from "../../../Pages/User/HistoryBooking";
 
 function BookingHistory() {

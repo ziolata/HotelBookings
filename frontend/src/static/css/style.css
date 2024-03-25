@@ -1519,8 +1519,6 @@ a {
   .header ul li a {
     padding: 20px 30px;
   }
-  .header ul li ul {
-  }
   .header .menu {
     clear: none;
     float: right;
@@ -1539,3 +1537,4 @@ a {
 .icon-hover:hover i {
   color: #3b71ca !important;
 }
+/* Login Form */

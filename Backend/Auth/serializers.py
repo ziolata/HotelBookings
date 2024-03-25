@@ -3,10 +3,10 @@ from django.contrib.auth import get_user_model, authenticate
 from .models import *
 UserModel = get_user_model()
 class UserSignupSerializers(serializers.ModelSerializer):
-    role_id = serializers.CharField()
+    # role_id = serializers.CharField()
     class Meta:
         model = UserCustom
-        fields = '__all__'
+        fields = ('username','email','password','fullname','address','phone_number')
     def create(self, clean_data):
         user_obj = UserCustom.objects.create_user(email=clean_data['email'], password=clean_data['password'])
         user_obj.username = clean_data['username']

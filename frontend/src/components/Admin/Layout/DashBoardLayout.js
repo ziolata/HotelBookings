@@ -43,18 +43,18 @@ function DashBoardLayOut() {
                 <span className="ms-1 d-none d-sm-inline">Home</span>
               </a>
             </li>
-            {userinfo.role_name === "Admin" && (
-              <li className="nav-item">
-                <a
-                  href="/dashboard/hotel/"
-                  className="nav-link align-middle px-0"
-                >
-                  <i className="fa-solid fa-hotel"></i>
-                  {""}
-                  <span className="ms-1 d-none d-sm-inline">QL khách sạn</span>
-                </a>
-              </li>
-            )}
+
+            <li className="nav-item">
+              <a
+                href="/dashboard/hotel/"
+                className="nav-link align-middle px-0"
+              >
+                <i className="fa-solid fa-hotel"></i>
+                {""}
+                <span className="ms-1 d-none d-sm-inline">QL khách sạn</span>
+              </a>
+            </li>
+
             <li className="nav-item">
               <a
                 href="/dashboard/room-type/"

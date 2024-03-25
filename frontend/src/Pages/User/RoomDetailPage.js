@@ -2,28 +2,23 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-function RoomTypeDetailsPage() {
-  // Access roomId from URL parameter
-  const { roomId } = useParams();
+function RoomDetailsPage() {
+  const { roomId } = useParams(); // Access roomId from URL parameter
   const [room, setRoom] = useState([]);
   const [roomDetail, setRoomDetail] = useState({
+    id: "",
     name: "",
-    description: "",
-    amenities: "",
     image: "",
+    room_number: "",
+    status: "",
     price: "",
-    number_of_rooms: "",
-    number_of_guest: "",
-    hotel_id: "",
+    amenity_data: "",
   });
-
-  // Fetch data based on roomId
   const getRoom = async () => {
     try {
-      const response = await axios({
-        url: `http://127.0.0.1:8000/api/hotel/room-type/${roomId}/`,
-        method: "GET",
-      });
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/hotel/room/${roomId}/`
+      );
       setRoomDetail(response.data);
       console.log(response.data);
     } catch (error) {
@@ -31,11 +26,8 @@ function RoomTypeDetailsPage() {
       setRoomDetail([]);
     }
   };
-
   const getRoomDifferent = async () => {
-    const response = await axios.get(
-      "http://127.0.0.1:8000/api/hotel/room-type/"
-    );
+    const response = await axios.get("http://127.0.0.1:8000/api/hotel/room/");
     setRoom(response.data);
   };
   useEffect(() => {
@@ -43,14 +35,15 @@ function RoomTypeDetailsPage() {
   }, []);
   useEffect(() => {
     getRoomDifferent();
-  }, [roomId]);
+  }, [roomId]); // Chạy lại getRoom khi ID phòng thay đổi // Re-run getRoom on roomId change
   const handleDifferentRoom = (roomId) => {
-    window.location.href = `/room-type/${roomId}/`;
+    window.location.href = `/room/${roomId}/`;
+  };
+  const handleRoomClick = (roomId) => {
+    window.location.href = `/booking/roomid=${roomId}/`;
   };
   return (
     <>
-      {/* Heading */}
-      {/* content */}
       <section className="py-5">
         <div className=" text-center  border-bottom bg-light">
           <div className="">
@@ -61,12 +54,12 @@ function RoomTypeDetailsPage() {
                     Home
                   </a>
                   <span className="text-black mx-2"> / </span>
-                  <a href="/room-type/" className="text-dark">
-                    RoomType
+                  <a href="/room/" className="text-dark">
+                    Room
                   </a>
                   <span className="text-black mx-2"> / </span>
-                  <a href="/room-type/" className="text-dark">
-                    RoomType-Details
+                  <a href="#" className="text-dark">
+                    Details
                   </a>
                   {/* <span className="text-white-50 mx-2"> &gt; </span>
                 <a href="" className="text-white">
@@ -77,7 +70,7 @@ function RoomTypeDetailsPage() {
             </div>
           </div>
         </div>
-        <div className="container mt-3">
+        <div className="container">
           <div className="row gx-5" key={roomDetail.id}>
             <aside className="col-lg-6">
               <div className="border rounded-4 mb-3 d-flex justify-content-center">
@@ -111,20 +104,6 @@ function RoomTypeDetailsPage() {
                     width={60}
                     height={60}
                     className="rounded-2"
-                    src="https://cdn.alongwalk.info/vn/wp-content/uploads/2022/02/23014734/image-10-hinh-anh-khach-san-du-khach-muon-duoc-nhin-thay-nhat-164553045440951.jpg"
-                  />
-                </a>
-                <a
-                  data-fslightbox="mygalley"
-                  className="border mx-1 rounded-2"
-                  target="_blank"
-                  data-type="image"
-                  href="https://duonggiahotel.vn/wp-content/uploads/2023/01/4048e2d8302ae874b13b.jpg"
-                >
-                  <img
-                    width={60}
-                    height={60}
-                    className="rounded-2"
                     src="https://duonggiahotel.vn/wp-content/uploads/2023/01/4048e2d8302ae874b13b.jpg"
                   />
                 </a>
@@ -133,13 +112,27 @@ function RoomTypeDetailsPage() {
                   className="border mx-1 rounded-2"
                   target="_blank"
                   data-type="image"
-                  href="https://duonggiahotel.vn/wp-content/uploads/2023/03/phong-family-vip-duong-gia-hoel.jpg"
+                  href="https://cdn.alongwalk.info/vn/wp-content/uploads/2022/02/23014734/image-10-hinh-anh-khach-san-du-khach-muon-duoc-nhin-thay-nhat-164553045440951.jpg"
                 >
                   <img
                     width={60}
                     height={60}
                     className="rounded-2"
-                    src="https://duonggiahotel.vn/wp-content/uploads/2023/03/phong-family-vip-duong-gia-hoel.jpg"
+                    src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big2.webp"
+                  />
+                </a>
+                <a
+                  data-fslightbox="mygalley"
+                  className="border mx-1 rounded-2"
+                  target="_blank"
+                  data-type="image"
+                  href="https://cdn.alongwalk.info/vn/wp-content/uploads/2022/02/23014734/image-10-hinh-anh-khach-san-du-khach-muon-duoc-nhin-thay-nhat-164553045440951.jpg"
+                >
+                  <img
+                    width={60}
+                    height={60}
+                    className="rounded-2"
+                    src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big3.webp"
                   />
                 </a>
                 <a
@@ -161,13 +154,13 @@ function RoomTypeDetailsPage() {
                   className="border mx-1 rounded-2"
                   target="_blank"
                   data-type="image"
-                  href="https://duonggiahotel.vn/wp-content/uploads/2023/03/phong-family-vip-duong-gia-hoel2.jpg"
+                  href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big.webp"
                 >
                   <img
                     width={60}
                     height={60}
                     className="rounded-2"
-                    src="https://duonggiahotel.vn/wp-content/uploads/2023/03/phong-family-vip-duong-gia-hoel2.jpg"
+                    src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big.webp"
                   />
                 </a>
               </div>
@@ -176,8 +169,10 @@ function RoomTypeDetailsPage() {
             </aside>
             <main className="col-lg-6">
               <div className="ps-lg-3">
-                <h4 className="title text-dark">{roomDetail.name}</h4>
-
+                <h4 className="title text-dark">
+                  Phòng: {roomDetail.room_number}
+                </h4>
+                <p>Loại phòng: {roomDetail.name}</p>
                 {/* <div className="d-flex flex-row my-3">
                   <div className="text-warning mb-1 me-2">
                     <i className="fa fa-star" />
@@ -196,13 +191,13 @@ function RoomTypeDetailsPage() {
                 <div className="mb-3">
                   <span> Giá: </span>
                   <span className="h5">{roomDetail.price}</span>
-                  <span className="text-muted">đ/một ngày</span>
+                  <span className="text-muted">đ/ngày</span>
                 </div>
-                <p>{roomDetail.description}</p>
+                {/* <p>{roomDetail.description}</p> */}
                 <div className="row">
                   <dt className="text-center">Tiện nghi:</dt>
-                  {roomDetail.amenities &&
-                    roomDetail.amenities.map((amenity) => (
+                  {roomDetail.amenity_data &&
+                    roomDetail.amenity_data.map((amenity) => (
                       <dt className="col-md-4">
                         <div className="amenities d-flex" key={amenity.id}>
                           <img
@@ -224,10 +219,13 @@ function RoomTypeDetailsPage() {
                     <dd className="col-9">Reebook</dd> */}
                 </div>
                 <hr />
-                <a href="/room/" className="btn btn-warning shadow-0">
+                <button
+                  onClick={() => handleRoomClick(roomDetail.id)}
+                  className="btn btn-warning shadow-0"
+                >
                   {" "}
-                  Xem các loại phòng {roomDetail.name}{" "}
-                </a>
+                  Book now{" "}
+                </button>
               </div>
             </main>
           </div>
@@ -241,7 +239,7 @@ function RoomTypeDetailsPage() {
               <div className="px-0 border rounded-2 shadow-0 ">
                 <div className="card">
                   <div className="card-body ">
-                    <h5 className="card-title text-center">Loại phòng khác</h5>
+                    <h5 className="card-title text-center">Phòng khác</h5>
                     <div className="d-flex">
                       {room.map((item, index) => (
                         <div
@@ -277,4 +275,4 @@ function RoomTypeDetailsPage() {
     </>
   );
 }
-export default RoomTypeDetailsPage;
+export default RoomDetailsPage;

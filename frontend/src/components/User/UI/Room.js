@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import RoomPage from "../../../Pages/RoomPage";
-import Header from "../../../Pages/User/Layout/header";
-import Footer from "../../../Pages/User/Layout/footer";
+import React from "react";
+import Header from "../Layout/header";
+import Footer from "../Layout/footer";
+import RoomPage from "../../../Pages/User/RoomPage";
 
 function Room() {
   return (

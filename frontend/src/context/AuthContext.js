@@ -115,7 +115,6 @@ export const AuthProvider = ({ children }) => {
     userinfo: userinfo,
     userAll: userAll,
   };
-  console.log(userAll);
 
   useEffect(() => {
     if (authTokens) {

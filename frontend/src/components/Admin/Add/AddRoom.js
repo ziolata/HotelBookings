@@ -3,36 +3,40 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import AuthContext from "../../../context/AuthContext";
 function AddRoom() {
-  const [room_number, setRoomNumber] = useState("");
-  const [room_type_id, setRoom_type_id] = useState("");
-  const [check_in_date, setCheckInDate] = useState("");
-  const [check_out_date, setCheckOutDate] = useState("");
-  const [status, setStatus] = useState("");
-  const [image, setImage] = useState(null);
+  const { authTokens } = useContext(AuthContext);
+  const csrftoken = Cookies.get("csrftoken");
+  const token = localStorage.getItem("authTokens");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [roomTypes, setRoomTypes] = useState([]);
+  const [image, setImage] = useState(null);
+  const [roomInfo, setRoomInfo] = useState({
+    room_number: "",
+    room_type_id: "",
+    check_in_date: "",
+    check_out_date: "",
+    status: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setRoomInfo({ ...roomInfo, [name]: value });
+  };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
   };
-  const csrftoken = Cookies.get("csrftoken");
-  const token = localStorage.getItem("authTokens"); // Lấy token lưu trữ
-  const { authTokens } = useContext(AuthContext);
   useEffect(() => {
-    // Hàm gọi API để lấy danh sách các loại phòng khi component được tạo
     async function fetchRoomTypes() {
       try {
         const response = await axios.get(
           "http://127.0.0.1:8000/api/hotel/room-type/"
         );
-        setRoomTypes(response.data); // Cập nhật trạng thái mới với danh sách các loại phòng từ API
+        setRoomTypes(response.data);
       } catch (error) {
         console.error("Lỗi khi lấy danh sách loại phòng:", error);
       }
     }
-
-    fetchRoomTypes(); // Gọi hàm lấy danh sách loại phòng
+    fetchRoomTypes();
   }, []);
   const handlePost = async () => {
     try {
@@ -40,9 +44,9 @@ function AddRoom() {
         `http://127.0.0.1:8000/api/hotel/room/`,
         {
           image,
-          room_number,
-          room_type_id,
-          status,
+          room_number: roomInfo.room_number,
+          room_type_id: roomInfo.room_type_id,
+          status: roomInfo.status,
         },
         {
           headers: {
@@ -56,9 +60,6 @@ function AddRoom() {
       if (response.status === 201) {
         setSuccessMessage("Khách sạn đã được thêm thành công.");
         setErrorMessage("");
-        setRoomNumber("");
-        setRoom_type_id("");
-        setStatus("");
         setImage(null);
       }
     } catch (error) {
@@ -104,8 +105,8 @@ function AddRoom() {
                             placeholder="Nhập số phòng"
                             required
                             style={{ width: 300 }}
-                            value={room_number}
-                            onChange={(e) => setRoomNumber(e.target.value)}
+                            name="room_number"
+                            onChange={handleChange}
                           />
                           <div className="invalid-feedback">
                             Số phòng không thể trống !!!
@@ -124,8 +125,8 @@ function AddRoom() {
                             id="status"
                             required
                             style={{ width: 300 }}
-                            value={status}
-                            onChange={(e) => setStatus(e.target.value)}
+                            name="status"
+                            onChange={handleChange}
                           >
                             <option value="">-----Chọn trạng thái-----</option>
                             <option value="available">Có sẵn</option>
@@ -149,8 +150,8 @@ function AddRoom() {
                             id="roomTypeId"
                             required
                             style={{ width: 300 }}
-                            value={room_type_id}
-                            onChange={(e) => setRoom_type_id(e.target.value)}
+                            name="room_type_id"
+                            onChange={handleChange}
                           >
                             <option value="">-----Chọn loại phòng-----</option>
                             {roomTypes.map((roomType) => (

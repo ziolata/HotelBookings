@@ -1,12 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
+import Header from "../Layout/header";
+import Footer from "../Layout/footer";
+import HeaderSlide from "../Layout/headerSlide";
+import RoomTypePage from "../../../Pages/User/RoomTypePage";
 
-import RoomTypePage from "../../../Pages/RoomTypePage";
-
-import Header from "../../../Pages/User/Layout/header";
-import Footer from "../../../Pages/User/Layout/footer";
-import HeaderSlide from "../../../Pages/User/Layout/headerSlide";
-
-function HomePage() {
+function RoomTypePageI() {
   return (
     <>
       <Header />
@@ -16,4 +14,4 @@ function HomePage() {
     </>
   );
 }
-export default HomePage;
+export default RoomTypePageI;

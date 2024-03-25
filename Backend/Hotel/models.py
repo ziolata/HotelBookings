@@ -72,8 +72,3 @@ class Booking(models.Model):
     def save(self, *args, **kwargs):
         # No changes needed here
         super().save(*args, **kwargs)
-# class BookingHistory(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     booking_id = models.ForeignKey(Booking, on_delete=models.CASCADE)
-#     timestamp = models.DateTimeField()
-#     content = models.TextField()

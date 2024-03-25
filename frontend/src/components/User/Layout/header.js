@@ -38,7 +38,7 @@ const Header = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <i class="fa-solid fa-user"></i>
+                <i className="fa-solid fa-user"></i>
               </a>
               <ul className="dropdown-menu">
                 <li>
