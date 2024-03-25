@@ -13,7 +13,7 @@ import RoomDetailUI from "./components/User/UI/RoomDetails";
 import Booking from "./components/User/UI/Booking";
 import Search from "./components/User/UI/Search";
 import AuthContext, { AuthProvider } from "./context/AuthContext";
-import BookingHistory from "./Pages/User/HistoryBooking";
+
 import ViewHotel from "./components/Admin/List/HotelList";
 import Hotel from "./components/Admin/View/Hotel";
 import RoomTypeAD from "./components/Admin/View/RoomType";
@@ -32,6 +32,7 @@ import UserAddView from "./components/Admin/View/Add/UserAddView";
 import WelcomeDashBoard from "./components/Admin/WelcomeDashBoard";
 import Signup from "./components/User/Auth/Signup";
 import Login from "./components/User/Auth/Login";
+import BookingHistory from "./components/User/UI/BookingHistory";
 
 function Routers() {
   return (

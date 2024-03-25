@@ -10,25 +10,25 @@ export default class Footer extends Component {
               <div className="col-12">
                 <div className="social">
                   <a href="">
-                    <li className="fa fa-instagram" />
+                    <i class="fa-brands fa-instagram"></i>
                   </a>
                   <a href="">
-                    <li className="fa fa-twitter" />
+                    <i class="fa-brands fa-twitter"></i>
                   </a>
                   <a href="">
-                    <li className="fa fa-facebook-f" />
+                    <i class="fa-brands fa-facebook-f"></i>
                   </a>
                 </div>
               </div>
               <div className="col-12">
                 <p>
-                  Copyright © 2045 <a href="">Your Site Name</a> All Rights
+                  Copyright © 2045 <a href="/">HotelBooking Site</a> All Rights
                   Reserved.
                 </p>
                 {/*/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. *** /*/}
-                <p>
+                {/* <p>
                   Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                </p>
+                </p> */}
               </div>
             </div>
           </div>

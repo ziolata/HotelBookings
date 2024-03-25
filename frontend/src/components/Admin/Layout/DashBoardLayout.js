@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams, Route, Redirect, useHistory } from "react-router-dom";
 import { useAuth } from "../../../context/useAuth";
+import AuthContext from "../../../context/AuthContext";
 
 function DashBoardLayOut() {
+  let { user, logoutUser } = useContext(AuthContext);
   const { userinfo } = useAuth();
   const [loading, setLoading] = useState(true);
   const history = useHistory();
@@ -94,49 +96,34 @@ function DashBoardLayOut() {
           </ul>
 
           <hr />
-          <div className="dropdown pb-4">
-            <a
-              href="#"
-              className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-              id="dropdownUser1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <img
-                src="https://github.com/mdo.png"
-                alt="hugenerd"
-                width={30}
-                height={30}
-                className="rounded-circle"
-              />
-              <span className="d-none d-sm-inline mx-1">loser</span>
-            </a>
-            <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
-              <li>
-                <a className="dropdown-item" href="#">
-                  New project...
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Settings
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Profile
-                </a>
-              </li>
-              <li>
-                <hr className="dropdown-divider" />
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Sign out
-                </a>
-              </li>
-            </ul>
-          </div>
+          {user ? (
+            <div className="dropdown pb-4">
+              <a
+                href="#"
+                className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                id="dropdownUser1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fa-solid fa-user"></i>
+                <span className="d-none d-sm-inline mx-1">{user.username}</span>
+              </a>
+              <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
+                <li>
+                  <a className="dropdown-item" href="/">
+                    Trở về trang chủ
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="" onClick={logoutUser}>
+                    Đăng xuất
+                  </a>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            window.location.href("/")
+          )}
         </div>
       </div>
     </>
