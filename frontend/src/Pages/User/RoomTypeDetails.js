@@ -17,10 +17,9 @@ function RoomTypeDetailsPage() {
   });
   const getRoom = async () => {
     try {
-      const response = await axios({
-        url: `http://127.0.0.1:8000/api/hotel/room-type/${roomId}/`,
-        method: "GET",
-      });
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/hotel/room-type/${roomId}/`
+      );
       setRoomDetail(response.data);
       console.log(response.data);
     } catch (error) {
@@ -28,6 +27,9 @@ function RoomTypeDetailsPage() {
       setRoomDetail([]);
     }
   };
+  useEffect(() => {
+    getRoom();
+  }, []);
 
   const getRoomDifferent = async () => {
     const response = await axios.get(
@@ -36,14 +38,12 @@ function RoomTypeDetailsPage() {
     setRoom(response.data);
   };
   useEffect(() => {
-    getRoom();
-  }, []);
-  useEffect(() => {
     getRoomDifferent();
   }, [roomId]);
   const handleDifferentRoom = (roomId) => {
     window.location.href = `/room-type/${roomId}/`;
   };
+
   return (
     <>
       {/* Heading */}

@@ -90,16 +90,18 @@ function RoomTypeList() {
                               <p>{amenity.name}</p>
                             ))}
                           </td>
-                          <td>
+
+                          <td>{item.price}</td>
+                          <td>{item.number_of_rooms}</td>
+                          <td>{item.number_of_guest}</td>
+                          <td>{item.hotel_name}</td>
+                          {/* <td>
                             <img
                               src={item.image}
                               alt="Hotel Image"
                               style={{ height: 100, width: 100 }}
                             />
-                          </td>
-                          <td>{item.price}</td>
-                          <td>{item.number_of_rooms}</td>
-                          <td>{item.hotel_name}</td>
+                          </td> */}
                           <td className="d-flex justify-content-center">
                             <div className="col-md-3">
                               <a

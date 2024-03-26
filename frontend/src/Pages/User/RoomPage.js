@@ -43,7 +43,7 @@ function RoomPage() {
         <div className="row" style={{ marginTop: 10 }}>
           <h2 className="text-center">Danh sách phòng</h2>
           {hotel.map((item, index) => (
-            <div className="col-md-4 mt-2">
+            <div className="col-md-4 mt-2" key={item.id}>
               <div className="card">
                 <div className="card-body">
                   <div className="card-img-actions">

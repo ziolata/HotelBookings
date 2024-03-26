@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
+import AuthContext from "../../../context/AuthContext";
+import Cookies from "js-cookie";
 function RoomUpdate() {
+  const { authTokens } = useContext(AuthContext);
+  const csrftoken = Cookies.get("csrftoken");
   const { Id } = useParams(); // Access roomId from URL parameter
   const [room, setRoom] = useState([]);
   const [roomDetail, setRoomDetail] = useState({
@@ -29,10 +32,9 @@ function RoomUpdate() {
   };
   const getRoom = async () => {
     try {
-      const response = await axios({
-        url: `http://127.0.0.1:8000/api/hotel/room/${Id}/`,
-        method: "GET",
-      });
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/hotel/room/${Id}/`
+      );
       setRoomDetail(response.data);
       console.log(response.data);
     } catch (error) {
@@ -73,15 +75,15 @@ function RoomUpdate() {
       formData.append("status", status);
 
       const response = await axios.patch(
-        `http://127.0.0.1:8000/api/hotel/room/${Id}/`,
-        formData
-        // {
-        //   headers: {
-        //     "Content-Type": "multipart/form-data",
-        //     "X-CSRFToken": csrftoken,
-        //     Authorization: `Bearer ${authTokens.access}`,
-        //   },
-        // }
+        `http://127.0.0.1:8000/api/hotel/room/update/${Id}/`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "X-CSRFToken": csrftoken,
+            Authorization: `Bearer ${authTokens.access}`,
+          },
+        }
       );
 
       if (response.status === 201) {

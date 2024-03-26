@@ -61,7 +61,7 @@ function BookingList() {
                         <th scope="col">Đ/Chỉ</th>
                         <th scope="col">CheckIn</th>
                         <th scope="col">CheckOut</th>
-                        <th scope="col">Price</th>
+                        {/* <th scope="col">Price</th> */}
                         <th scope="col">Loại phòng:</th>
                         <th scope="col">User:</th>
                         <th scope="col">TT</th>
@@ -77,14 +77,14 @@ function BookingList() {
                           <td>{item.address}</td>
                           <td>{item.check_in_date}</td>
                           <td>{item.check_out_date}</td>
-                          <td>{item.price}</td>
+                          {/* <td>{item.price}</td> */}
                           <td>{item.room_name}</td>
                           <td>{item.email}</td>
                           <td>{item.status}</td>
                           <td className="d-flex justify-content-center">
                             <div className="col-md-3">
                               <a href={"/dashboard/booking/edit/id=" + item.id}>
-                                <i class="fas fa-edit"></i>
+                                <i className="fas fa-edit"></i>
                               </a>
                             </div>
                             <div className="col-md-3">

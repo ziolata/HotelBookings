@@ -62,7 +62,7 @@ function AddRoomTypes() {
   const handlePost = async () => {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/api/hotel/room-type/`,
+        `http://127.0.0.1:8000/api/hotel/room-type/create/`,
         {
           name: infoRoomType.name,
           description: infoRoomType.description,

@@ -33,6 +33,8 @@ import WelcomeDashBoard from "./components/Admin/WelcomeDashBoard";
 import Signup from "./components/User/Auth/Signup";
 import Login from "./components/User/Auth/Login";
 import BookingHistory from "./components/User/UI/BookingHistory";
+import UnAuthor from "./components/Admin/Error";
+import RoomType from "./components/User/UI/RoomType";
 
 function Routers() {
   return (
@@ -47,12 +49,15 @@ function Routers() {
           <Route exact path="/booking/roomid=:roomId/" component={Booking} />
           <Route exact path="/search" component={Search} />
           {/* <Route exact path="/room-details" component={RoomDetails} /> */}
+          <Route exact path="/room-type/" component={RoomType} />
+
           <Route exact path="/room/" component={Room} />
           <Route exact path="/room/:roomId/" component={RoomDetailUI} />
           <Route path="/room-type/:roomId/" component={RoomTypeDetailI} />
 
           {/* DashBoard Router*/}
           <Route exact path="/dashboard/" component={WelcomeDashBoard} />
+          <Route exact path="/unauthor/" component={UnAuthor} />
 
           <Route exact path="/dashboard/hotel" component={Hotel} />
           <Route exact path="/dashboard/room-type" component={RoomTypeAD} />

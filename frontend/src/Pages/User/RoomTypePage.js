@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-function RoomTypePage() {
+function RoomTypePage({ numToShow }) {
   const [hotel, setHotel] = useState([]);
 
   const getHotel = async () => {
@@ -16,30 +16,15 @@ function RoomTypePage() {
   }, []);
 
   const handleRoomClick = (roomId) => {
-    // try {
-    //   const roomDetailsResponse = await axios.get(
-    //     `http://127.0.0.1:8000/api/hotel/room-type/${roomId}/`
-    //   );
-    //   console.log("Room details:", roomDetailsResponse.data);
-
     window.location.href = `/room-type/${roomId}/`;
-    // } catch (error) {
-    //   console.error("Error fetching room details:", error);
-    // }
   };
+  const firstTenHotels = hotel.slice(0, numToShow);
   return (
-    <div className="container ">
-      <div className="section-header" style={{ marginTop: 30 }}>
-        <h2>Loại Phòng</h2>
-        <p>
-          Đa dạng các loại phòng cho quý khách hàng lựa chọn cho mình một loại
-          phòng phù hợp nhất.
-        </p>
-      </div>
+    <>
       <div className="row">
-        {hotel.map((item, index) => (
+        {firstTenHotels.map((item, index) => (
           <div
-            className="col-md-6 col-lg-6 col-xs-12 col-sm-12 mb-3"
+            className="col-md-6 col-lg-6 col-xs-12 col-sm-12 mb-1"
             key={item.id}
           >
             {/* product */}
@@ -90,7 +75,7 @@ function RoomTypePage() {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }
 export default RoomTypePage;

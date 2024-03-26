@@ -54,7 +54,7 @@ function HotelUpdate() {
                           marginRight: 20,
                         }}
                       >
-                        <i class="fa fa-plus" aria-hidden="true"></i> Thêm
+                        <i className="fa fa-plus" aria-hidden="true"></i> Thêm
                       </button>
                     </a>
                   </div>

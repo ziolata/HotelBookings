@@ -17,7 +17,7 @@ const client = axios.create({
 });
 
 const Login = () => {
-  let { loginUser, user } = useContext(AuthContext);
+  const { loginUser, user } = useContext(AuthContext);
 
   return (
     <>
@@ -118,6 +118,14 @@ const Login = () => {
                             className="link-secondary text-decoration-none"
                           >
                             Quên mật khẩu
+                          </a>
+                        </div>
+                        <div className="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-center text-center">
+                          <a
+                            href="/"
+                            className="link-secondary text-decoration-none"
+                          >
+                            Quay về trang chủ
                           </a>
                         </div>
                       </div>

@@ -72,7 +72,7 @@ function UserList() {
                           marginRight: 20,
                         }}
                       >
-                        <i class="fa fa-plus" aria-hidden="true"></i> Thêm
+                        <i className="fa fa-plus" aria-hidden="true"></i> Thêm
                       </button>
                     </a>
                   </div>
@@ -83,10 +83,10 @@ function UserList() {
                         <th scope="col">Username</th>
                         <th scope="col">Tên</th>
                         <th scope="col">Email</th>
-                        <th scope="col">SĐT</th>
+                        {/* <th scope="col">SĐT</th> */}
                         <th scope="col">Địa chỉ</th>
                         <th scope="col">Quyền</th>
-                        <th scope="col">Nhân viên</th>
+                        {/* <th scope="col">Nhân viên</th> */}
 
                         <th>Edit/delete</th>
                       </tr>
@@ -98,10 +98,10 @@ function UserList() {
                           <td>{user.username}</td>
                           <td>{user.fullname}</td>
                           <td>{user.email}</td>
-                          <td>{user.phone_number}</td>
+                          {/* <td>{user.phone_number}</td> */}
                           <td>{user.address}</td>
                           <td>{user.role_name}</td>
-                          <td>{user.is_staff}</td>
+                          {/* <td>{user.is_staff}</td> */}
 
                           {/* <td>
                           <img
@@ -114,7 +114,7 @@ function UserList() {
                           <td className="d-flex justify-content-center">
                             <div className="col-md-3">
                               <a href={"/dashboard/user/edit/id=" + user.id}>
-                                <i class="fas fa-edit"></i>
+                                <i className="fas fa-edit"></i>
                               </a>
                             </div>
                             <div className="col-md-3">

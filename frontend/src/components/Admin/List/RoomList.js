@@ -53,7 +53,7 @@ function RoomList() {
                           marginRight: 20,
                         }}
                       >
-                        <i class="fa fa-plus" aria-hidden="true"></i> Thêm
+                        <i className="fa fa-plus" aria-hidden="true"></i> Thêm
                       </button>
                     </a>
                   </div>
@@ -86,7 +86,7 @@ function RoomList() {
                           <td className="d-flex justify-content-center">
                             <div className="col-md-3">
                               <a href={"/dashboard/room/edit/id=" + item.id}>
-                                <i class="fas fa-edit"></i>
+                                <i className="fas fa-edit"></i>
                               </a>
                             </div>
                             <div className="col-md-3">

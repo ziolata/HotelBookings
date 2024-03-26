@@ -9,7 +9,21 @@ function RoomTypePageI() {
     <>
       <Header />
       <HeaderSlide />
-      <RoomTypePage />
+      <div className="container ">
+        <div className="section-header" style={{ marginTop: 30 }}>
+          <h2>Loại Phòng</h2>
+          <p>
+            Đa dạng các loại phòng cho quý khách hàng lựa chọn cho mình một loại
+            phòng phù hợp nhất.
+          </p>
+        </div>
+        <RoomTypePage numToShow={4} />
+        <div className="col-md-12 d-flex justify-content-around">
+          <div className="seenAll ">
+            <a href="/room-type"> Xem tất cả loại phòng</a>
+          </div>
+        </div>
+      </div>
       <Footer />
     </>
   );

@@ -219,6 +219,8 @@ function RoomDetailsPage() {
                     <dd className="col-9">Reebook</dd> */}
                 </div>
                 <hr />
+              </div>
+              <div className="ps-lg-3 d-flex justify-content-center">
                 <button
                   onClick={() => handleRoomClick(roomDetail.id)}
                   className="btn btn-warning shadow-0"

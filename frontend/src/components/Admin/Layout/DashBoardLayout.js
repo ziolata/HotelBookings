@@ -13,7 +13,7 @@ function DashBoardLayOut() {
   useEffect(() => {
     if (userinfo.role_name === "User") {
       // window.local.href();
-      history.push("/");
+      history.push("/unauthor");
       window.location.reload();
     } else {
       setLoading(false);
@@ -105,7 +105,7 @@ function DashBoardLayOut() {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <i class="fa-solid fa-user"></i>
+                <i className="fa-solid fa-user"></i>
                 <span className="d-none d-sm-inline mx-1">{user.username}</span>
               </a>
               <ul className="dropdown-menu dropdown-menu-dark text-small shadow">

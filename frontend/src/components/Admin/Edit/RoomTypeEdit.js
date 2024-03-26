@@ -5,25 +5,23 @@ import AuthContext from "../../../context/AuthContext";
 import Cookies from "js-cookie";
 
 function RoomTypeDetail() {
+  const { authTokens } = useContext(AuthContext);
+  const csrftoken = Cookies.get("csrftoken");
+
   const { Id } = useParams(); // Access roomId from URL parameter
-  const [room, setRoom] = useState([]);
   const [roomDetail, setRoomDetail] = useState({
     id: "",
     name: "",
     image: "",
+    description: "",
     room_number: "",
     status: "",
     price: "",
     amenity_data: [],
   });
-  const csrftoken = Cookies.get("csrftoken");
-  //   const token = localStorage.getItem("authTokens");
-  const { authTokens } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [amenities, setAmenities] = useState([]);
-  const [Amenity, setAmenity] = useState([]);
-  const [Hotel, setHotel] = useState([]);
   const [price, setPrice] = useState("");
   const [image, setImage] = useState(null);
   const [number_of_rooms, setNumberOfRoom] = useState("");
@@ -38,10 +36,9 @@ function RoomTypeDetail() {
   };
   const getRoom = async () => {
     try {
-      const response = await axios({
-        url: `http://127.0.0.1:8000/api/hotel/room-type/${Id}/`,
-        method: "GET",
-      });
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/hotel/room-type/${Id}/`
+      );
       setRoomDetail(response.data);
       console.log(response.data);
     } catch (error) {
@@ -59,6 +56,7 @@ function RoomTypeDetail() {
     setNumberOfGuest(roomDetail.number_of_guest);
     setHotelId(roomDetail.hotel_id);
     setAmenities(roomDetail.amenities);
+    setImage(roomDetail.image);
   }, [
     roomDetail.name,
     roomDetail.price,
@@ -66,6 +64,7 @@ function RoomTypeDetail() {
     roomDetail.description,
     roomDetail.number_of_guest,
     roomDetail.hotel_id,
+    roomDetail.image,
   ]);
 
   useEffect(() => {
@@ -91,15 +90,17 @@ function RoomTypeDetail() {
       formData.append("number_of_rooms", number_of_rooms);
       formData.append("number_of_guest", number_of_guest);
       formData.append("amenities", amenities);
+      formData.append("description", description);
 
       const response = await axios.patch(
-        `http://127.0.0.1:8000/api/hotel/room-type/${Id}/`,
+        `http://127.0.0.1:8000/api/hotel/room-type/update/${Id}/`,
+
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
             "X-CSRFToken": csrftoken,
-            // Authorization: `Bearer ${authTokens.access}`,
+            Authorization: `Bearer ${authTokens.access}`,
           },
         }
       );

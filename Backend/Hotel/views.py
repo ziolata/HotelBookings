@@ -3,50 +3,62 @@ from Hotel.models import *
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import permissions, status
-from rest_framework import viewsets
 from rest_framework.views import APIView
 from django.db.models import Q
-from Auth.models import UserCustom
-from Auth.permissions import IsSuperAdmin
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
+from Auth.permissions import *
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
-from rest_framework.decorators import api_view, permission_classes
 from datetime import datetime
 class HotelList(generics.ListCreateAPIView):
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
     permission_classes = [permissions.AllowAny]
-
 class HoTelDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
+    permission_classes = [IsSuperAdmin, IsAdmin]
 class AmenityList(generics.ListCreateAPIView):
     queryset = Amenity.objects.all()
     serializer_class = AmenitySerializers
-class RoomTypeList(generics.ListCreateAPIView):
+
+#----------------------------------RoomType----------------------------
+class RoomTypeList(generics.ListAPIView):
     queryset = RoomType.objects.all()
     serializer_class = RoomTypeSerializer
     permission_classes = [permissions.AllowAny]
-
-class RoomTypeDetail(generics.RetrieveUpdateDestroyAPIView):
+class RoomTypeCreate(generics.CreateAPIView):
+    queryset = RoomType.objects.all()
+    serializer_class = RoomTypeSerializer
+    permission_classes = [IsSuperAdmin,IsAdmin]
+class RoomTypeDetail(generics.RetrieveAPIView):
     queryset = RoomType.objects.all()
     serializer_class = RoomTypeSerializer
     permission_classes = [permissions.AllowAny]
+class RoomTypeDetailUpdate(generics.RetrieveUpdateDestroyAPIView):
+    queryset = RoomType.objects.all()
+    serializer_class = RoomTypeSerializer
+    permission_classes = [IsSuperAdmin,IsAdmin]
 
-class RoomList(generics.ListCreateAPIView):
+# ----------------------------------Room------------------------------
+class RoomList(generics.ListAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
     permission_classes = [permissions.AllowAny]
-
-class RoomDetail(generics.RetrieveUpdateDestroyAPIView):
+class RoomListCreate(generics.CreateAPIView):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+    permission_classes = [IsSuperAdmin, IsAdmin]
+class RoomDetail(generics.RetrieveAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
     permission_classes = [permissions.AllowAny]
+class RoomDetailUpdate(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+    permission_classes = [IsSuperAdmin, IsAdmin]
 
+# Search
 class SearchAvailableRoomsView(APIView):
     permission_classes = [permissions.AllowAny]
-
     def get(self, request):
         # lấy data
         room_type_name = request.query_params.get('room_type_name')
@@ -119,11 +131,9 @@ class BookingViewSet(generics.ListCreateAPIView):
         confirmed_bookings = Booking.objects.filter(status='Confirmed', check_in_date__lte=check_out_date, check_out_date__gte=check_in_date)
         if confirmed_bookings.exists():
             return Response({"error": "Không thể đặt phòng vì có đơn booking đã xác nhận trong khoảng thời gian này."}, status=status.HTTP_400_BAD_REQUEST)
-        # current_time = timezone.now().date()
-        # bookings = Booking.objects.filter(status='Confirmed', check_in_date__lte=current_time, check_out_date__gte=current_time)
-        # for booking in bookings:
-        #     booking.room_id.status = 'booked'
-        #     booking.room_id.save()
+        if check_in_date == current_date:
+            available_rooms = Room.objects.filter(bookings__check_in_date=current_date, status='available')
+            available_rooms.update(status='booked')
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def perform_create(self, serializer,request):
