@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import Select from "react-select";
 import AuthContext from "../../../context/AuthContext";
 function AddRoomTypes() {
   const csrftoken = Cookies.get("csrftoken");
@@ -18,7 +19,10 @@ function AddRoomTypes() {
     number_of_rooms: "",
     number_of_guest: "",
     hotel_id: "",
+    amenities: [],
   });
+
+  console.log("Giá trị của amenities:", infoRoomType.amenities);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInfoRoomType({ ...infoRoomType, [name]: value });
@@ -59,7 +63,18 @@ function AddRoomTypes() {
 
     fetchHotel();
   }, []);
+  const handleAmenitiesChange = (selectedOptions) => {
+    // Chuyển đổi mảng các giá trị đã chọn sang dạng mong muốn (ví dụ: id và name)
+    const selectedAmenities = selectedOptions.map((option) => ({
+      id: option.value,
+    }));
+
+    // Cập nhật state của amenities
+    setInfoRoomType({ ...infoRoomType, amenities: selectedAmenities });
+  };
   const handlePost = async () => {
+    const formData = new FormData();
+
     try {
       const response = await axios.post(
         `http://127.0.0.1:8000/api/hotel/room-type/create/`,
@@ -167,23 +182,18 @@ function AddRoomTypes() {
                           </label>
                         </div>
                         <div className="col-md-8">
-                          <select
-                            className="form-control w-300 addrt"
-                            id="amenities"
-                            required
-                            multiple
+                          <Select
+                            options={
+                              amenities &&
+                              amenities.map((amenity) => ({
+                                value: amenity.id,
+                                label: amenity.name,
+                              }))
+                            }
+                            isMulti
                             name="amenities"
-                            onChange={handleChange}
-                            style={{ width: 300 }}
-                          >
-                            {amenities.amenities &&
-                              amenities.amenities.length > 0 &&
-                              amenities.amenities.map((amenity) => (
-                                <option key={amenity.id} value={amenity.id}>
-                                  {amenity.name}
-                                </option>
-                              ))}
-                          </select>
+                            onChange={handleAmenitiesChange}
+                          />
                           <div className="invalid-feedback">
                             Product Name Can't Be Empty
                           </div>

@@ -28,7 +28,7 @@ class RoomTypeList(generics.ListAPIView):
 class RoomTypeCreate(generics.CreateAPIView):
     queryset = RoomType.objects.all()
     serializer_class = RoomTypeSerializer
-    permission_classes = [IsSuperAdmin,IsAdmin]
+    permission_classes = [permissions.IsAuthenticated, IsSuperAdmin]
 class RoomTypeDetail(generics.RetrieveAPIView):
     queryset = RoomType.objects.all()
     serializer_class = RoomTypeSerializer

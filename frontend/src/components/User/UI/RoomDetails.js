@@ -8,7 +8,6 @@ function RoomDetailUI() {
     <>
       <Header />
       <RoomDetailsPage />
-
       <Footer />
     </>
   );

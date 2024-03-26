@@ -21,14 +21,19 @@ class AmenitySerializers(serializers.ModelSerializer):
             return None
 class RoomTypeSerializer(serializers.ModelSerializer):
     hotel_name = serializers.ReadOnlyField(source='hotel_id.name')
-    amenities = AmenitySerializers(many=True, read_only=True)
+    amenities_ids = serializers.ListField(child=serializers.IntegerField(), write_only=True)
     class Meta:
         model = RoomType
-        fields = ('id','name','description','amenities','image','price', 'number_of_rooms','number_of_guest','hotel_id','hotel_name')
+        fields = ('id','name','description','amenities_ids','image','price', 'number_of_rooms','number_of_guest','hotel_id','hotel_name')
+    def create(self, validated_data):
+        amenities_ids = validated_data.pop('amenities_ids', [])
+        room_type = super().create(validated_data)
+        room_type.amenities.set(amenities_ids)
+        return room_type
 class RoomSerializer(serializers.ModelSerializer):
     name = serializers.ReadOnlyField(source='room_type_id.name')
     price = serializers.ReadOnlyField(source='room_type_id.price')
-    amenity_data = serializers.SerializerMethodField()  # Use a descriptive name
+    amenity_data = serializers.SerializerMethodField()  
     
     def get_amenity_data(self, obj):
         amenities_with_icon = [

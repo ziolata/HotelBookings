@@ -26,25 +26,27 @@ export const AuthProvider = ({ children }) => {
   let history = useHistory();
   let loginUser = async (e) => {
     e.preventDefault();
-    let response = await fetch("http://127.0.0.1:8000/api/token/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/api/token/", {
         email: e.target.email.value,
         password: e.target.password.value,
-      }),
-    });
-    let data = await response.json();
-    if (response.status === 200) {
-      setAuthTokens(data);
-      setUser(jwtDecode(data.access));
-      localStorage.setItem("authTokens", JSON.stringify(data));
-      alert("Đăng nhập thành công, nhấn OK để vào trang chủ !!!");
-      window.location.href = "/";
-      // UserProfile();
-    } else {
+      });
+
+      if (response.status === 200) {
+        const data = response.data;
+        setAuthTokens(data);
+        setUser(jwtDecode(data.access));
+        localStorage.setItem("authTokens", JSON.stringify(data));
+        alert("Đăng nhập thành công, nhấn OK để vào trang chủ !!!");
+        window.location.href = "/";
+        // UserProfile();
+      } else {
+        alert("Đăng nhập thất bại");
+      }
+    } catch (error) {
+      // Xử lý lỗi nếu có
+      console.error("Error:", error);
       alert("Đăng nhập thất bại");
     }
   };
@@ -54,27 +56,30 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("authTokens");
     history.push("/login");
   };
-  let updateToken = async () => {
-    console.log("Update Token Called!");
-    let response = await fetch("http://127.0.0.1:8000/api/token/refresh/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        refresh: authTokens.refresh,
-      }),
-    });
-    let data = await response.json();
-    if (response.status === 200) {
-      setAuthTokens(data);
-      setUser(jwtDecode(data.access));
-      localStorage.setItem("authTokens", JSON.stringify(data));
-    } else {
+  const updateToken = async () => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/token/refresh/",
+        {
+          refresh: authTokens.refresh,
+        }
+      );
+
+      if (response.status === 200) {
+        const data = response.data;
+        setAuthTokens(data);
+        setUser(jwtDecode(data.access));
+        localStorage.setItem("authTokens", JSON.stringify(data));
+        console.log("Token updated successfully:", data);
+      } else {
+        logoutUser();
+      }
+    } catch (error) {
+      console.error("Error:", error);
       logoutUser();
     }
   };
-  let UserProfile = async () => {
+  const UserProfile = async () => {
     try {
       const response = await axios.get(
         `http://127.0.0.1:8000/api/userprofile/`,
@@ -86,8 +91,7 @@ export const AuthProvider = ({ children }) => {
         }
       );
       const userData = response.data;
-      setUserInfo(userData); // Cập nhật vai trò của người dùng
-      // setUserInfo(userData.role);
+      setUserInfo(userData);
     } catch (error) {}
   };
   let User = async () => {
@@ -103,9 +107,18 @@ export const AuthProvider = ({ children }) => {
       // setUserInfo(userData.role);
     } catch (error) {}
   };
-  useEffect(() => {
-    User();
-  }, []);
+  // useEffect(() => {
+  //   User();
+  // }, []);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (authTokens) {
+  //       updateToken();
+  //     }
+  //   }, 60000); // Cập nhật token mỗi 10 phút (600000 milliseconds)
+
+  //   return () => clearInterval(interval);
+  // }, [authTokens]);
   let contextData = {
     user: user,
     loginUser: loginUser,
