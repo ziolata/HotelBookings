@@ -86,7 +86,7 @@ function RoomTypeList() {
                           <th scope="row">{item.id}</th>
                           <td>{item.name}</td>
                           <td>
-                            {item.amenities_ids.map((amenity) => (
+                            {item.amenities.map((amenity) => (
                               <p>{amenity.name}</p>
                             ))}
                           </td>
