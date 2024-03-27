@@ -19,8 +19,12 @@ function RoomTypePageI() {
         </div>
         <RoomTypePage numToShow={4} />
         <div className="col-md-12 d-flex justify-content-around">
-          <div className="seenAll ">
-            <a href="/room-type"> Xem tất cả loại phòng</a>
+          <div className="seenAll" style={{ marginBottom: 20 }}>
+            <i className="fa-solid fa-arrow-right"></i>
+            <a href="/room-type/" style={{ color: "black" }}>
+              {" "}
+              Xem tất cả loại phòng
+            </a>
           </div>
         </div>
       </div>

@@ -7,15 +7,6 @@ function BookingUpdate() {
   const csrftoken = Cookies.get("csrftoken");
   const { authTokens } = useContext(AuthContext);
   const { Id } = useParams(); // Access roomId from URL parameter
-  const [fullname, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [check_in_date, setCheckInDate] = useState("");
-  const [check_out_date, setCheckOutDate] = useState("");
-  const [total_price, setTotalPrice] = useState(null);
-  const [number_of_guests, setNumberOfGuest] = useState("");
-  const [room_name, setRoomName] = useState("");
-  const [email, setEmail] = useState("");
   const [status, setStatus] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -31,6 +22,22 @@ function BookingUpdate() {
     email: "",
     status: "",
   });
+  const [BookingInfo, setBookingInfo] = useState({
+    fullname: "",
+    phone: "",
+    address: "",
+    check_in_date: "",
+    check_out_date: "",
+    total_price: "",
+    number_of_guests: "",
+    room_name: "",
+    email: "",
+    status: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setBookingInfo({ ...BookingInfo, [name]: value });
+  };
   const getRoom = async () => {
     try {
       const response = await axios({
@@ -50,15 +57,7 @@ function BookingUpdate() {
   };
   useEffect(() => {
     getRoom();
-    setFullName(roomDetail.fullname);
-    setAddress(roomDetail.address);
-    setPhone(roomDetail.phone);
-    setCheckInDate(roomDetail.check_in_date);
-    setCheckOutDate(roomDetail.check_out_date);
-    setTotalPrice(roomDetail.total_price);
-    setNumberOfGuest(roomDetail.number_of_guests);
-    setRoomName(roomDetail.room_name);
-    setEmail(roomDetail.email);
+    setBookingInfo({ ...BookingInfo, ...roomDetail });
     setStatus(roomDetail.status);
   }, [
     roomDetail.fullname,
@@ -76,16 +75,16 @@ function BookingUpdate() {
   const handlePatchBooking = async () => {
     try {
       const formData = new FormData();
-      formData.append("address", address);
-      formData.append("fullname", fullname);
-      formData.append("phone", phone);
-      formData.append("check_in_date", check_in_date);
-      formData.append("check_out_date", check_out_date);
-      formData.append("room_name", room_name);
-      formData.append("email", email);
-      formData.append("status", status);
-      formData.append("number_of_guest", number_of_guests);
-      formData.append("total_price", total_price);
+      formData.append("address", BookingInfo.address);
+      formData.append("fullname", BookingInfo.fullname);
+      formData.append("phone", BookingInfo.phone);
+      formData.append("check_in_date", BookingInfo.check_in_date);
+      formData.append("check_out_date", BookingInfo.check_out_date);
+      formData.append("room_name", BookingInfo.room_name);
+      formData.append("email", BookingInfo.email);
+      formData.append("status", BookingInfo.status);
+      formData.append("number_of_guest", BookingInfo.number_of_guests);
+      formData.append("total_price", BookingInfo.total_price);
       const response = await axios.patch(
         `http://127.0.0.1:8000/api/hotel/booking/${Id}/`,
         formData,
@@ -139,7 +138,7 @@ function BookingUpdate() {
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="name" className="mr-2">
-                              Tên khách sạn:
+                              Tên khách hàng:
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -150,8 +149,9 @@ function BookingUpdate() {
                               placeholder="Tên khách hàng"
                               required
                               style={{ width: 300 }}
-                              value={fullname}
-                              onChange={(e) => setFullName(e.target.value)}
+                              name="fullname"
+                              defaultValue={BookingInfo.fullname}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               không thể để trống !!!
@@ -172,8 +172,9 @@ function BookingUpdate() {
                               placeholder="Địa chỉ"
                               required
                               style={{ width: 300 }}
-                              value={address}
-                              onChange={(e) => setAddress(e.target.value)}
+                              name="address"
+                              defaultValue={BookingInfo.address}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               Địa chỉ không thể để trống !!!
@@ -183,7 +184,7 @@ function BookingUpdate() {
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="phone" className="mr-2">
-                              Tỉnh/Thành Phố:
+                              SĐT
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -194,8 +195,9 @@ function BookingUpdate() {
                               placeholder="phone"
                               required
                               style={{ width: 300 }}
-                              value={phone}
-                              onChange={(e) => setPhone(e.target.value)}
+                              name="phone"
+                              defaultValue={BookingInfo.phone}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               không thể để trống !!!
@@ -216,8 +218,9 @@ function BookingUpdate() {
                               placeholder="checkin"
                               required
                               style={{ width: 300 }}
-                              value={check_in_date}
-                              onChange={(e) => setCheckInDate(e.target.value)}
+                              name="check_in_date"
+                              defaultValue={BookingInfo.check_in_date}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback"></div>
                           </div>
@@ -237,8 +240,9 @@ function BookingUpdate() {
                               placeholder="ngày trả phòng"
                               required
                               style={{ width: 300 }}
-                              value={check_out_date}
-                              onChange={(e) => setCheckOutDate(e.target.value)}
+                              name="check_out_date"
+                              defaultValue={BookingInfo.check_out_date}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               không thể để trống !!!
@@ -248,7 +252,7 @@ function BookingUpdate() {
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="room_name" className="mr-2">
-                              Ngày trả phòng
+                              Tên phòng
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -259,8 +263,9 @@ function BookingUpdate() {
                               placeholder="tên phòng"
                               required
                               style={{ width: 300 }}
-                              value={room_name}
-                              onChange={(e) => setRoomName(e.target.value)}
+                              name="room_name"
+                              defaultValue={BookingInfo.room_name}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               không thể để trống !!!
@@ -281,8 +286,9 @@ function BookingUpdate() {
                               placeholder="email"
                               required
                               style={{ width: 300 }}
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
+                              name="email"
+                              defaultValue={BookingInfo.email}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               không thể để trống !!!
@@ -303,8 +309,9 @@ function BookingUpdate() {
                               placeholder="Số người"
                               required
                               style={{ width: 300 }}
-                              value={number_of_guests}
-                              onChange={(e) => setNumberOfGuest(e.target.value)}
+                              name="number_of_guests"
+                              defaultValue={BookingInfo.number_of_guests}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               không thể để trống !!!
@@ -325,7 +332,8 @@ function BookingUpdate() {
                               placeholder="ngày trả phòng"
                               readonly
                               style={{ width: 300 }}
-                              value={total_price}
+                              name="total_price"
+                              defaultValue={BookingInfo.total_price}
                               //   onChange={(e) => setTotalPrice(e.target.value)}
                             />
                             <div className="invalid-feedback">

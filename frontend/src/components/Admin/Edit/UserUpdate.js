@@ -11,13 +11,8 @@ function UserUpdate() {
   const [loading, setLoading] = useState(true);
   const history = useHistory();
   const { authTokens, userinfo } = useContext(AuthContext); // Lấy token lưu trữ
-  const { Id } = useParams(); // Access roomId from URL parameter
-  const [fullname, setFullName] = useState("");
-  const [address, setAddress] = useState("");
-  const [username, setUserName] = useState("");
-  const [phone_number, setPhoneNumber] = useState("");
+  const { Id } = useParams();
   const [role_id, setRoleID] = useState("");
-  const [is_staff, setIsStaff] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [Role, setRole] = useState([]);
@@ -29,8 +24,23 @@ function UserUpdate() {
     phone_number: "",
     address: "",
     role_id: "",
+    email: "",
     is_staff: "",
   });
+  const [UserInfo, setUserInfo] = useState({
+    id: "",
+    fullname: "",
+    username: "",
+    phone_number: "",
+    address: "",
+    role_id: "",
+    email: "",
+    is_staff: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserInfo({ ...UserInfo, [name]: value });
+  };
   const getUser = async () => {
     try {
       const response = await axios({
@@ -45,18 +55,13 @@ function UserUpdate() {
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching room details:", error);
-      // Hiển thị thông báo lỗi cho người dùng (tùy chọn)
-      setUser([]); // Tùy chọn đặt mảng rỗng để kích hoạt thông báo tải
+      setUser([]);
     }
   };
   useEffect(() => {
     getUser();
-    setFullName(User.fullname);
-    setUserName(User.username);
-    setAddress(User.address);
-    setPhoneNumber(User.phone_number);
+    setUserInfo({ ...UserInfo, ...User });
     setRoleID(User.role_id);
-    setIsStaff(User.is_staff);
   }, [
     User.fullname,
     User.address,
@@ -64,17 +69,19 @@ function UserUpdate() {
     User.role_id,
     User.is_staff,
     User.username,
+    User.email,
   ]);
 
   const handlePatchUser = async () => {
     try {
       const formData = new FormData();
-      formData.append("fullname", fullname);
-      formData.append("username", username);
-      formData.append("address", address);
-      formData.append("phone_number", phone_number);
+      formData.append("fullname", UserInfo.fullname);
+      formData.append("username", UserInfo.username);
+      formData.append("address", UserInfo.address);
+      formData.append("phone_number", UserInfo.phone_number);
       formData.append("role_id", role_id);
-      formData.append("is_staff", is_staff);
+      formData.append("is_staff", UserInfo.is_staff);
+      formData.append("email", UserInfo.email);
 
       const response = await axios.patch(
         `http://127.0.0.1:8000/api/user/${Id}/`,
@@ -173,8 +180,32 @@ function UserUpdate() {
                               placeholder="Nhập họ và tên"
                               required
                               style={{ width: 300 }}
-                              value={fullname}
-                              onChange={(e) => setFullName(e.target.value)}
+                              name="fullname"
+                              defaultValue={UserInfo.fullname}
+                              onChange={handleChange}
+                            />
+                            <div className="invalid-feedback">
+                              Không thể để trống ô này!!!
+                            </div>
+                          </div>
+                        </div>
+                        <div className="form-group d-flex justify-content-center mb-3">
+                          <div className="col-md-3">
+                            <label htmlFor="username" className="mr-2">
+                              Username
+                            </label>
+                          </div>
+                          <div className="col-md-8">
+                            <input
+                              type="text"
+                              className="form-control w-300 addrt"
+                              id="username"
+                              placeholder="Username"
+                              required
+                              style={{ width: 300 }}
+                              name="username"
+                              defaultValue={UserInfo.username}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               Không thể để trống ô này!!!
@@ -195,11 +226,34 @@ function UserUpdate() {
                               placeholder="Địa chỉ"
                               required
                               style={{ width: 300 }}
-                              value={address}
-                              onChange={(e) => setAddress(e.target.value)}
+                              defaultValue={UserInfo.address}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               Địa chỉ không thể để trống !!!
+                            </div>
+                          </div>
+                        </div>
+                        <div className="form-group d-flex justify-content-center mb-3">
+                          <div className="col-md-3">
+                            <label htmlFor="email" className="mr-2">
+                              Email:
+                            </label>
+                          </div>
+                          <div className="col-md-8">
+                            <input
+                              type="email"
+                              className="form-control w-300 addrt"
+                              id="email"
+                              placeholder="Nhập email"
+                              required
+                              style={{ width: 300 }}
+                              name="email"
+                              defaultValue={UserInfo.email}
+                              onChange={handleChange}
+                            />
+                            <div className="invalid-feedback">
+                              Không thể để trống ô này!!!
                             </div>
                           </div>
                         </div>
@@ -217,8 +271,8 @@ function UserUpdate() {
                               placeholder="Điện thoại"
                               required
                               style={{ width: 300 }}
-                              value={phone_number}
-                              onChange={(e) => setPhoneNumber(e.target.value)}
+                              defaultValue={UserInfo.phone_number}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               Không thể để trống ô này !!!
@@ -268,8 +322,9 @@ function UserUpdate() {
                               placeholder="Số sao của khách sạn"
                               required
                               style={{ width: 300 }}
-                              value={is_staff}
-                              onChange={(e) => setIsStaff(e.target.value)}
+                              name="is_staff"
+                              defaultValue={UserInfo.is_staff}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               Số sao không thể để trống !!!

@@ -2,7 +2,7 @@ import React, { Component, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AuthContext from "../../../context/AuthContext";
 const Header = () => {
-  let { user, logoutUser } = useContext(AuthContext);
+  let { user, userinfo, logoutUser } = useContext(AuthContext);
   return (
     <>
       <header className="header">
@@ -41,6 +41,11 @@ const Header = () => {
                 <i className="fa-solid fa-user"></i>
               </a>
               <ul className="dropdown-menu">
+                <li>
+                  <a className="dropdown-item" href="/booking/history/">
+                    {userinfo.username}
+                  </a>
+                </li>
                 <li>
                   <a className="dropdown-item" href="/booking/history/">
                     Lịch sử booking

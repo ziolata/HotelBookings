@@ -1,21 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import RoomDetail from "./RoomEdit";
 import Cookies from "js-cookie";
 import AuthContext from "../../../context/AuthContext";
-
 function HotelDetail() {
   const csrftoken = Cookies.get("csrftoken");
   const token = localStorage.getItem("authTokens"); // Lấy token lưu trữ
   const { authTokens } = useContext(AuthContext);
   const { Id } = useParams(); // Access roomId from URL parameter
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [province, setProvince] = useState("");
-  const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
-  const [rating, setRating] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [roomDetail, setRoomDetail] = useState({
@@ -27,20 +20,34 @@ function HotelDetail() {
     image: "",
     rating: "",
   });
+  const [hotelInfo, setHotelInfo] = useState({
+    id: "",
+    name: "",
+    address: "",
+    province: "",
+    description: "",
+    image: "",
+    rating: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setHotelInfo({ ...hotelInfo, [name]: value });
+  };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
   };
   const getRoom = async () => {
     try {
-      const response = await axios({
-        url: `http://127.0.0.1:8000/api/hotel/${Id}/`,
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authTokens.access}`,
-        },
-      });
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/hotel/${Id}/`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authTokens.access}`,
+          },
+        }
+      );
       setRoomDetail(response.data);
       console.log(response.data);
     } catch (error) {
@@ -51,11 +58,7 @@ function HotelDetail() {
   };
   useEffect(() => {
     getRoom();
-    setName(roomDetail.name);
-    setAddress(roomDetail.address);
-    setDescription(roomDetail.description);
-    setProvince(roomDetail.province);
-    setRating(roomDetail.rating);
+    setHotelInfo({ ...hotelInfo, ...roomDetail });
   }, [
     roomDetail.name,
     roomDetail.address,
@@ -68,11 +71,11 @@ function HotelDetail() {
     try {
       const formData = new FormData();
       formData.append("image", image);
-      formData.append("name", name);
-      formData.append("address", address);
-      formData.append("province", province);
-      formData.append("description", description);
-      formData.append("rating", rating);
+      formData.append("name", hotelInfo.name);
+      formData.append("address", hotelInfo.address);
+      formData.append("province", hotelInfo.province);
+      formData.append("description", hotelInfo.description);
+      formData.append("rating", hotelInfo.rating);
 
       const response = await axios.patch(
         `http://127.0.0.1:8000/api/hotel/${Id}/`,
@@ -107,7 +110,7 @@ function HotelDetail() {
                 <div className="col-12">
                   <div className="card">
                     <div className="card-title text-center mt-3">
-                      <h3>Thay đổi thông tin khách sạn</h3>
+                      <h3>Cập nhật thông tin khách sạn</h3>
                     </div>
                     <div className="card-body">
                       {successMessage && (
@@ -140,8 +143,9 @@ function HotelDetail() {
                               placeholder="Tên khách sạn"
                               required
                               style={{ width: 300 }}
-                              value={name}
-                              onChange={(e) => setName(e.target.value)}
+                              name="name"
+                              defaultValue={hotelInfo.name}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               Tên khách sạn không thể để trống !!!
@@ -162,8 +166,9 @@ function HotelDetail() {
                               placeholder="Địa chỉ"
                               required
                               style={{ width: 300 }}
-                              value={address}
-                              onChange={(e) => setAddress(e.target.value)}
+                              name="address"
+                              defaultValue={hotelInfo.address}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               Địa chỉ không thể để trống !!!
@@ -183,9 +188,10 @@ function HotelDetail() {
                               id="province"
                               placeholder="Chọn tỉnh thành phố"
                               required
+                              name="province"
                               style={{ width: 300 }}
-                              value={province}
-                              onChange={(e) => setProvince(e.target.value)}
+                              defaultValue={hotelInfo.province}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               Tỉnh/Thành phố không thể để trống !!!
@@ -206,8 +212,9 @@ function HotelDetail() {
                               placeholder="Mô tả"
                               required
                               style={{ width: 300 }}
-                              value={description}
-                              onChange={(e) => setDescription(e.target.value)}
+                              name="description"
+                              defaultValue={hotelInfo.description}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback"></div>
                           </div>
@@ -227,8 +234,9 @@ function HotelDetail() {
                               placeholder="Số sao của khách sạn"
                               required
                               style={{ width: 300 }}
-                              value={rating}
-                              onChange={(e) => setRating(e.target.value)}
+                              name="rating"
+                              defaultValue={hotelInfo.rating}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               Số sao không thể để trống !!!
@@ -260,7 +268,7 @@ function HotelDetail() {
                           type="button"
                           onClick={handlePatchHotel}
                         >
-                          Sửa
+                          Cập nhật
                         </button>
                       </form>
                     </div>

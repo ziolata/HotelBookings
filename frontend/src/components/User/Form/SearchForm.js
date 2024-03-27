@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 const SearchForm = ({
   onSearch,
   roomTypeName,
@@ -8,9 +8,18 @@ const SearchForm = ({
   numberOfGuests,
   province,
 }) => {
-  // Replace with actual data from your backend
   const roomTypes = ["Standard Single", "Standard Double"];
   const provinces = ["Đắk Lắk", "Đắk Nông", "Đà Nẵng", "Phú Quốc"];
+  const [roomType, setRoomType] = useState([]);
+  const getRoomDifferent = async () => {
+    const response = await axios.get(
+      "http://127.0.0.1:8000/api/hotel/room-type/"
+    );
+    setRoomType(response.data);
+  };
+  useEffect(() => {
+    getRoomDifferent();
+  }, []);
 
   const [formData, setFormData] = useState({
     roomTypeName,
@@ -62,9 +71,9 @@ const SearchForm = ({
                       onChange={handleInputChange}
                     >
                       <option value="">Tất cả</option>
-                      {roomTypes.map((roomType) => (
-                        <option key={roomType} value={roomType}>
-                          {roomType}
+                      {roomType.map((roomType) => (
+                        <option key={roomType} value={roomType.name}>
+                          {roomType.name}
                         </option>
                       ))}
                     </select>

@@ -41,7 +41,7 @@ function AddRoom() {
   const handlePost = async () => {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/api/hotel/room/`,
+        `http://127.0.0.1:8000/api/hotel/room/create/`,
         {
           image,
           room_number: roomInfo.room_number,
@@ -58,13 +58,13 @@ function AddRoom() {
       );
 
       if (response.status === 201) {
-        setSuccessMessage("Khách sạn đã được thêm thành công.");
+        setSuccessMessage("Phòng đã được thêm thành công.");
         setErrorMessage("");
         setImage(null);
       }
     } catch (error) {
       console.error("Lỗi:", error);
-      setErrorMessage("Có lỗi xảy ra khi thêm khách sạn.");
+      setErrorMessage("Có lỗi xảy ra khi thêm phòng.");
       setSuccessMessage("");
     }
   };

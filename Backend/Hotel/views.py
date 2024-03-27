@@ -8,14 +8,22 @@ from django.db.models import Q
 from Auth.permissions import *
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from datetime import datetime
-class HotelList(generics.ListCreateAPIView):
+class HotelList(generics.ListAPIView):
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
     permission_classes = [permissions.AllowAny]
-class HoTelDetail(generics.RetrieveUpdateDestroyAPIView):
+class HotelCreate(generics.CreateAPIView):
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
-    permission_classes = [IsSuperAdmin, IsAdmin]
+    permission_classes = [AdminGroup]
+class HoTelDetail(generics.RetrieveAPIView):
+    queryset = Hotel.objects.all()
+    serializer_class = HotelSerializer
+    permission_classes = [permissions.AllowAny]
+class HoTelDetailUpdate(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Hotel.objects.all()
+    serializer_class = HotelSerializer
+    permission_classes = [AdminGroup]
 class AmenityList(generics.ListCreateAPIView):
     queryset = Amenity.objects.all()
     serializer_class = AmenitySerializers
@@ -28,7 +36,7 @@ class RoomTypeList(generics.ListAPIView):
 class RoomTypeCreate(generics.CreateAPIView):
     queryset = RoomType.objects.all()
     serializer_class = RoomTypeSerializer
-    permission_classes = [permissions.IsAuthenticated, IsSuperAdmin]
+    permission_classes = [permissions.IsAuthenticated, AdminGroup]
 class RoomTypeDetail(generics.RetrieveAPIView):
     queryset = RoomType.objects.all()
     serializer_class = RoomTypeSerializer
@@ -36,7 +44,7 @@ class RoomTypeDetail(generics.RetrieveAPIView):
 class RoomTypeDetailUpdate(generics.RetrieveUpdateDestroyAPIView):
     queryset = RoomType.objects.all()
     serializer_class = RoomTypeSerializer
-    permission_classes = [IsSuperAdmin,IsAdmin]
+    permission_classes = [permissions.IsAuthenticated,IsSuperAdmin, ]
 
 # ----------------------------------Room------------------------------
 class RoomList(generics.ListAPIView):
@@ -46,7 +54,15 @@ class RoomList(generics.ListAPIView):
 class RoomListCreate(generics.CreateAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
-    permission_classes = [IsSuperAdmin, IsAdmin]
+    permission_classes = [AdminGroup]
+    # def perform_create(self, serializer):
+    #     room_type_id = serializer.validated_data['room_type_id']
+    #     room_type = RoomType.objects.get(pk=room_type_id)
+    #     number_of_rooms = room_type.number_of_rooms
+    #     existing_rooms_count = Room.objects.filter(room_type_id=room_type_id).count()
+    #     if existing_rooms_count >= number_of_rooms:
+    #         return Response({"error": "Số lượng phòng đã đạt tối đa cho loại phòng này."}, status=status.HTTP_400_BAD_REQUEST)
+    #     serializer.save()
 class RoomDetail(generics.RetrieveAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
@@ -54,7 +70,7 @@ class RoomDetail(generics.RetrieveAPIView):
 class RoomDetailUpdate(generics.RetrieveUpdateDestroyAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
-    permission_classes = [IsSuperAdmin, IsAdmin]
+    permission_classes = [AdminGroup]
 
 # Search
 class SearchAvailableRoomsView(APIView):

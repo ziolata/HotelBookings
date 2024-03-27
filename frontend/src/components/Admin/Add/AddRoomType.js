@@ -64,30 +64,28 @@ function AddRoomTypes() {
     fetchHotel();
   }, []);
   const handleAmenitiesChange = (selectedOptions) => {
-    // Chuyển đổi mảng các giá trị đã chọn sang dạng mong muốn (ví dụ: id và name)
     const selectedAmenities = selectedOptions.map((option) => ({
       id: option.value,
     }));
-
-    // Cập nhật state của amenities
     setInfoRoomType({ ...infoRoomType, amenities: selectedAmenities });
   };
   const handlePost = async () => {
     const formData = new FormData();
+    infoRoomType.amenities.forEach((amenity) => {
+      formData.append("amenities", amenity.id);
+    });
+    formData.append("name", infoRoomType.name);
+    formData.append("description", infoRoomType.description);
+    formData.append("price", infoRoomType.price);
+    formData.append("image", image);
+    formData.append("number_of_rooms", infoRoomType.number_of_rooms);
+    formData.append("number_of_guest", infoRoomType.number_of_guest);
+    formData.append("hotel_id", infoRoomType.hotel_id);
 
     try {
       const response = await axios.post(
         `http://127.0.0.1:8000/api/hotel/room-type/create/`,
-        {
-          name: infoRoomType.name,
-          description: infoRoomType.description,
-          amenities: infoRoomType.amenities,
-          price: infoRoomType.price,
-          image: image,
-          number_of_rooms: infoRoomType.number_of_rooms,
-          number_of_guest: infoRoomType.number_of_guest,
-          hotel_id: infoRoomType.hotel_id,
-        },
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -182,20 +180,25 @@ function AddRoomTypes() {
                           </label>
                         </div>
                         <div className="col-md-8">
-                          <Select
-                            options={
-                              amenities &&
-                              amenities.map((amenity) => ({
-                                value: amenity.id,
-                                label: amenity.name,
-                              }))
-                            }
-                            isMulti
-                            name="amenities"
-                            onChange={handleAmenitiesChange}
-                          />
-                          <div className="invalid-feedback">
-                            Product Name Can't Be Empty
+                          <div
+                            className="size"
+                            style={{ width: 300, marginLeft: 15 }}
+                          >
+                            <Select
+                              options={
+                                amenities &&
+                                amenities.map((amenity) => ({
+                                  value: amenity.id,
+                                  label: amenity.name,
+                                }))
+                              }
+                              isMulti
+                              name="amenities"
+                              onChange={handleAmenitiesChange}
+                            />
+                            <div className="invalid-feedback">
+                              Product Name Can't Be Empty
+                            </div>
                           </div>
                         </div>
                       </div>

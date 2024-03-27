@@ -1,7 +1,4 @@
-from django.contrib.auth import get_user_model, login, logout
 from .models import *
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import UserSignupSerializers, UserLoginSerializers, UserProfileSerializers,RoleSerializer
@@ -10,9 +7,8 @@ from .validations import custom_validation, validate_email, validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
 from rest_framework import generics
-
+from Auth.permissions import *
 # Create your views here.
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -61,18 +57,17 @@ class UserSignup(APIView):
     #     return Response({'user': serializer.data}, status=status.HTTP_200_OK)
 class UserProfileView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    # authentication_classes = [TokenAuthentication]
     def get(self, request):
         serializer = UserProfileSerializers(request.user)
         return Response( serializer.data, status=status.HTTP_200_OK)
 class User(generics.ListAPIView):
     queryset = UserCustom.objects.all()
     serializer_class = UserProfileSerializers
-    permission_classes = [IsAdminUser]
+    permission_classes = [permissions.IsAuthenticated,]
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserCustom.objects.all()
     serializer_class = UserProfileSerializers
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsSuperAdmin]
 class RoleView(generics.ListAPIView):
     queryset = Role.objects.all()
     serializer_class = RoleSerializer

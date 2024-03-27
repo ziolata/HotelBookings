@@ -40,6 +40,7 @@ function RoomTypeList() {
       }
     }
   };
+  console.log(hotel);
   return (
     <section>
       <div className="container">
@@ -86,7 +87,7 @@ function RoomTypeList() {
                           <th scope="row">{item.id}</th>
                           <td>{item.name}</td>
                           <td>
-                            {item.amenities.map((amenity) => (
+                            {item.amenities_info.map((amenity) => (
                               <p>{amenity.name}</p>
                             ))}
                           </td>

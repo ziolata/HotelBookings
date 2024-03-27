@@ -13,7 +13,7 @@ class HotelSerializer(serializers.ModelSerializer):
 class AmenitySerializers(serializers.ModelSerializer):
     class Meta:
         model = Amenity
-        fields = '__all__'
+        fields = ('id','name')
         read_only_fields = ("icon_url",)
         def get_icon_url(self, obj):
             if obj.icon:
@@ -21,10 +21,16 @@ class AmenitySerializers(serializers.ModelSerializer):
             return None
 class RoomTypeSerializer(serializers.ModelSerializer):
     hotel_name = serializers.ReadOnlyField(source='hotel_id.name')
-    amenities = AmenitySerializers(many=True, read_only=True)
+    amenities_info = AmenitySerializers(source='amenities', many=True, read_only=True)
+    amenities= serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=Amenity.objects.all(),  # Thay Amenity bằng tên model thực tế
+    )
+    province = serializers.ReadOnlyField(source='hotel_id.province')
+    
     class Meta:
         model = RoomType
-        fields = ('id','name','description','amenities','image','price', 'number_of_rooms','number_of_guest','hotel_id','hotel_name')
+        fields = ('id','name','description','amenities','amenities_info','image','price', 'number_of_rooms','number_of_guest','hotel_id','hotel_name','province')
 class RoomSerializer(serializers.ModelSerializer):
     name = serializers.ReadOnlyField(source='room_type_id.name')
     price = serializers.ReadOnlyField(source='room_type_id.price')

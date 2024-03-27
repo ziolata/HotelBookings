@@ -27,7 +27,7 @@ function AddHotel() {
   const handlePost = async () => {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/api/hotel/`,
+        `http://127.0.0.1:8000/api/hotel/create/`,
         {
           name: infoHotel.name,
           address: infoHotel.address,

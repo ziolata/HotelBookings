@@ -9,3 +9,6 @@ class IsAdmin(permissions.BasePermission):
 class IsMod(permissions.BasePermission):
     def has_permission(self, request, view):
         return request.user.is_authenticated and request.user.role_id.name == 'Mod'
+class AdminGroup(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and request.user.role_id.name == 'Admin' or request.user.role_id.name == 'SuperAdmin' 

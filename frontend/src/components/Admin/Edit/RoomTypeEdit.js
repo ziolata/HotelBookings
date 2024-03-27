@@ -3,37 +3,55 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import AuthContext from "../../../context/AuthContext";
 import Cookies from "js-cookie";
-
+import Select from "react-select";
 function RoomTypeDetail() {
   const { authTokens } = useContext(AuthContext);
   const csrftoken = Cookies.get("csrftoken");
-
-  const { Id } = useParams(); // Access roomId from URL parameter
-  const [roomDetail, setRoomDetail] = useState({
-    id: "",
-    name: "",
-    image: "",
-    description: "",
-    room_number: "",
-    status: "",
-    price: "",
-    amenity_data: [],
-  });
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [amenities, setAmenities] = useState([]);
-  const [price, setPrice] = useState("");
+  const [amenities1, setAmenities] = useState([]);
   const [image, setImage] = useState(null);
-  const [number_of_rooms, setNumberOfRoom] = useState("");
-  const [number_of_guest, setNumberOfGuest] = useState("");
-  const [hotel_id, setHotelId] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [roomTypes, setRoomTypes] = useState([]);
+  const { Id } = useParams();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setRoomType({ ...roomtype, [name]: value });
+  };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
   };
+  const handleAmenitiesChange = (selectedOptions) => {
+    const selectedAmenities = selectedOptions.map((option) => ({
+      id: option.value,
+    }));
+    setRoomType({ ...roomtype, amenities: selectedAmenities });
+  };
+  const [roomDetail, setRoomDetail] = useState({
+    id: "",
+    name: "",
+    image: "",
+    hotel_id: "",
+    description: "",
+    number_of_rooms: "",
+    number_of_guest: "",
+    status: "",
+    price: "",
+    amenity_data: [],
+  });
+  const [roomtype, setRoomType] = useState({
+    id: "",
+    name: "",
+    image: "",
+    hotel_id: "",
+    description: "",
+    number_of_rooms: "",
+    number_of_guest: "",
+    status: "",
+    price: "",
+    amenity_data: [],
+  });
+
   const getRoom = async () => {
     try {
       const response = await axios.get(
@@ -43,20 +61,13 @@ function RoomTypeDetail() {
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching room details:", error);
-      // Hiển thị thông báo lỗi cho người dùng (tùy chọn)
-      setRoomDetail([]); // Tùy chọn đặt mảng rỗng để kích hoạt thông báo tải
+
+      setRoomDetail([]);
     }
   };
   useEffect(() => {
     getRoom();
-    setName(roomDetail.name);
-    setDescription(roomDetail.description);
-    setPrice(roomDetail.price);
-    setNumberOfRoom(roomDetail.number_of_rooms);
-    setNumberOfGuest(roomDetail.number_of_guest);
-    setHotelId(roomDetail.hotel_id);
-    setAmenities(roomDetail.amenities);
-    setImage(roomDetail.image);
+    setRoomType({ ...roomtype, ...roomDetail });
   }, [
     roomDetail.name,
     roomDetail.price,
@@ -66,32 +77,52 @@ function RoomTypeDetail() {
     roomDetail.hotel_id,
     roomDetail.image,
   ]);
-
   useEffect(() => {
-    // Hàm gọi API để lấy danh sách các loại phòng khi component được tạo
     async function fetchRoomTypes() {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/hotel/");
-        setRoomTypes(response.data); // Cập nhật trạng thái mới với danh sách các loại phòng từ API
+        const response = await axios.get(
+          "http://127.0.0.1:8000/api/hotel/amenity/",
+          {
+            headers: {
+              "Content-Type": `application/json`,
+              Authorization: `Bearer ` + String(authTokens.access),
+            },
+          }
+        );
+        setAmenities(response.data);
       } catch (error) {
         console.error("Lỗi khi lấy danh sách loại phòng:", error);
       }
     }
 
-    fetchRoomTypes(); // Gọi hàm lấy danh sách loại phòng
+    fetchRoomTypes(); //
+  }, []);
+  useEffect(() => {
+    async function fetchRoomTypes() {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/hotel/");
+        setRoomTypes(response.data);
+      } catch (error) {
+        console.error("Lỗi khi lấy danh sách loại phòng:", error);
+      }
+    }
+
+    fetchRoomTypes();
   }, []);
 
   const handlePatchRoom = async () => {
     try {
       const formData = new FormData();
+      formData.append("name", roomtype.name);
       formData.append("image", image);
-      formData.append("name", name);
-      formData.append("price", price);
-      formData.append("number_of_rooms", number_of_rooms);
-      formData.append("number_of_guest", number_of_guest);
-      formData.append("amenities", amenities);
-      formData.append("description", description);
-
+      formData.append("price", roomtype.price);
+      formData.append("number_of_rooms", roomtype.number_of_rooms);
+      formData.append("number_of_guest", roomtype.number_of_guest);
+      formData.append("description", roomtype.description);
+      roomtype.amenities.forEach((amenity) => {
+        formData.append("amenities", amenity.id);
+      });
+      formData.append("hotel_id", roomtype.hotel_id);
       const response = await axios.patch(
         `http://127.0.0.1:8000/api/hotel/room-type/update/${Id}/`,
 
@@ -155,8 +186,9 @@ function RoomTypeDetail() {
                               placeholder="Tên loại phòng"
                               required
                               style={{ width: 300 }}
-                              value={name}
-                              onChange={(e) => setName(e.target.value)}
+                              defaultValue={roomtype.name}
+                              name="name"
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               Product Name Can't Be Empty
@@ -177,8 +209,9 @@ function RoomTypeDetail() {
                               placeholder="Mô tả"
                               required
                               style={{ width: 300 }}
-                              value={description}
-                              onChange={(e) => setDescription(e.target.value)}
+                              name="description"
+                              defaultValue={roomtype.description}
+                              onChange={handleChange}
                             />
                             <div className="invalid-feedback">
                               Product Name Can't Be Empty
@@ -192,32 +225,25 @@ function RoomTypeDetail() {
                             </label>
                           </div>
                           <div className="col-md-8">
-                            <select
-                              className="form-control w-300 addrt"
-                              id="amenities"
-                              required
-                              multiple
-                              value={amenities}
-                              onChange={(e) =>
-                                setAmenities(
-                                  Array.from(
-                                    e.target.selectedOptions,
-                                    (option) => option.value
-                                  )
-                                )
-                              }
-                              style={{ width: 300 }}
+                            <div
+                              className="size"
+                              style={{ width: 300, marginLeft: 15 }}
                             >
-                              {roomDetail.amenities &&
-                                roomDetail.amenities.length > 0 &&
-                                roomDetail.amenities.map((amenity) => (
-                                  <option key={amenity.id} value={amenity.id}>
-                                    {amenity.name}
-                                  </option>
-                                ))}
-                            </select>
-                            <div className="invalid-feedback">
-                              Product Name Can't Be Empty
+                              <Select
+                                options={
+                                  amenities1 &&
+                                  amenities1.map((amenity) => ({
+                                    value: amenity.id,
+                                    label: amenity.name,
+                                  }))
+                                }
+                                isMulti
+                                name="amenities"
+                                onChange={handleAmenitiesChange}
+                              />
+                              <div className="invalid-feedback">
+                                Product Name Can't Be Empty
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -233,8 +259,9 @@ function RoomTypeDetail() {
                               className="form-control w-300 addrt"
                               id="price"
                               placeholder="Nhập giá"
-                              value={price}
-                              onChange={(e) => setPrice(e.target.value)}
+                              name="price"
+                              defaultValue={roomtype.price}
+                              onChange={handleChange}
                               style={{ width: 300 }}
                             />
                             <div className="invalid-feedback">
@@ -254,8 +281,9 @@ function RoomTypeDetail() {
                               className="form-control w-300 addrt"
                               id="number_room"
                               placeholder="Nhập tổng số phòng"
-                              value={number_of_rooms}
-                              onChange={(e) => setNumberOfRoom(e.target.value)}
+                              name="number_of_rooms"
+                              defaultValue={roomtype.number_of_rooms}
+                              onChange={handleChange}
                               style={{ width: 300 }}
                             />
                             <div className="invalid-feedback">
@@ -275,8 +303,9 @@ function RoomTypeDetail() {
                               className="form-control w-300 addrt"
                               id="number_of_guests"
                               placeholder="Nhập số người có thể ở"
-                              value={number_of_guest}
-                              onChange={(e) => setNumberOfGuest(e.target.value)}
+                              name="number_of_guest"
+                              defaultValue={roomtype.number_of_guest}
+                              onChange={handleChange}
                               style={{ width: 300 }}
                             />
                             <div className="invalid-feedback">
@@ -296,8 +325,9 @@ function RoomTypeDetail() {
                               id="roomTypeId"
                               required
                               style={{ width: 300 }}
-                              value={hotel_id}
-                              onChange={(e) => setHotelId(e.target.value)}
+                              name="hotel_id"
+                              defaultValue={roomTypes.hotel_id}
+                              onChange={handleChange}
                             >
                               <option value="">-----Chọn khách sạn-----</option>
                               {roomTypes.map((hotel) => (

@@ -9,6 +9,7 @@ function RoomTypeDetailsPage() {
     name: "",
     description: "",
     amenities: "",
+    amenities_info: "",
     image: "",
     price: "",
     number_of_rooms: "",
@@ -102,7 +103,7 @@ function RoomTypeDetailsPage() {
                   className="border mx-1 rounded-2"
                   target="_blank"
                   data-type="image"
-                  href="https://cdn.alongwalk.info/vn/wp-content/uploads/2022/02/23014734/image-10-hinh-anh-khach-san-du-khach-muon-duoc-nhin-thay-nhat-164553045440951.jpg"
+                  href="#"
                 >
                   <img
                     width={60}
@@ -116,7 +117,7 @@ function RoomTypeDetailsPage() {
                   className="border mx-1 rounded-2"
                   target="_blank"
                   data-type="image"
-                  href="https://duonggiahotel.vn/wp-content/uploads/2023/01/4048e2d8302ae874b13b.jpg"
+                  href="#"
                 >
                   <img
                     width={60}
@@ -130,7 +131,7 @@ function RoomTypeDetailsPage() {
                   className="border mx-1 rounded-2"
                   target="_blank"
                   data-type="image"
-                  href="https://duonggiahotel.vn/wp-content/uploads/2023/03/phong-family-vip-duong-gia-hoel.jpg"
+                  href="#"
                 >
                   <img
                     width={60}
@@ -198,8 +199,8 @@ function RoomTypeDetailsPage() {
                 <p>{roomDetail.description}</p>
                 <div className="row">
                   <dt className="text-center">Tiện nghi:</dt>
-                  {roomDetail.amenities &&
-                    roomDetail.amenities.map((amenity) => (
+                  {roomDetail.amenities_info &&
+                    roomDetail.amenities_info.map((amenity) => (
                       <dt className="col-md-4">
                         <div className="amenities d-flex" key={amenity.id}>
                           <img

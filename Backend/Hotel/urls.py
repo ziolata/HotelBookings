@@ -6,7 +6,8 @@ app_name = 'Hotel'
 urlpatterns = [
     # Hotel
     path('', views.HotelList.as_view(),name='hotel'),
-    path('<int:pk>/', views.HoTelDetail.as_view(),name='deltailcreate'),
+    path('create/', views.HotelCreate.as_view(),name='hotel'),
+    path('<int:pk>/', views.HoTelDetailUpdate.as_view(),name='deltailcreate'),
     path('amenity/',views.AmenityList.as_view(),name = 'Amenity'),
     # RoomType
     path('room-type/',views.RoomTypeList.as_view(),name = 'Room Type List'),

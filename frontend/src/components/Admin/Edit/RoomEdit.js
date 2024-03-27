@@ -16,7 +16,9 @@ function RoomUpdate() {
     status: "",
     price: "",
     amenity_data: "",
+    room_type_id: "",
   });
+
   const [room_number, setRoomNumber] = useState("");
   const [room_type_id, setRoom_type_id] = useState("");
   const [check_in_date, setCheckInDate] = useState("");

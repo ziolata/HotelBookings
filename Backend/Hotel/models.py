@@ -14,8 +14,7 @@ class Hotel(models.Model):
     image = models.ImageField(upload_to="Hotel")
     rating = models.FloatField()
     
-    def __str__(self):
-        return f"{self.name}"
+   
 class Amenity(models.Model):
     name = models.CharField(max_length=255, unique=True)
     icon = models.ImageField(upload_to="amenities/icons", blank=True)
