@@ -36,13 +36,11 @@ function UserList() {
   const history = useHistory();
   // const role_name = userinfo.role_name;
   useEffect(() => {
-    if (
-      userinfo.role_name === "Admin" ||
-      userinfo.role_name === "Mod" ||
-      userinfo.role_name === "User"
-    ) {
+    if (userinfo.role_name === "Mod" || userinfo.role_name === "User") {
       history.push("/");
       window.location.reload();
+    } else if (userinfo.role_name === "Admin") {
+      window.location.href = "/dashboard";
     } else {
       setLoading(false);
     }

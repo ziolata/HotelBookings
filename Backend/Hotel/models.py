@@ -67,7 +67,4 @@ class Booking(models.Model):
     def total_price(self, value):
         # Optional validation or logic before assigning the value
         self._total_price = value  # Use a private variable to store
-
-    def save(self, *args, **kwargs):
-        # No changes needed here
-        super().save(*args, **kwargs)
+    

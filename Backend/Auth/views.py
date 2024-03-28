@@ -15,7 +15,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super().get_token(user)
         token['email'] = user.email
-        
+        token['role_id'] = user.role_id.id
         return token
 
 class MyTokenObtainView(TokenObtainPairView):
@@ -63,7 +63,7 @@ class UserProfileView(generics.ListAPIView):
 class User(generics.ListAPIView):
     queryset = UserCustom.objects.all()
     serializer_class = UserProfileSerializers
-    permission_classes = [permissions.IsAuthenticated,]
+    permission_classes = [IsSuperAdmin]
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserCustom.objects.all()
     serializer_class = UserProfileSerializers
@@ -71,9 +71,9 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 class RoleView(generics.ListAPIView):
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
-    permission_classes = [IsAdminUser]
+    
 class RoleCRUDView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [AdminGroup]
         

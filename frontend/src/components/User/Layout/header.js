@@ -7,7 +7,7 @@ const Header = () => {
     <>
       <header className="header">
         <a href="/" className="logo nav-link">
-          Hotel Booking
+          HotelBooking
         </a>
         <input className="menu-btn" type="checkbox" id="menu-btn" />
         <label className="menu-icon" htmlFor="menu-btn">

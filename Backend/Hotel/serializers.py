@@ -72,10 +72,10 @@ class BookingHistorySerializer(serializers.ModelSerializer):
     user_id = serializers.PrimaryKeyRelatedField(read_only=True)
     room_id = serializers.PrimaryKeyRelatedField(queryset=Room.objects.all())
 
-    def create(self, validated_data):
-        return Booking.objects.create(**validated_data)  
-    def update(self, instance, validated_data):
-        return super().update(instance, validated_data)
+    # def create(self, validated_data):
+    #     return Booking.objects.create(**validated_data)  
+    # def update(self, instance, validated_data):
+    #     return super().update(instance, validated_data)
     class Meta:
         model = Booking
         fields = ('id','fullname','phone','address','check_in_date','check_out_date','total_price','number_of_guests','price','room_id','user_id','status','date_booking')

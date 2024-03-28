@@ -1409,6 +1409,7 @@ a {
 }
 
 .header ul {
+  display: flex;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1417,10 +1418,13 @@ a {
 }
 
 .header li a {
-  display: block;
+  /* display: block; */
   padding: 20px 20px;
   border-right: 1px solid #f4f4f4;
   text-decoration: none;
+}
+.header ul li ul {
+  display: none;
 }
 
 .header li a:hover,
@@ -1513,9 +1517,9 @@ a {
 /* 48em = 768px */
 
 @media (min-width: 48em) {
-  .header li {
+  /* .header li {
     float: left;
-  }
+  } */
   .header ul li a {
     padding: 20px 30px;
   }
@@ -1538,3 +1542,8 @@ a {
   color: #3b71ca !important;
 }
 /* Login Form */
+@media (max-width: 724px) {
+  .header ul {
+    display: block;
+  }
+}

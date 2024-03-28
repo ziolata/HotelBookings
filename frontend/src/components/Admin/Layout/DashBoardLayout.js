@@ -24,7 +24,10 @@ function DashBoardLayOut() {
   }
   return (
     <>
-      <div className="col-auto col-md-2 col-xl-2 px-sm-2 px-0 bg-dark">
+      <div
+        className="col-auto col-md-2 col-xl-2 px-sm-2 px-0 bg-dark"
+        style={{ height: 645 }}
+      >
         <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
           <a
             href="/"
@@ -106,7 +109,9 @@ function DashBoardLayOut() {
                 aria-expanded="false"
               >
                 <i className="fa-solid fa-user"></i>
-                <span className="d-none d-sm-inline mx-1">{user.username}</span>
+                <span className="d-none d-sm-inline mx-1">
+                  {userinfo.username}
+                </span>
               </a>
               <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
                 <li>

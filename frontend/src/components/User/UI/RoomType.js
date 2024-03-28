@@ -21,11 +21,6 @@ function RoomType() {
                   <a href="/room-type/" className="text-dark">
                     RoomType
                   </a>
-
-                  {/* <span className="text-white-50 mx-2"> &gt; </span>
-                <a href="" className="text-white">
-                  <u>Data</u>
-                </a> */}
                 </h6>
               </nav>
             </div>

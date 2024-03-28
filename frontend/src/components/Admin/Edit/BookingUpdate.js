@@ -10,18 +10,7 @@ function BookingUpdate() {
   const [status, setStatus] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [roomDetail, setRoomDetail] = useState({
-    fullname: "",
-    phone: "",
-    address: "",
-    check_in_date: "",
-    check_out_date: "",
-    total_price: "",
-    number_of_guests: "",
-    room_name: "",
-    email: "",
-    status: "",
-  });
+  const [roomDetail, setRoomDetail] = useState([]);
   const [BookingInfo, setBookingInfo] = useState({
     fullname: "",
     phone: "",

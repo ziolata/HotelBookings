@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-
-import Cookies from "js-cookie";
 import axios from "axios";
 import AuthContext from "../../../context/AuthContext";
 
 function RoomList() {
+  const { authTokens } = useContext(AuthContext);
   const [hotel, setHotel] = useState([]);
   const getHotel = async () => {
     const response = await axios.get("http://127.0.0.1:8000/api/hotel/room/");
@@ -20,7 +18,15 @@ function RoomList() {
     const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa không?");
     if (confirmDelete) {
       try {
-        await axios.delete(`http://127.0.0.1:8000/api/hotel/room/${id}/`);
+        await axios.delete(
+          `http://127.0.0.1:8000/api/hotel/room/update/${id}/`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ` + String(authTokens.access),
+            },
+          }
+        );
         // Sau khi xóa thành công, cập nhật lại danh sách phòng
         getHotel();
       } catch (error) {

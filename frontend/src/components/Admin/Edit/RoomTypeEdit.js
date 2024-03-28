@@ -27,18 +27,7 @@ function RoomTypeDetail() {
     }));
     setRoomType({ ...roomtype, amenities: selectedAmenities });
   };
-  const [roomDetail, setRoomDetail] = useState({
-    id: "",
-    name: "",
-    image: "",
-    hotel_id: "",
-    description: "",
-    number_of_rooms: "",
-    number_of_guest: "",
-    status: "",
-    price: "",
-    amenity_data: [],
-  });
+  const [roomDetail, setRoomDetail] = useState([]);
   const [roomtype, setRoomType] = useState({
     id: "",
     name: "",

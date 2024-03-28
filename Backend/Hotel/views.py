@@ -12,14 +12,14 @@ class HotelList(generics.ListAPIView):
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
     permission_classes = [permissions.AllowAny]
-class HotelCreate(generics.CreateAPIView):
-    queryset = Hotel.objects.all()
-    serializer_class = HotelSerializer
-    permission_classes = [AdminGroup]
 class HoTelDetail(generics.RetrieveAPIView):
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
     permission_classes = [permissions.AllowAny]
+class HotelCreate(generics.CreateAPIView):
+    queryset = Hotel.objects.all()
+    serializer_class = HotelSerializer
+    permission_classes = [AdminGroup]
 class HoTelDetailUpdate(generics.RetrieveUpdateDestroyAPIView):
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
@@ -33,18 +33,18 @@ class RoomTypeList(generics.ListAPIView):
     queryset = RoomType.objects.all()
     serializer_class = RoomTypeSerializer
     permission_classes = [permissions.AllowAny]
-class RoomTypeCreate(generics.CreateAPIView):
-    queryset = RoomType.objects.all()
-    serializer_class = RoomTypeSerializer
-    permission_classes = [permissions.IsAuthenticated, AdminGroup]
 class RoomTypeDetail(generics.RetrieveAPIView):
     queryset = RoomType.objects.all()
     serializer_class = RoomTypeSerializer
     permission_classes = [permissions.AllowAny]
+class RoomTypeCreate(generics.CreateAPIView):
+    queryset = RoomType.objects.all()
+    serializer_class = RoomTypeSerializer
+    permission_classes = [AdminGroup]
 class RoomTypeDetailUpdate(generics.RetrieveUpdateDestroyAPIView):
     queryset = RoomType.objects.all()
     serializer_class = RoomTypeSerializer
-    permission_classes = [permissions.IsAuthenticated,IsSuperAdmin, ]
+    permission_classes = [AdminGroup]
 
 # ----------------------------------Room------------------------------
 class RoomList(generics.ListAPIView):
@@ -55,14 +55,7 @@ class RoomListCreate(generics.CreateAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
     permission_classes = [AdminGroup]
-    # def perform_create(self, serializer):
-    #     room_type_id = serializer.validated_data['room_type_id']
-    #     room_type = RoomType.objects.get(pk=room_type_id)
-    #     number_of_rooms = room_type.number_of_rooms
-    #     existing_rooms_count = Room.objects.filter(room_type_id=room_type_id).count()
-    #     if existing_rooms_count >= number_of_rooms:
-    #         return Response({"error": "Số lượng phòng đã đạt tối đa cho loại phòng này."}, status=status.HTTP_400_BAD_REQUEST)
-    #     serializer.save()
+    
 class RoomDetail(generics.RetrieveAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
@@ -161,25 +154,14 @@ class BookingViewSet(generics.ListCreateAPIView):
         serializer.save() 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    def update(self, request, *args, **kwargs):
-        booking = self.get_object()
-        if not booking.can_update(self.request.user):
-            return Response(status=status.HTTP_403_FORBIDDEN)
+    # def update(self, request, *args, **kwargs):
+    #     booking = self.get_object()
+    #     if not booking.can_update(self.request.user):
+    #         return Response(status=status.HTTP_403_FORBIDDEN)
 
-        return super().update(request, *args, **kwargs)
+    #     return super().update(request, *args, **kwargs)
 
-    def destroy(self, request, *args, **kwargs):
-        booking = self.get_object()
-
-        if not booking.can_delete(self.request.user):
-            return Response(status=status.HTTP_403_FORBIDDEN)
-
-        return super().destroy(request, *args, **kwargs)
-
-    def partial_update(self, request, *args, **kwargs):
-        return super().partial_update(request, *args, **kwargs)
-
-    def list(self, request, *args, **kwargs):
+    def list(self, request):
         queryset = self.get_queryset()
         check_in_date = request.query_params.get('check_in_date', None)
         check_out_date = request.query_params.get('check_out_date', None)
@@ -195,7 +177,7 @@ class BookingViewSet(generics.ListCreateAPIView):
 class BookingDetailViewSet(generics.RetrieveUpdateDestroyAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AdminGroup]
 class AvailableRoomsDetailsListView(generics.ListAPIView):
     queryset = Room.objects.all() 
     serializer_class = AvailableRoomSerializer
@@ -208,7 +190,7 @@ class AvailableRoomsDetailsListView(generics.ListAPIView):
     def getRoom(request):
         serializer = AvailableRoomSerializer
         return Response(serializer.data)
-class BookingHistoryViewSet(generics.ListCreateAPIView):
+class BookingHistoryViewSet(generics.ListAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingHistorySerializer
     permission_classes = [IsAuthenticated]

@@ -6,16 +6,12 @@ const AuthContext = createContext();
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
-  // localStorage.getItem("authTokens")
   let [authTokens, setAuthTokens] = useState(() =>
     localStorage.getItem("authTokens")
       ? JSON.parse(localStorage.getItem("authTokens"))
       : null
   );
-  let [userinfo, setUserInfo] = useState({
-    role: "",
-    role_name: "",
-  });
+  let [userinfo, setUserInfo] = useState([]);
   let [userAll, setUserAll] = useState([]);
   let [user, setUser] = useState(() =>
     localStorage.getItem("authTokens")
@@ -26,25 +22,40 @@ export const AuthProvider = ({ children }) => {
   let history = useHistory();
   let loginUser = async (e) => {
     e.preventDefault();
-    let response = await fetch("http://127.0.0.1:8000/api/token/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: e.target.email.value,
-        password: e.target.password.value,
-      }),
-    });
-    let data = await response.json();
-    if (response.status === 200) {
-      setAuthTokens(data);
-      setUser(jwtDecode(data.access));
-      localStorage.setItem("authTokens", JSON.stringify(data));
-      alert("Đăng nhập thành công, nhấn OK để vào trang chủ !!!");
-      window.location.href = "/";
-      // UserProfile();
-    } else {
+    try {
+      let response = await axios.post(
+        "http://127.0.0.1:8000/api/token/",
+        {
+          email: e.target.email.value,
+          password: e.target.password.value,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      let data = response.data;
+      if (response.status === 200) {
+        setAuthTokens(data);
+        setUser(jwtDecode(data.access));
+        localStorage.setItem("authTokens", JSON.stringify(data));
+        alert("Đăng nhập thành công, nhấn OK để vào trang chủ !!!");
+        if (
+          jwtDecode(data.access).role_id === 2 ||
+          jwtDecode(data.access).role_id === 4
+        ) {
+          history.push("/dashboard");
+        } else {
+          history.push("/");
+        }
+        // UserProfile();
+      } else {
+        alert("Đăng nhập thất bại");
+      }
+    } catch (error) {
+      console.error("Đăng nhập thất bại:", error);
       alert("Đăng nhập thất bại");
     }
   };
@@ -126,13 +137,7 @@ export const AuthProvider = ({ children }) => {
       User(); // Gọi UserProfile để lấy thông tin vai trò khi authTokens được cập nhật
     }
   }, [authTokens]);
-  // useEffect(() => {
-  //   if (userinfo.role_name === "Admin") {
-  //     window.location.href = "/dashboard";
-  //   } else {
-  //     window.location.href = "/";
-  //   }
-  // }, [userinfo]);
+
   return (
     <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
   );

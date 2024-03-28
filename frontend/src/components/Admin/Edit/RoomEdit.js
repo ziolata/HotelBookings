@@ -8,21 +8,9 @@ function RoomUpdate() {
   const csrftoken = Cookies.get("csrftoken");
   const { Id } = useParams(); // Access roomId from URL parameter
   const [room, setRoom] = useState([]);
-  const [roomDetail, setRoomDetail] = useState({
-    id: "",
-    name: "",
-    image: "",
-    room_number: "",
-    status: "",
-    price: "",
-    amenity_data: "",
-    room_type_id: "",
-  });
-
+  const [roomDetail, setRoomDetail] = useState([]);
   const [room_number, setRoomNumber] = useState("");
   const [room_type_id, setRoom_type_id] = useState("");
-  const [check_in_date, setCheckInDate] = useState("");
-  const [check_out_date, setCheckOutDate] = useState("");
   const [status, setStatus] = useState("");
   const [image, setImage] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
@@ -112,7 +100,7 @@ function RoomUpdate() {
                 <div className="col-12">
                   <div className="card">
                     <div className="card-title text-center mt-3">
-                      <h3>Thêm phòng</h3>
+                      <h3>Cập nhật thông tin phòng</h3>
                     </div>
                     <div className="card-body">
                       {successMessage && (
@@ -230,7 +218,7 @@ function RoomUpdate() {
                           type="button"
                           onClick={handlePatchRoom}
                         >
-                          Sửa
+                          Cập nhật
                         </button>
                       </form>
                     </div>

@@ -11,15 +11,7 @@ function HotelDetail() {
   const [image, setImage] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [roomDetail, setRoomDetail] = useState({
-    id: "",
-    name: "",
-    address: "",
-    province: "",
-    description: "",
-    image: "",
-    rating: "",
-  });
+  const [roomDetail, setRoomDetail] = useState([]);
   const [hotelInfo, setHotelInfo] = useState({
     id: "",
     name: "",

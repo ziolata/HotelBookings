@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
-import RoomDetail from "./RoomEdit";
 import Cookies from "js-cookie";
 import AuthContext from "../../../context/AuthContext";
 
@@ -16,17 +15,7 @@ function UserUpdate() {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [Role, setRole] = useState([]);
-
-  const [User, setUser] = useState({
-    id: "",
-    fullname: "",
-    username: "",
-    phone_number: "",
-    address: "",
-    role_id: "",
-    email: "",
-    is_staff: "",
-  });
+  const [User, setUser] = useState([]);
   const [UserInfo, setUserInfo] = useState({
     id: "",
     fullname: "",
@@ -105,13 +94,12 @@ function UserUpdate() {
     }
   };
   useEffect(() => {
-    // Hàm gọi API để lấy danh sách các loại phòng khi component được tạo
     async function fetchRoomTypes() {
       try {
         const response = await axios.get("http://127.0.0.1:8000/api/role/", {
           headers: {
             "Content-Type": `application/json`,
-            Authorization: `Bearer ` + String(authTokens.access),
+            Authorization: `Bearer ${authTokens.access}`,
           },
         });
         setRole(response.data); // Cập nhật trạng thái mới với danh sách các loại phòng từ API

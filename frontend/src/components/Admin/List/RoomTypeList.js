@@ -28,12 +28,15 @@ function RoomTypeList() {
     const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa không?");
     if (confirmDelete) {
       try {
-        await axios.delete(`http://127.0.0.1:8000/api/hotel/room-type/${id}/`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ` + String(authTokens.access),
-          },
-        });
+        await axios.delete(
+          `http://127.0.0.1:8000/api/hotel/room-type/update/${id}/`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ` + String(authTokens.access),
+            },
+          }
+        );
         getHotel();
       } catch (error) {
         console.error("Error deleting room:", error);

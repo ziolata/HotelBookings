@@ -89,7 +89,10 @@ const BookingHistoryPage = () => {
                       Ngày trả phòng: {booking.check_out_date}
                     </h6>
                     <h6 className="font-weight-semibold mb-2">
-                      Giá: {booking.price}đ
+                      Giá: {booking.price}đ/1 ngày
+                    </h6>
+                    <h6 className="font-weight-semibold mb-2">
+                      Tổng: {booking.total_price}đ
                     </h6>
                     <h6 className="font-weight-semibold mb-2">
                       Tình trạng: {booking.status}
