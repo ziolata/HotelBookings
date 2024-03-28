@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+CÁC CHỨC NĂNG
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Chức năng của Người dùng
 
-## Available Scripts
+- Đăng ký tài khoản: gồm các thông tin sau
 
-In the project directory, you can run:
+  - Họ tên, username, email, password, địa chỉ và số điện thoại.
 
-### `npm start`
+- Đăng nhập: để có thể đăng nhập người dùng phải điền thông tin email, password đã đăng ký.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Xem danh sách loại phòng
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  - Có nhiều loại phòng
 
-### `npm test`
+  - Thông tin cơ bản về loại phòng: tên loại phòng, giá, tiện nghi, thuộc khách sạn nào.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Xem danh phòng
 
-### `npm run build`
+  - Có nhiều phòng
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  - Thông tin cơ bản về phòng: số phòng, thuộc loại phòng.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Tìm kiếm phòng
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  - Có thể tìm kiếm theo tiêu chí như địa điểm (tên loại phòng, thành phố, tỉnh...), ngày nhận phòng, ngày trả phòng và số lượng người.
 
-### `npm run eject`
+    - Người dùng xem được loại phòng theo tiêu chí chỉ định
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Xem chi tiết phòng vừa tìm kiếm
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  - Khi người dùng chọn một phòng từ danh sách tìm kiếm, họ có thể xem thông tin chi tiết về phòng đó.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+  - Thông tin chi tiết bao gồm mô tả, hình ảnh, tiện nghi, giá cả, phòng đó thuộc loại phòng nào và nó thuộc của khách sạn nào.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Đặt Phòng: khi đặt phòng người dùng có thể nhìn thấy thông tin phòng mình muốn đặt bao gồm ảnh, tên loại phòng, giá (1 ngày), số ngày thuê( được tính khi người dùng đã chọn ngày check in và check out) và tổng giá tiền. Để đặt phòng người dùng cần:
 
-## Learn More
+      + Cần điền và chọn các thông tin: họ tên, số điện thoại, địa chỉ, chọn ngày nhận phòng, ngày trả phòng, số lượng người.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  - Xác nhận Đặt Phòng
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  - Sau khi hoàn thành việc đặt phòng, nếu đặt phòng thành công hệ thống sẽ xác nhận đặt phòng thành công, trong thời gian mới đặt phòng, đơn đặt phòng sẽ ở trong trạng thái chờ đợi (quản trị viên có thể sẽ duyệt đơn và hủy đơn) và sẽ lưu vào lịch sử đặt phòng. Nếu thất bại hệ thống sẽ nêu ra lỗi thất bại.
 
-### Code Splitting
+- Quản lý đặt phòng
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  - Xem, huỷ đặt phòng hiện tại
 
-### Analyzing the Bundle Size
+- Xem lịch sử đặt phòng
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  - Lịch sử đặt phòng bao gồm tất cả đơn đặt phòng của tài khoản người dùng sử dụng với các thông tin như: Họ tên, số điện thoại, địa chỉ, ngày check in, ngày check out và tổng tiền.
 
-### Making a Progressive Web App
+- Chức năng của Quản trị viên:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+* Quản lý lịch đặt phòng.
 
-### Advanced Configuration
+* Xem và quản lý việc đặt phòng
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+* Bao gồm xác nhận đặt phòng, hủy bỏ đặt phòng, và sửa đổi thông tin đặt phòng.
 
-### Deployment
+- Chức năng của Quản trị viên Super Admin:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+  - Quản lý Ứng dụng
 
-### `npm run build` fails to minify
+  - Quản trị viên có khả năng quản lý người dùng (thêm, xóa, sửa, tìm kiếm người dùng)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  - Có thể xem toàn bô khách sạn, phòng trong hệ thống
