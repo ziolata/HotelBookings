@@ -85,6 +85,7 @@ export const AuthProvider = ({ children }) => {
       logoutUser();
     }
   };
+
   let UserProfile = async () => {
     try {
       const response = await axios.get(
@@ -100,6 +101,7 @@ export const AuthProvider = ({ children }) => {
       setUserInfo(userData);
     } catch (error) {}
   };
+  // Lấy thông tin về User
   let User = async () => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/api/user/`, {
@@ -125,7 +127,6 @@ export const AuthProvider = ({ children }) => {
     userinfo: userinfo,
     userAll: userAll,
   };
-  console.log(userinfo);
 
   useEffect(() => {
     if (authTokens) {

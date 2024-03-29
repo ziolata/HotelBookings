@@ -8,7 +8,6 @@ import calculateNumberOfDays from "../../../Pages/Other/caculator";
 
 const BookingForm = ({ room, onBookingConfirmed }) => {
   const { authTokens } = useContext(AuthContext);
-  const token = localStorage.getItem("authTokens"); // Lấy token lưu trữ
   const [errorMessage, setErrorMessage] = useState("");
   const [fullname, setFullName] = useState("");
   const [phone, setCustomerPhone] = useState("");
@@ -17,30 +16,20 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
   const [check_out_date, setCheckOutDate] = useState("");
   const [number_of_guests, setNumberOfGuest] = useState("");
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
-  const [roomData, setRoomData] = useState({
-    id: "",
-    room_number: "",
-    room_type_id: "",
-    room_type_name: "",
-    number_of_guest: "",
-    check_in_date: "",
-    check_out_date: "",
-    province: "",
-    image: "",
-    price: "",
-  });
+  const [roomData, setRoomData] = useState([]);
   const { roomId } = useParams();
-
+  const Day = calculateNumberOfDays(check_in_date, check_out_date);
   const getRoom = async () => {
     try {
-      const response = await axios({
-        url: `http://127.0.0.1:8000/api/hotel/room/available/${roomId}/`,
-        method: "GET",
-        headers: {
-          "Content-Type": `application/json`,
-          Authorization: `Bearer ` + String(authTokens.access),
-        },
-      });
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/hotel/room/available/${roomId}/`,
+        {
+          headers: {
+            "Content-Type": `application/json`,
+            Authorization: `Bearer ${authTokens.access}`,
+          },
+        }
+      );
       setRoomData(response.data);
       console.log(response.data);
     } catch (error) {
@@ -52,6 +41,7 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
     getRoom();
   }, [roomId]);
   const csrftoken = Cookies.get("csrftoken");
+  console.log(roomData.price);
   const handleBookingConfirmed = async () => {
     try {
       const response = await axios.post(
@@ -63,7 +53,8 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
           check_in_date,
           check_out_date,
           number_of_guests,
-          room_id: roomData[0].id,
+          total_price: Day * roomData.price,
+          room_id: roomId,
         },
         {
           headers: {
@@ -89,7 +80,7 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
       </div>
     );
   };
-  var Day = calculateNumberOfDays(check_in_date, check_out_date);
+
   return (
     <section className="py-5">
       <div className=" text-center  border-bottom bg-light">
@@ -162,14 +153,8 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                               <p>Loại phòng: {roomItem.room_type_name}</p>
                               <p>Số phòng: {roomItem.room_number}</p>
                               <p>Giá phòng(VNĐ): {roomItem.price}đ/ngày</p>
-                              {/* Kiểm tra xem check_in_date và check_out_date có dữ liệu không trước khi sử dụng */}
-
-                              <>
-                                <p>Số ngày ở: {Day}</p>
-                                <p>
-                                  Tổng giá tiền(VNĐ): {roomItem.price * Day}đ
-                                </p>
-                              </>
+                              <p>Số ngày ở: {Day}</p>
+                              <p>Tổng giá tiền(VNĐ): {roomItem.price * Day}đ</p>
                             </div>
                           ))
                         ) : (

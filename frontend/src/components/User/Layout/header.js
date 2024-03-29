@@ -60,11 +60,10 @@ const Header = () => {
               </ul>
             </li>
           ) : (
-            //   <a href="/logout" onClick={logoutUser}>
-            //   Logout
-            // </a>
             <li>
-              <a href="/login">Login</a>
+              <a className="nav-link" href="/login">
+                Login
+              </a>
             </li>
           )}
         </ul>

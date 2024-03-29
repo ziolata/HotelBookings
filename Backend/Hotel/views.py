@@ -65,7 +65,7 @@ class RoomDetailUpdate(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = RoomSerializer
     permission_classes = [AdminGroup]
 
-# Search
+# ----------------------------------Search------------------------------
 class SearchAvailableRoomsView(APIView):
     permission_classes = [permissions.AllowAny]
     def get(self, request):
@@ -74,7 +74,7 @@ class SearchAvailableRoomsView(APIView):
         check_in_date = request.query_params.get('check_in_date')
         check_out_date = request.query_params.get('check_out_date')
         number_of_guest = request.query_params.get('number_of_guest')
-        province = request.query_params.get('province')
+        # province = request.query_params.get('province')
 
         # Filter theo trạng thái phòng 
         available_rooms = Room.objects.filter(
@@ -93,8 +93,8 @@ class SearchAvailableRoomsView(APIView):
             available_rooms = available_rooms.filter(room_type_id__number_of_guest__gte=number_of_guest)
 
         # Filter tỉnh thành phố
-        if province is not None:
-            available_rooms = available_rooms.filter(room_type_id__hotel_id__province=province)
+        # if province is not None:
+        #     available_rooms = available_rooms.filter(room_type_id__hotel_id__province=province)
 
         # Filter check_in và check_out
         if check_in_date and check_out_date:
@@ -127,11 +127,10 @@ class BookingViewSet(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def create(self, request):
-        request.data['status'] = 'Pending'  # Gán trường "status" thành "Pending" trước khi tạo serializer
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = request.user
-        serializer.save(user_id=user, status='Pending')  
+        serializer.save(user_id=user)  
         check_in_date = datetime.strptime(request.data['check_in_date'], '%Y-%m-%d').date()
         check_out_date = datetime.strptime(request.data['check_out_date'], '%Y-%m-%d').date()
         current_date = timezone.now().date()
@@ -145,21 +144,13 @@ class BookingViewSet(generics.ListCreateAPIView):
             available_rooms.update(status='booked')
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    def perform_create(self, serializer,request):
-        # Tinh Tong Tien
-        room_price = serializer.validated_data['room_id'].room_type_id.price
-        number_of_nights = (serializer.validated_data['check_out_date'] - serializer.validated_data['check_in_date']).days
-        total_price = room_price * number_of_nights
-        serializer.validated_data['total_price'] = total_price
-        serializer.save() 
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    # def update(self, request, *args, **kwargs):
-    #     booking = self.get_object()
-    #     if not booking.can_update(self.request.user):
-    #         return Response(status=status.HTTP_403_FORBIDDEN)
-
-    #     return super().update(request, *args, **kwargs)
+    # def perform_create(self, serializer,request):
+    #     room_price = serializer.validated_data['room_id'].room_type_id.price
+    #     number_of_nights = (serializer.validated_data['check_out_date'] - serializer.validated_data['check_in_date']).days
+    #     total_price = room_price * number_of_nights
+    #     serializer.validated_data['total_price'] = total_price
+    #     serializer.save() 
+    #     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def list(self, request):
         queryset = self.get_queryset()

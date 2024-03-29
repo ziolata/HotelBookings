@@ -72,7 +72,7 @@ const SearchForm = ({
                     >
                       <option value="">Tất cả</option>
                       {roomType.map((roomType) => (
-                        <option key={roomType} value={roomType.name}>
+                        <option key={roomType.id} value={roomType.name}>
                           {roomType.name}
                         </option>
                       ))}
