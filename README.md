@@ -8,17 +8,13 @@ CÁC CHỨC NĂNG
 
 - Đăng nhập: để có thể đăng nhập người dùng phải điền thông tin email, password đã đăng ký.
 
-- Xem danh sách loại phòng
+- Xem danh sách khách sạn
 
-  - Có nhiều loại phòng
-
-  - Thông tin cơ bản về loại phòng: tên loại phòng, giá, tiện nghi, thuộc khách sạn nào.
-
-- Xem danh phòng
-
-  - Có nhiều phòng
-
-  - Thông tin cơ bản về phòng: số phòng, thuộc loại phòng.
+  - Người dùng có thể xem toàn bộ khách sạn trong hệ thống
+  - Mỗi khách sạn sẽ có nhiều loại phòng khác nhau.
+    - Người dùng có thể xem thông tin cơ bản về loại phòng: tên loại phòng, giá, tiện nghi, thuộc khách sạn nào.
+  - Mỗi loại phòng có nhiều phòng khác nhau.
+    - Người dùng có thể xem tất cả các phòng: với thông tin nhận biết của phòng là tên loại phòng + với số phòng.
 
 - Tìm kiếm phòng
 
@@ -56,10 +52,15 @@ CÁC CHỨC NĂNG
 
 * Bao gồm xác nhận đặt phòng, hủy bỏ đặt phòng, và sửa đổi thông tin đặt phòng.
 
+- Chức năng của quản trị viên Admin:
+
+  - Quản lý khách sạn
+  - Quản lý đặt phòng
+
 - Chức năng của Quản trị viên Super Admin:
 
-  - Quản lý Ứng dụng
+  - Quản lý Khách sạn, loại phòng, phòng
 
-  - Quản trị viên có khả năng quản lý người dùng (thêm, xóa, sửa, tìm kiếm người dùng)
+  - Quản lý người dùng (thêm, xóa, sửa, tìm kiếm người dùng)
 
   - Có thể xem toàn bô khách sạn, phòng trong hệ thống

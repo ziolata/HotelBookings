@@ -15,14 +15,29 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
   const [check_in_date, setCheckInDate] = useState("");
   const [check_out_date, setCheckOutDate] = useState("");
   const [number_of_guests, setNumberOfGuest] = useState("");
+  const [bookingInfo, setBookingInfo] = useState({
+    fullname: "",
+    phone: "",
+    address: "",
+    check_in_date: "",
+    check_out_date: "",
+    number_of_guests: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setBookingInfo({ ...bookingInfo, [name]: value });
+  };
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
   const [roomData, setRoomData] = useState([]);
   const { roomId } = useParams();
-  const Day = calculateNumberOfDays(check_in_date, check_out_date);
+  const Day = calculateNumberOfDays(
+    bookingInfo.check_in_date,
+    bookingInfo.check_out_date
+  );
   const getRoom = async () => {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/hotel/room/available/${roomId}/`,
+        `http://127.0.0.1:8000/api/hotel/room/${roomId}/`,
         {
           headers: {
             "Content-Type": `application/json`,
@@ -47,12 +62,12 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
       const response = await axios.post(
         `http://127.0.0.1:8000/api/hotel/booking/`,
         {
-          fullname,
-          phone,
-          address,
-          check_in_date,
-          check_out_date,
-          number_of_guests,
+          fullname: bookingInfo.fullname,
+          phone: bookingInfo.phone,
+          address: bookingInfo.address,
+          check_in_date: bookingInfo.check_in_date,
+          check_out_date: bookingInfo.check_out_date,
+          number_of_guests: bookingInfo.number_of_guests,
           total_price: Day * roomData.price,
           room_id: roomId,
         },
@@ -139,24 +154,19 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                         <h2 className="h4 text-center">Thông tin phòng</h2>
                       </div>
                       <div className="ms-5">
-                        {roomData && roomData.length > 0 ? (
-                          roomData.map((roomItem, index) => (
-                            <div key={index}>
-                              <img
-                                src={
-                                  "http://127.0.0.1:8000/media/" +
-                                  roomItem.image
-                                }
-                                alt=""
-                                style={{ width: 400, height: 200 }}
-                              />
-                              <p>Loại phòng: {roomItem.room_type_name}</p>
-                              <p>Số phòng: {roomItem.room_number}</p>
-                              <p>Giá phòng(VNĐ): {roomItem.price}đ/ngày</p>
-                              <p>Số ngày ở: {Day}</p>
-                              <p>Tổng giá tiền(VNĐ): {roomItem.price * Day}đ</p>
-                            </div>
-                          ))
+                        {roomData ? (
+                          <div key={roomData.id}>
+                            <img
+                              src={roomData.image}
+                              alt=""
+                              style={{ width: 400, height: 200 }}
+                            />
+                            <p>Loại phòng: {roomData.name}</p>
+                            <p>Số phòng: {roomData.room_number}</p>
+                            <p>Giá phòng(VNĐ): {roomData.price}đ/ngày</p>
+                            <p>Số ngày ở: {Day}</p>
+                            <p>Tổng giá tiền(VNĐ): {roomData.price * Day}đ</p>
+                          </div>
                         ) : (
                           <p>
                             Không có dữ liệu phòng hoặc dữ liệu không hợp lệ.
@@ -187,10 +197,7 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                                     id="fullname"
                                     name="fullname"
                                     placeholder="Họ và tên"
-                                    value={fullname}
-                                    onChange={(e) =>
-                                      setFullName(e.target.value)
-                                    }
+                                    onChange={handleChange}
                                   />
                                   <label
                                     htmlFor="fullname"
@@ -208,10 +215,7 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                                     name="phone"
                                     type="number"
                                     placeholder="Số điện thoại"
-                                    value={phone}
-                                    onChange={(e) =>
-                                      setCustomerPhone(e.target.value)
-                                    }
+                                    onChange={handleChange}
                                   />
                                   <label htmlFor="phone" className="form-label">
                                     SĐT
@@ -226,10 +230,7 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                                     id="address"
                                     type="text"
                                     placeholder="Địa chỉ"
-                                    value={address}
-                                    onChange={(e) =>
-                                      setCustomerAddress(e.target.value)
-                                    }
+                                    onChange={handleChange}
                                   />
                                   <label
                                     htmlFor="address"
@@ -243,14 +244,11 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                                 <div className="form-floating mb-3">
                                   <input
                                     className="form-control"
-                                    name="check_in"
+                                    name="check_in_date"
                                     id="check_in"
                                     type="date"
                                     placeholder="Ngày nhận phòng"
-                                    value={check_in_date}
-                                    onChange={(e) =>
-                                      setCheckInDate(e.target.value)
-                                    }
+                                    onChange={handleChange}
                                   />
                                   <label
                                     htmlFor="check_in"
@@ -264,14 +262,11 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                                 <div className="form-floating mb-3">
                                   <input
                                     className="form-control"
-                                    name="check_out"
+                                    name="check_out_date"
                                     id="check_out"
                                     type="date"
                                     placeholder="Ngày trả phòng"
-                                    value={check_out_date}
-                                    onChange={(e) =>
-                                      setCheckOutDate(e.target.value)
-                                    }
+                                    onChange={handleChange}
                                   />
                                   <label
                                     htmlFor="check_out"
@@ -286,13 +281,10 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                                   <input
                                     className="form-control"
                                     id="number_guest"
-                                    name="number_guest"
+                                    name="number_of_guests"
                                     type="number"
                                     placeholder="Số người"
-                                    value={number_of_guests}
-                                    onChange={(e) =>
-                                      setNumberOfGuest(e.target.value)
-                                    }
+                                    onChange={handleChange}
                                   />
                                   <label
                                     htmlFor="number_guest"

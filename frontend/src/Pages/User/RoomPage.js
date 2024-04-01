@@ -50,9 +50,8 @@ function RoomPage() {
                     <img
                       src={item.image}
                       className="card-img img-fluid"
-                      width={96}
-                      height={350}
                       alt=""
+                      style={{ width: 250, height: 200 }}
                     />
                   </div>
                 </div>
@@ -68,20 +67,7 @@ function RoomPage() {
                     </a>
                   </div>
                   <h3 className="mb-0 font-weight-semibold">{item.price}đ</h3>
-                  {/* <div>
-                  <i className="fa fa-star star" />
-                  <i className="fa fa-star star" />
-                  <i className="fa fa-star star" />
-                  <i className="fa fa-star star" />
-                </div> */}
-                  {/* <div className="text-muted mb-3">34 reviews</div> */}
-                  {/* <button
-                  type="button"
-                  className="btn bg-cart btn btn-info"
-                  onClick={handleRoomClick(item.id)}
-                >
-                  Xem chi tiết
-                </button> */}
+
                   <Link
                     to="#"
                     className="btn btn-info"

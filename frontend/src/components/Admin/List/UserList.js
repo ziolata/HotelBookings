@@ -1,17 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
-
-import Cookies from "js-cookie";
 import axios from "axios";
-
-import { useAuth } from "../../../context/useAuth";
 import AuthContext from "../../../context/AuthContext";
-
 function UserList() {
-  const token = localStorage.getItem("authTokens"); // Lấy token lưu trữ
-  const { authTokens, userinfo } = useContext(AuthContext);
-  const [hotel, setHotel] = useState([]);
-  const { userAll } = useAuth();
+  const { authTokens, userinfo, userAll } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
   const handleDeleteClick = async (id) => {
     const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa không?");
     if (confirmDelete) {
@@ -28,23 +20,16 @@ function UserList() {
       }
     }
   };
-  const handleEditClick = () => {
-    window.location.reload();
-  };
 
-  const [loading, setLoading] = useState(true);
-  const history = useHistory();
-  // const role_name = userinfo.role_name;
   useEffect(() => {
     if (userinfo.role_name === "Mod" || userinfo.role_name === "User") {
-      history.push("/");
-      window.location.reload();
+      window.location.href = "/";
     } else if (userinfo.role_name === "Admin") {
       window.location.href = "/dashboard";
     } else {
       setLoading(false);
     }
-  }, [userinfo, history]);
+  }, [userinfo]);
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -52,7 +37,7 @@ function UserList() {
     <section>
       <div className="container">
         <div className="row ">
-          <div className="col-lg-11 col-md-8 ">
+          <div className="col-lg-12 col-md-8 ">
             <div className="row align-items-center">
               <div className="col-12">
                 <div className="card">

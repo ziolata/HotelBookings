@@ -34,14 +34,11 @@ function RoomList() {
       }
     }
   };
-  const handleEditClick = () => {
-    window.location.reload();
-  };
   return (
     <section>
       <div className="container">
         <div className="row ">
-          <div className="col-lg-11 col-md-8 ">
+          <div className="col-lg-12 col-md-8 ">
             <div className="row align-items-center">
               <div className="col-12">
                 <div className="card">

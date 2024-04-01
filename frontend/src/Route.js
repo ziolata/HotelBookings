@@ -35,6 +35,9 @@ import Login from "./components/User/Auth/Login";
 import BookingHistory from "./components/User/UI/BookingHistory";
 import UnAuthor from "./components/Admin/Error";
 import RoomType from "./components/User/UI/RoomType";
+import HotelDetail from "./Pages/User/HotelDetail";
+import HotelDetailUI from "./components/User/UI/HotelDetail";
+import HotelPageUI from "./components/User/UI/HotelPageList";
 
 function Routers() {
   return (
@@ -49,6 +52,8 @@ function Routers() {
           <Route exact path="/booking/roomid=:roomId/" component={Booking} />
           <Route exact path="/search" component={Search} />
           {/* <Route exact path="/room-details" component={RoomDetails} /> */}
+          <Route exact path="/hotel/" component={HotelPageUI} />
+          <Route exact path="/hotel/:id/" component={HotelDetailUI} />
           <Route exact path="/room-type/" component={RoomType} />
 
           <Route exact path="/room/" component={Room} />

@@ -87,30 +87,31 @@ class SearchAvailableRoomsView(APIView):
                 ) if check_in_date and check_out_date else Q()  # No filtering if no dates
             )
         )
-        if room_type_name is not None:
-            available_rooms = available_rooms.filter(room_type_name__icontains=room_type_name)
-        if number_of_guest is not None:
-            available_rooms = available_rooms.filter(room_type_id__number_of_guest__gte=number_of_guest)
+        # if room_type_name is not None:
+        #     available_rooms = available_rooms.filter(room_type_name__icontains=room_type_name)
+        # if number_of_guest is not None:
+        #     available_rooms = available_rooms.filter(room_type_id__number_of_guest__gte=number_of_guest)
 
         # Filter tỉnh thành phố
         # if province is not None:
         #     available_rooms = available_rooms.filter(room_type_id__hotel_id__province=province)
 
         # Filter check_in và check_out
-        if check_in_date and check_out_date:
-            booked_rooms = Room.objects.filter(
-                Q(status='booked') &
-                Q(booking__isnull=False) &
-                ~Q(
-                    booking__check_out_date__lt=check_in_date,
-                    booking__check_in_date__gt=check_out_date
-                )
-            )
-            available_rooms = available_rooms.difference(booked_rooms)
+        # if check_in_date and check_out_date:
+        #     booked_rooms = Room.objects.filter(
+        #         Q(status='booked') &
+        #         Q(booking__isnull=False) &
+        #         ~Q(
+        #             booking__check_out_date__lt=check_in_date,
+        #             booking__check_in_date__gt=check_out_date
+        #         )
+        #     )
+        #     available_rooms = available_rooms.difference(booked_rooms)
 
         #data
         serializer = AvailableRoomSerializer(available_rooms, many=True)
         return Response(serializer.data)
+        
 class AvailableRoomsDetailsListView(generics.RetrieveAPIView):
     queryset = Room.objects.all() 
     serializer_class = AvailableRoomSerializer
@@ -125,7 +126,6 @@ class BookingViewSet(generics.ListCreateAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
     permission_classes = [IsAuthenticated]
-
     def create(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -143,15 +143,6 @@ class BookingViewSet(generics.ListCreateAPIView):
             available_rooms = Room.objects.filter(bookings__check_in_date=current_date, status='available')
             available_rooms.update(status='booked')
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    # def perform_create(self, serializer,request):
-    #     room_price = serializer.validated_data['room_id'].room_type_id.price
-    #     number_of_nights = (serializer.validated_data['check_out_date'] - serializer.validated_data['check_in_date']).days
-    #     total_price = room_price * number_of_nights
-    #     serializer.validated_data['total_price'] = total_price
-    #     serializer.save() 
-    #     return Response(serializer.data, status=status.HTTP_201_CREATED)
-
     def list(self, request):
         queryset = self.get_queryset()
         check_in_date = request.query_params.get('check_in_date', None)
@@ -165,22 +156,14 @@ class BookingViewSet(generics.ListCreateAPIView):
             queryset = queryset.filter(room_id__hotel_id=hotel_id)
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+    
 class BookingDetailViewSet(generics.RetrieveUpdateDestroyAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
     permission_classes = [AdminGroup]
-class AvailableRoomsDetailsListView(generics.ListAPIView):
-    queryset = Room.objects.all() 
-    serializer_class = AvailableRoomSerializer
-    permission_classes = [IsAuthenticated]
-    def get_queryset(self):
-        pk = self.kwargs.get('pk')
-        if pk is not None:
-            return self.queryset.filter(pk=pk)
-        return super().get_queryset()
-    def getRoom(request):
-        serializer = AvailableRoomSerializer
-        return Response(serializer.data)
+
+
+
 class BookingHistoryViewSet(generics.ListAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingHistorySerializer

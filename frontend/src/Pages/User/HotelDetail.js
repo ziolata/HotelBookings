@@ -2,45 +2,37 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-function RoomDetailsPage() {
-  const { roomId } = useParams(); // Access roomId from URL parameter
-  const [room, setRoom] = useState([]);
-  const [roomDetail, setRoomDetail] = useState({
-    id: "",
-    name: "",
-    image: "",
-    room_number: "",
-    status: "",
-    price: "",
-    amenity_data: "",
-  });
-  const getRoom = async () => {
+function HotelDetailPage() {
+  const { id } = useParams(); // Access roomId from URL parameter
+  const [hotel, setHotel] = useState([]);
+  const [hotelDetail, setHotelDetail] = useState([]);
+  const getHotelDetail = async () => {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/hotel/room/${roomId}/`
+        `http://127.0.0.1:8000/api/hotel/${id}/`
       );
-      setRoomDetail(response.data);
+      setHotelDetail(response.data);
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching room details:", error);
-      setRoomDetail([]);
+      setHotelDetail([]);
     }
   };
-  const getRoomDifferent = async () => {
-    const response = await axios.get("http://127.0.0.1:8000/api/hotel/room/");
-    setRoom(response.data);
+  const getHotelDifferent = async () => {
+    const response = await axios.get("http://127.0.0.1:8000/api/hotel/");
+    setHotel(response.data);
   };
   useEffect(() => {
-    getRoom();
+    getHotelDetail();
   }, []);
   useEffect(() => {
-    getRoomDifferent();
-  }, [roomId]); // Chạy lại getRoom khi ID phòng thay đổi // Re-run getRoom on roomId change
-  const handleDifferentRoom = (roomId) => {
-    window.location.href = `/room/${roomId}/`;
+    getHotelDifferent();
+  }, [id]); // Chạy lại khi id thay đổi
+  const handleDifferentRoom = (id) => {
+    window.location.href = `/room/${id}/`;
   };
-  const handleRoomClick = (roomId) => {
-    window.location.href = `/booking/roomid=${roomId}/`;
+  const handleRoomClick = (id) => {
+    window.location.href = `/hotel/`;
   };
   return (
     <>
@@ -55,23 +47,19 @@ function RoomDetailsPage() {
                   </a>
                   <span className="text-black mx-2"> / </span>
                   <a href="/room/" className="text-dark">
-                    Room
+                    Hotel
                   </a>
                   <span className="text-black mx-2"> / </span>
                   <a href="#" className="text-dark">
-                    Details
+                    Detail
                   </a>
-                  {/* <span className="text-white-50 mx-2"> &gt; </span>
-                <a href="" className="text-white">
-                  <u>Data</u>
-                </a> */}
                 </h6>
               </nav>
             </div>
           </div>
         </div>
         <div className="container">
-          <div className="row gx-5" key={roomDetail.id}>
+          <div className="row gx-5" key={hotelDetail.id}>
             <aside className="col-lg-6">
               <div className="border rounded-4 mb-3 d-flex justify-content-center">
                 <a
@@ -79,59 +67,61 @@ function RoomDetailsPage() {
                   className="rounded-4"
                   target="_blank"
                   data-type="image"
-                  href={roomDetail.image}
+                  href={hotelDetail.image}
                 >
                   <img
                     style={{
                       maxWidth: "100%",
-                      maxHeight: "100vh",
+                      width: "100vw",
+                      height: 200,
                       margin: "auto",
                     }}
                     className="rounded-4 fit"
-                    src={roomDetail.image}
+                    src={hotelDetail.image}
                   />
                 </a>
               </div>
+              <div className="d-flex justify-content-center mb-3"></div>
+              {/* thumbs-wrap.// */}
+              {/* gallery-wrap .end// */}
             </aside>
             <main className="col-lg-6">
               <div className="ps-lg-3">
-                <h4 className="title text-dark">
-                  Phòng: {roomDetail.room_number}
-                </h4>
-                <p>Loại phòng: {roomDetail.name}</p>
+                <h4 className="title text-dark">{hotelDetail.name}</h4>
 
+                <div className="d-flex flex-row my-3">
+                  Rating:
+                  <div className="text-warning mb-1 me-2">
+                    {hotelDetail.rating && hotelDetail.rating > 0 && (
+                      <>
+                        {[...Array(hotelDetail.rating)].map((_, index) => (
+                          <i className="fa fa-star" key={index} />
+                        ))}
+                        {hotelDetail.rating < 5 && <i className="" />}
+                      </>
+                    )}
+                    {hotelDetail.star && hotelDetail.rating === 0 && (
+                      <i className="fa fa-star" />
+                    )}
+                  </div>
+                </div>
                 <div className="mb-3">
-                  <span> Giá: </span>
-                  <span className="h5">{roomDetail.price}</span>
-                  <span className="text-muted">đ/ngày</span>
+                  <span> Địa chỉ: {hotelDetail.address}</span>
+                  {/* <span className="h5">{roomDetail.price}</span> */}
                 </div>
                 {/* <p>{roomDetail.description}</p> */}
                 <div className="row">
-                  <dt className="text-center">Tiện nghi:</dt>
-                  {roomDetail.amenity_data &&
-                    roomDetail.amenity_data.map((amenity) => (
-                      <dt className="col-md-4">
-                        <div className="amenities d-flex" key={amenity.id}>
-                          <img
-                            src={amenity.icon}
-                            style={{ width: 15, height: 15 }}
-                          />
-                          <p key={amenity.id} style={{ marginLeft: 10 }}>
-                            {amenity.name}
-                          </p>
-                        </div>
-                      </dt>
-                    ))}
+                  <dd className="">Tỉnh/Thành Phố: {hotelDetail.province}</dd>
                 </div>
                 <hr />
               </div>
               <div className="ps-lg-3 d-flex justify-content-center">
                 <button
-                  onClick={() => handleRoomClick(roomDetail.id)}
+                  onClick={() => handleRoomClick(hotelDetail.id)}
                   className="btn btn-warning shadow-0"
                 >
                   {" "}
-                  Book now{" "}
+                  Xem thêm các khách sạn khác{" "}
                 </button>
               </div>
             </main>
@@ -146,14 +136,11 @@ function RoomDetailsPage() {
               <div className="px-0 border rounded-2 shadow-0 ">
                 <div className="card">
                   <div className="card-body ">
-                    <h5 className="card-title text-center">Phòng khác</h5>
+                    <h5 className="card-title text-center">Khách sạn khác</h5>
                     <div className="d-flex">
-                      {room.map((item, index) => (
-                        <div
-                          onClick={() => handleDifferentRoom(item.id)}
-                          className="col-lg-3 mb-3"
-                        >
-                          <a href="#" className="me-3">
+                      {hotel.map((item, index) => (
+                        <div className="col-lg-3 mb-3">
+                          <a href={"/hotel/" + item.id} className="me-3">
                             <img
                               src={item.image}
                               style={{ minWidth: 96, height: 96 }}
@@ -162,11 +149,10 @@ function RoomDetailsPage() {
                           </a>
                           <div className="info">
                             <a href="#" className="nav-link mb-1">
-                              Phòng: {item.room_number} <br />
-                              Loại phòng: {item.name}
+                              KS: {item.name}
                             </a>
                             <strong className="text-dark">
-                              {item.price}đ/ngày
+                              {item.province}
                             </strong>
                           </div>
                         </div>
@@ -182,4 +168,4 @@ function RoomDetailsPage() {
     </>
   );
 }
-export default RoomDetailsPage;
+export default HotelDetailPage;

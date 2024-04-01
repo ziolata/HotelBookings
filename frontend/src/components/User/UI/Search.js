@@ -77,16 +77,6 @@ function Search() {
 
   const handleBookNow = (roomId) => {
     // Fetch room details based on roomId
-    axios
-      .get(`/api/hotel/room/available/${roomId}/`)
-      .then((response) => {
-        const roomData = response.data;
-        // Use roomData for booking or display booking form
-        console.log("Room details:", roomData);
-      })
-      .catch((error) => {
-        console.error("Error fetching room details:", error);
-      });
   };
 
   return (

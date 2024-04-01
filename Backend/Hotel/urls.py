@@ -6,15 +6,16 @@ app_name = 'Hotel'
 urlpatterns = [
     # Hotel
     path('', views.HotelList.as_view(),name='hotel'),
-    path('create/', views.HotelCreate.as_view(),name='hotel'),
-    path('<int:pk>/', views.HoTelDetailUpdate.as_view(),name='deltailcreate'),
+    path('create/', views.HotelCreate.as_view(),name='Hotel Create'),
+    path('<int:pk>/', views.HoTelDetail.as_view(),name='Hotel detail'),
+    path('update/<int:pk>/', views.HoTelDetailUpdate.as_view(),name='deltail Update'),
+    # Amenity
     path('amenity/',views.AmenityList.as_view(),name = 'Amenity'),
     # RoomType
     path('room-type/',views.RoomTypeList.as_view(),name = 'Room Type List'),
     path('room-type/create/',views.RoomTypeCreate.as_view(),name = 'Room Type Create'),
     path('room-type/<int:pk>/',views.RoomTypeDetail.as_view(),name='RoomTypeDetails'),
     path('room-type/update/<int:pk>/',views.RoomTypeDetailUpdate.as_view(),name='RoomTypeDetails Update'),
-
     #Room
     path('room/',views.RoomList.as_view(),name='Room List'),
     path('room/create/',views.RoomListCreate.as_view(),name='Room Create'),

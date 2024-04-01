@@ -17,16 +17,7 @@ function Room() {
   }, []);
 
   const handleRoomClick = (roomId) => {
-    // try {
-    //   const roomDetailsResponse = await axios.get(
-    //     `http://127.0.0.1:8000/api/hotel/room-type/${roomId}/`
-    //   );
-    //   console.log("Room details:", roomDetailsResponse.data);
-
     window.location.href = `/room-type/${roomId}/`;
-    // } catch (error) {
-    //   console.error("Error fetching room details:", error);
-    // }
   };
 
   return (

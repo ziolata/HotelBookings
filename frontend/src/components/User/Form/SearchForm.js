@@ -9,7 +9,15 @@ const SearchForm = ({
   province,
 }) => {
   const roomTypes = ["Standard Single", "Standard Double"];
-  const provinces = ["Đắk Lắk", "Đắk Nông", "Đà Nẵng", "Phú Quốc"];
+  const provinces = [
+    "Tỉnh Đắk Lắk",
+    "Tỉnh Đắk Nông",
+    "Thành Phố Đà Nẵng",
+    "Tỉnh Bình Định",
+    "Tỉnh Khánh Hòa",
+    "Thành Phố Hồ Chí Minh",
+    "Thủ Đô Hà Nội",
+  ];
   const [roomType, setRoomType] = useState([]);
   const getRoomDifferent = async () => {
     const response = await axios.get(

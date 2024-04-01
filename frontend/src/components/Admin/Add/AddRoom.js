@@ -15,7 +15,6 @@ function AddRoom() {
     room_type_id: "",
     check_in_date: "",
     check_out_date: "",
-    status: "",
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,7 +45,6 @@ function AddRoom() {
           image,
           room_number: roomInfo.room_number,
           room_type_id: roomInfo.room_type_id,
-          status: roomInfo.status,
         },
         {
           headers: {
@@ -110,30 +108,6 @@ function AddRoom() {
                           />
                           <div className="invalid-feedback">
                             Số phòng không thể trống !!!
-                          </div>
-                        </div>
-                      </div>
-                      <div className="form-group d-flex justify-content-center mb-3">
-                        <div className="col-md-3">
-                          <label htmlFor="status" className="mr-2">
-                            Trạng thái:
-                          </label>
-                        </div>
-                        <div className="col-md-8">
-                          <select
-                            className="form-control w-300 addrt"
-                            id="status"
-                            required
-                            style={{ width: 300 }}
-                            name="status"
-                            onChange={handleChange}
-                          >
-                            <option value="">-----Chọn trạng thái-----</option>
-                            <option value="available">Có sẵn</option>
-                            <option value="booked">Đã đặt</option>
-                          </select>
-                          <div className="invalid-feedback">
-                            Trạng thái không thể để trống !!!
                           </div>
                         </div>
                       </div>

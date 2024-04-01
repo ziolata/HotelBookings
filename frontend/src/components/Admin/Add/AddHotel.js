@@ -5,9 +5,17 @@ import AuthContext from "../../../context/AuthContext";
 function AddHotel() {
   const { authTokens } = useContext(AuthContext);
   const csrftoken = Cookies.get("csrftoken");
-  const token = localStorage.getItem("authTokens");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const provinces = [
+    "Tỉnh Đắk Lắk",
+    "Tỉnh Đắk Nông",
+    "Thành Phố Đà Nẵng",
+    "Tỉnh Bình Định",
+    "Tỉnh Khánh Hòa",
+    "Thành Phố Hồ Chí Minh",
+    "Thủ Đô Hà Nội",
+  ];
   const [infoHotel, setInfoHotel] = useState({
     name: "",
     address: "",
@@ -55,6 +63,7 @@ function AddHotel() {
       setSuccessMessage("");
     }
   };
+
   return (
     <section>
       <div className="container-fluid">
@@ -130,16 +139,22 @@ function AddHotel() {
                           </label>
                         </div>
                         <div className="col-md-8">
-                          <input
-                            type="text"
-                            className="form-control w-300 addrt"
+                          <select
                             id="province"
-                            placeholder="Chọn tỉnh thành phố"
-                            required
+                            className="form-control w-300 addrt"
                             style={{ width: 300 }}
                             name="province"
                             onChange={handleChange}
-                          />
+                          >
+                            <option value="">
+                              -----Chọn Tỉnh/Thành Phố-----
+                            </option>
+                            {provinces.map((province) => (
+                              <option key={province} value={province}>
+                                {province}
+                              </option>
+                            ))}
+                          </select>
                           <div className="invalid-feedback">
                             Tỉnh/Thành phố không thể để trống !!!
                           </div>

@@ -4,7 +4,6 @@ from . import models
 @admin.register(models.Hotel)
 class HotelAdmin(admin.ModelAdmin):
     list_display = ('id','name','address','description','image','rating')
-    prepopulated_fields = {'slug':('name',),}
 @admin.register(models.RoomType)
 class RoomTypeAdmin(admin.ModelAdmin):
     list_display = ('id','name','description','image','price', 'number_of_rooms','hotel_id')

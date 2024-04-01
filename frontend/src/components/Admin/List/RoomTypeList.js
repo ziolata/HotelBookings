@@ -4,7 +4,6 @@ import axios from "axios";
 import AuthContext from "../../../context/AuthContext";
 
 function RoomTypeList() {
-  const token = localStorage.getItem("authTokens"); // Lấy token lưu trữ
   const { authTokens } = useContext(AuthContext);
   const [hotel, setHotel] = useState([]);
   const getHotel = async () => {
@@ -24,7 +23,6 @@ function RoomTypeList() {
     getHotel();
   }, []);
   const handleDeleteClick = async (id) => {
-    // Hiển thị hộp thoại xác nhận
     const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa không?");
     if (confirmDelete) {
       try {
@@ -48,7 +46,7 @@ function RoomTypeList() {
     <section>
       <div className="container">
         <div className="row ">
-          <div className="col-lg-11 col-md-8 ">
+          <div className="col-lg-12 col-md-8 ">
             <div className="row align-items-center">
               <div className="col-12">
                 <div className="card">

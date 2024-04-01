@@ -12,6 +12,15 @@ function HotelDetail() {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [roomDetail, setRoomDetail] = useState([]);
+  const provinces = [
+    "Tỉnh Đắk Lắk",
+    "Tỉnh Đắk Nông",
+    "Thành Phố Đà Nẵng",
+    "Tỉnh Bình Định",
+    "Tỉnh Khánh Hòa",
+    "Thành Phố Hồ Chí Minh",
+    "Thủ Đô Hà Nội",
+  ];
   const [hotelInfo, setHotelInfo] = useState({
     id: "",
     name: "",
@@ -70,7 +79,7 @@ function HotelDetail() {
       formData.append("rating", hotelInfo.rating);
 
       const response = await axios.patch(
-        `http://127.0.0.1:8000/api/hotel/${Id}/`,
+        `http://127.0.0.1:8000/api/hotel/update/${Id}/`,
         formData,
         {
           headers: {
@@ -174,17 +183,22 @@ function HotelDetail() {
                             </label>
                           </div>
                           <div className="col-md-8">
-                            <input
-                              type="text"
-                              className="form-control w-300 addrt"
+                            <select
                               id="province"
-                              placeholder="Chọn tỉnh thành phố"
-                              required
-                              name="province"
+                              className="form-control w-300 addrt"
                               style={{ width: 300 }}
-                              defaultValue={hotelInfo.province}
+                              name="province"
                               onChange={handleChange}
-                            />
+                            >
+                              <option value="">
+                                -----Chọn Tỉnh/Thành Phố-----
+                              </option>
+                              {provinces.map((province) => (
+                                <option key={province} value={province}>
+                                  {province}
+                                </option>
+                              ))}
+                            </select>
                             <div className="invalid-feedback">
                               Tỉnh/Thành phố không thể để trống !!!
                             </div>

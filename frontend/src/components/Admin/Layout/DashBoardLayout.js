@@ -8,13 +8,11 @@ function DashBoardLayOut() {
   const { userinfo } = useAuth();
   const [loading, setLoading] = useState(true);
   const history = useHistory();
-  const role_name = userinfo.role_name;
 
   useEffect(() => {
     if (userinfo.role_name === "User") {
       // window.local.href();
-      history.push("/unauthor");
-      window.location.reload();
+      window.location.href = "/unauthor";
     } else {
       setLoading(false);
     }
