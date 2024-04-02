@@ -71,7 +71,7 @@ function BookingUpdate() {
       formData.append("check_out_date", BookingInfo.check_out_date);
       formData.append("room_name", BookingInfo.room_name);
       formData.append("email", BookingInfo.email);
-      formData.append("status", BookingInfo.status);
+      formData.append("status", status);
       formData.append("number_of_guest", BookingInfo.number_of_guests);
       formData.append("total_price", BookingInfo.total_price);
       const response = await axios.patch(

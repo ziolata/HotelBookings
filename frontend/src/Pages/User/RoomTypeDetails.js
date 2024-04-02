@@ -97,101 +97,23 @@ function RoomTypeDetailsPage() {
                   />
                 </a>
               </div>
-              <div className="d-flex justify-content-center mb-3">
-                <a
-                  data-fslightbox="mygalley"
-                  className="border mx-1 rounded-2"
-                  target="_blank"
-                  data-type="image"
-                  href="#"
-                >
-                  <img
-                    width={60}
-                    height={60}
-                    className="rounded-2"
-                    src="https://cdn.alongwalk.info/vn/wp-content/uploads/2022/02/23014734/image-10-hinh-anh-khach-san-du-khach-muon-duoc-nhin-thay-nhat-164553045440951.jpg"
-                  />
-                </a>
-                <a
-                  data-fslightbox="mygalley"
-                  className="border mx-1 rounded-2"
-                  target="_blank"
-                  data-type="image"
-                  href="#"
-                >
-                  <img
-                    width={60}
-                    height={60}
-                    className="rounded-2"
-                    src="https://duonggiahotel.vn/wp-content/uploads/2023/01/4048e2d8302ae874b13b.jpg"
-                  />
-                </a>
-                <a
-                  data-fslightbox="mygalley"
-                  className="border mx-1 rounded-2"
-                  target="_blank"
-                  data-type="image"
-                  href="#"
-                >
-                  <img
-                    width={60}
-                    height={60}
-                    className="rounded-2"
-                    src="https://duonggiahotel.vn/wp-content/uploads/2023/03/phong-family-vip-duong-gia-hoel.jpg"
-                  />
-                </a>
-                <a
-                  data-fslightbox="mygalley"
-                  className="border mx-1 rounded-2"
-                  target="_blank"
-                  data-type="image"
-                  href="https://cdn.alongwalk.info/vn/wp-content/uploads/2022/02/23014734/image-10-hinh-anh-khach-san-du-khach-muon-duoc-nhin-thay-nhat-164553045440951.jpg"
-                >
-                  <img
-                    width={60}
-                    height={60}
-                    className="rounded-2"
-                    src="https://cdn.alongwalk.info/vn/wp-content/uploads/2022/02/23014734/image-10-hinh-anh-khach-san-du-khach-muon-duoc-nhin-thay-nhat-164553045440951.jpg"
-                  />
-                </a>
-                <a
-                  data-fslightbox="mygalley"
-                  className="border mx-1 rounded-2"
-                  target="_blank"
-                  data-type="image"
-                  href="https://duonggiahotel.vn/wp-content/uploads/2023/03/phong-family-vip-duong-gia-hoel2.jpg"
-                >
-                  <img
-                    width={60}
-                    height={60}
-                    className="rounded-2"
-                    src="https://duonggiahotel.vn/wp-content/uploads/2023/03/phong-family-vip-duong-gia-hoel2.jpg"
-                  />
-                </a>
-              </div>
-              {/* thumbs-wrap.// */}
-              {/* gallery-wrap .end// */}
             </aside>
             <main className="col-lg-6">
               <div className="ps-lg-3">
                 <h4 className="title text-dark">{roomDetail.name}</h4>
-
-                {/* <div className="d-flex flex-row my-3">
-                  <div className="text-warning mb-1 me-2">
-                    <i className="fa fa-star" />
-                    <i className="fa fa-star" />
-                    <i className="fa fa-star" />
-                    <i className="fa fa-star" />
-                    <i className="fas fa-star-half-alt" />
-                    <span className="ms-1">4.5</span>
-                  </div>
-                  <span className="text-muted">
-                    <i className="fas fa-shopping-basket fa-sm mx-1" />
-                    154 orders
-                  </span>
-                  <span className="text-success ms-2">In stock</span>
-                </div> */}
                 <div className="mb-3">
+                  <p>
+                    Thuộc Khách sạn:{" "}
+                    <span style={{ fontWeight: "bold" }}>
+                      {roomDetail.hotel_name}
+                    </span>
+                  </p>
+                  <p>
+                    Địa chỉ:{" "}
+                    <span style={{ fontWeight: "bold" }}>
+                      {roomDetail.hotel_adress}, {roomDetail.province}
+                    </span>{" "}
+                  </p>
                   <span> Giá: </span>
                   <span className="h5">{roomDetail.price}</span>
                   <span className="text-muted">đ/một ngày</span>
@@ -222,10 +144,14 @@ function RoomTypeDetailsPage() {
                     <dd className="col-9">Reebook</dd> */}
                 </div>
                 <hr />
-                <a href="/room/" className="btn btn-warning shadow-0">
-                  {" "}
-                  Xem các loại phòng {roomDetail.name}{" "}
-                </a>
+                <div className="ps-lg-3 d-flex justify-content-center">
+                  <button className="btn btn-warning shadow-0">
+                    <a href="/room-type/" className="btn btn-warning shadow-0">
+                      {" "}
+                      Xem các loại phòng khác
+                    </a>
+                  </button>
+                </div>
               </div>
             </main>
           </div>
@@ -258,9 +184,6 @@ function RoomTypeDetailsPage() {
                               Phòng: {item.room_number} <br />
                               Loại phòng: {item.name}
                             </a>
-                            <strong className="text-dark">
-                              {item.price}đ/ngày
-                            </strong>
                           </div>
                         </div>
                       ))}

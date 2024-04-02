@@ -6,7 +6,7 @@ CÁC CHỨC NĂNG
 
     - Họ tên, username, email, password, địa chỉ và số điện thoại.
 
-  - Đăng nhập: để có thể đăng nhập người dùng phải điền thông tin email, password đã đăng ký.
+  - Đăng nhập: để có thể đăng nhập người dùng phải điền thông tin email, password đã đăng ký thành công.
 
   - Xem danh sách khách sạn
 
@@ -30,7 +30,7 @@ CÁC CHỨC NĂNG
 
   - Đặt Phòng: khi đặt phòng người dùng có thể nhìn thấy thông tin phòng mình muốn đặt bao gồm ảnh, tên loại phòng, giá (1 ngày), số ngày thuê( được tính khi người dùng đã chọn ngày check in và check out) và tổng giá tiền. Để đặt phòng người dùng cần:
 
-        + Cần điền và chọn các thông tin: họ tên, số điện thoại, địa chỉ, chọn ngày nhận phòng, ngày trả phòng, số lượng người.
+        - Cần điền và chọn các thông tin: họ tên, số điện thoại, địa chỉ, chọn ngày nhận phòng, ngày trả phòng, số lượng người.
 
     - Xác nhận Đặt Phòng
 

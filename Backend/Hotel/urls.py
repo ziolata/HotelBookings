@@ -22,7 +22,6 @@ urlpatterns = [
     path('room/<int:pk>/',views.RoomDetail.as_view(),name='Room Detail'),
     path('room/update/<int:pk>/',views.RoomDetailUpdate.as_view(),name='Room Detail Update'),
     path('room/available/', views.SearchAvailableRoomsView.as_view(),name='Available Room'),
-    path('room/available/<int:pk>/', views.AvailableRoomsDetailsListView.as_view(),name='Available Room Detail'),
     #Booking
     path('booking/', views.BookingViewSet.as_view(),name='Booking API'),
     path('booking/<int:pk>/', views.BookingDetailViewSet.as_view(),name='Booking API Details'),

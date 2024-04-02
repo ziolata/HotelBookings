@@ -57,9 +57,11 @@ const BookingHistoryPage = () => {
           </div>
         </div>
       </div>
-      <div className="container d-flex  mb-50">
+      <div className="container mb-50">
         <div className="row" style={{ marginTop: 10 }}>
-          <h2 className="text-center">Lịch sử đặt phòng</h2>
+          <div className="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
+            <h2 className="text-center">Lịch sử đặt phòng</h2>
+          </div>
           {bookings.map((booking) => (
             <div className="col-md-6 mt-2" key={booking.id}>
               <div className="card">

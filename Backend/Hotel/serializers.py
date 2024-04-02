@@ -6,14 +6,13 @@ from .validator import CurrentUserDefault
 # from django_filters.rest_framework import FilterSet, filters
 
 class HotelSerializer(serializers.ModelSerializer):
-    prepopulated_fields = {'slug':('name',),}
     class Meta:
         model = Hotel
         fields = '__all__'
 class AmenitySerializers(serializers.ModelSerializer):
     class Meta:
         model = Amenity
-        fields = ('id','name')
+        fields = ('id','name','icon')
         read_only_fields = ("icon_url",)
         def get_icon_url(self, obj):
             if obj.icon:
@@ -21,27 +20,21 @@ class AmenitySerializers(serializers.ModelSerializer):
             return None
 class RoomTypeSerializer(serializers.ModelSerializer):
     hotel_name = serializers.ReadOnlyField(source='hotel_id.name')
+    hotel_adress = serializers.ReadOnlyField(source='hotel_id.address')
     amenities_info = AmenitySerializers(source='amenities', many=True, read_only=True)
     amenities= serializers.PrimaryKeyRelatedField(
         many=True,
-        queryset=Amenity.objects.all(),  # Thay Amenity bằng tên model thực tế
+        queryset=Amenity.objects.all(), 
     )
     province = serializers.ReadOnlyField(source='hotel_id.province')
     
     class Meta:
         model = RoomType
-        fields = ('id','name','description','amenities','amenities_info','image','price', 'number_of_rooms','number_of_guest','hotel_id','hotel_name','province')
+        fields = ('id','name','description','amenities','amenities_info','image','price', 'number_of_rooms','number_of_guest','hotel_id','hotel_name','province','hotel_adress')
 class RoomSerializer(serializers.ModelSerializer):
     name = serializers.ReadOnlyField(source='room_type_id.name')
     price = serializers.ReadOnlyField(source='room_type_id.price')
-    amenity_data = serializers.SerializerMethodField()  # Use a descriptive name
-    
-    def get_amenity_data(self, obj):
-        amenities_with_icon = [
-            {'name': amenity.name, 'icon': (amenity.icon and amenity.icon.url)}
-            for amenity in obj.room_type_id.amenities.all()
-        ]
-        return amenities_with_icon  # Access amenities correctly
+    amenity_data = AmenitySerializers(source='room_type_id.amenities', many=True, read_only=True)
     class Meta:
         model = Room
         fields = ('id','image','room_number','status','room_type_id','check_in_date','check_out_date','name','price','amenity_data')
@@ -52,8 +45,6 @@ class BookingSerializer(serializers.ModelSerializer):
     email = serializers.ReadOnlyField(source="user_id.username")
     room_name = serializers.ReadOnlyField(source="room_id.room_type_id.name")
     room_id = serializers.PrimaryKeyRelatedField(queryset=Room.objects.all())
-    def create(self, validated_data):
-        return Booking.objects.create(**validated_data)  
     def update(self, instance, validated_data):
         status = validated_data.get('status', instance.status)
         if status == 'Confirmed':
@@ -71,11 +62,6 @@ class BookingHistorySerializer(serializers.ModelSerializer):
     price = serializers.ReadOnlyField(source='room_id.room_type_id.price')
     user_id = serializers.PrimaryKeyRelatedField(read_only=True)
     room_id = serializers.PrimaryKeyRelatedField(queryset=Room.objects.all())
-
-    # def create(self, validated_data):
-    #     return Booking.objects.create(**validated_data)  
-    # def update(self, instance, validated_data):
-    #     return super().update(instance, validated_data)
     class Meta:
         model = Booking
         fields = ('id','fullname','phone','address','check_in_date','check_out_date','total_price','number_of_guests','price','room_id','user_id','status','date_booking')

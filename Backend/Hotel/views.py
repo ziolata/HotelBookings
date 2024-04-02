@@ -112,15 +112,7 @@ class SearchAvailableRoomsView(APIView):
         serializer = AvailableRoomSerializer(available_rooms, many=True)
         return Response(serializer.data)
         
-class AvailableRoomsDetailsListView(generics.RetrieveAPIView):
-    queryset = Room.objects.all() 
-    serializer_class = AvailableRoomSerializer
-    permission_classes = [IsAuthenticated]
-    def get_queryset(self):
-        pk = self.kwargs.get('pk')
-        if pk is not None:
-            return self.queryset.filter(pk=pk)
-        return super().get_queryset()
+
 
 class BookingViewSet(generics.ListCreateAPIView):
     queryset = Booking.objects.all()
@@ -130,7 +122,6 @@ class BookingViewSet(generics.ListCreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = request.user
-        serializer.save(user_id=user)  
         check_in_date = datetime.strptime(request.data['check_in_date'], '%Y-%m-%d').date()
         check_out_date = datetime.strptime(request.data['check_out_date'], '%Y-%m-%d').date()
         current_date = timezone.now().date()
@@ -142,7 +133,11 @@ class BookingViewSet(generics.ListCreateAPIView):
         if check_in_date == current_date:
             available_rooms = Room.objects.filter(bookings__check_in_date=current_date, status='available')
             available_rooms.update(status='booked')
+        serializer.save(user_id=user)  
+        
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    
     def list(self, request):
         queryset = self.get_queryset()
         check_in_date = request.query_params.get('check_in_date', None)

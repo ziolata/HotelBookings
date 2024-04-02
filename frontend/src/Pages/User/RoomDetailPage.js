@@ -165,9 +165,6 @@ function RoomDetailsPage() {
                               Phòng: {item.room_number} <br />
                               Loại phòng: {item.name}
                             </a>
-                            <strong className="text-dark">
-                              {item.price}đ/ngày
-                            </strong>
                           </div>
                         </div>
                       ))}

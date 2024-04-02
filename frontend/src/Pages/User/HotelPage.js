@@ -25,7 +25,11 @@ function HotelPage({ numToShow }) {
       {firstTenHotels.map((item, index) => (
         <div className="col-md-3 col-sm-6 col-xs-6" key={item.id}>
           <div className="card mb-30" style={{ height: 350 }}>
-            <a className="card-img-tiles " href="#" data-abc="true">
+            <a
+              className="card-img-tiles "
+              href={"/hotel/" + item.id}
+              data-abc="true"
+            >
               <div className="inner ">
                 <div className="main-img ">
                   <img
@@ -64,7 +68,7 @@ function HotelPage({ numToShow }) {
                   href={"/hotel/" + item.id}
                   data-abc="true"
                 >
-                  View Hotel
+                  Xem thêm
                 </a>
               </div>
             </div>
