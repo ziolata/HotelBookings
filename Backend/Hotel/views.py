@@ -126,10 +126,10 @@ class BookingViewSet(generics.ListCreateAPIView):
         check_out_date = datetime.strptime(request.data['check_out_date'], '%Y-%m-%d').date()
         current_date = timezone.now().date()
         if check_in_date < current_date:
-            return Response({"error": "Ngày check-in phải lớn hơn hoặc bằng ngày hiện tại."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Check-in date must be greater than or equal to the current date."}, status=status.HTTP_400_BAD_REQUEST)
         confirmed_bookings = Booking.objects.filter(status='Confirmed', check_in_date__lte=check_out_date, check_out_date__gte=check_in_date)
         if confirmed_bookings.exists():
-            return Response({"error": "Không thể đặt phòng vì có đơn booking đã xác nhận trong khoảng thời gian này."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Reservations cannot be made because there is a confirmed booking during this time period."}, status=status.HTTP_400_BAD_REQUEST)
         if check_in_date == current_date:
             available_rooms = Room.objects.filter(bookings__check_in_date=current_date, status='available')
             available_rooms.update(status='booked')

@@ -51,7 +51,7 @@ const SearchForm = ({
   return (
     <div id="search">
       <div className="container" style={{ marginTop: 50 }}>
-        <h1 className="text-center">Tìm kiếm phòng</h1>
+        <h1 className="text-center">Search room</h1>
         <div className="row check-availabilty" id="next">
           <div
             className="block-32 aos-init aos-animate"
@@ -65,7 +65,7 @@ const SearchForm = ({
                     htmlFor="roomTypeName"
                     className="font-weight-bold text-black"
                   >
-                    Loại Phòng
+                    Roomtype
                   </label>
                   <div className="field-icon-wrap">
                     <div className="icon">
@@ -78,7 +78,7 @@ const SearchForm = ({
                       value={formData.roomTypeName}
                       onChange={handleInputChange}
                     >
-                      <option value="">Tất cả</option>
+                      <option value="">All</option>
                       {roomType.map((roomType) => (
                         <option key={roomType.id} value={roomType.name}>
                           {roomType.name}
@@ -92,7 +92,7 @@ const SearchForm = ({
                     htmlFor="province"
                     className="font-weight-bold text-black"
                   >
-                    Tỉnh/Thành Phố
+                    Province
                   </label>
                   <div className="field-icon-wrap">
                     <div className="icon">
@@ -105,7 +105,7 @@ const SearchForm = ({
                       value={formData.province}
                       onChange={handleInputChange}
                     >
-                      <option value="">Tất cả</option>
+                      <option value="">All</option>
                       {provinces.map((province) => (
                         <option key={province} value={province}>
                           {province}
@@ -161,7 +161,7 @@ const SearchForm = ({
                     htmlFor="number-of-guests"
                     className="font-weight-bold text-black"
                   >
-                    Số người
+                    Number of guests
                   </label>
                   <div className="field-icon-wrap">
                     <div className="icon">
@@ -185,7 +185,7 @@ const SearchForm = ({
                     type="submit"
                     className="btn btn-primary btn-block text-white mx-auto mt-1"
                   >
-                    Tìm kiếm
+                    Search
                   </button>
                 </div>
               </div>

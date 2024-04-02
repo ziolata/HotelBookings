@@ -60,7 +60,7 @@ const BookingHistoryPage = () => {
       <div className="container mb-50">
         <div className="row" style={{ marginTop: 10 }}>
           <div className="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
-            <h2 className="text-center">Lịch sử đặt phòng</h2>
+            <h2 className="text-center">Booking History</h2>
           </div>
           {bookings.map((booking) => (
             <div className="col-md-6 mt-2" key={booking.id}>
@@ -79,28 +79,28 @@ const BookingHistoryPage = () => {
                 <div className="card-body bg-light text-center">
                   <div className="mb-2">
                     <h6 className="font-weight-semibold mb-2">
-                      Họ và Tên: {booking.fullname}
+                      Fullname: {booking.fullname}
                     </h6>
                     <h6 className="font-weight-semibold mb-2">
-                      Sđt: {booking.phone}
+                      Phone: {booking.phone}
                     </h6>
                     <h6 className="font-weight-semibold mb-2">
-                      Ngày nhận phòng: {booking.check_in_date}
+                      Check in date: {booking.check_in_date}
                     </h6>
                     <h6 className="font-weight-semibold mb-2">
-                      Ngày trả phòng: {booking.check_out_date}
+                      Check out date: {booking.check_out_date}
                     </h6>
                     <h6 className="font-weight-semibold mb-2">
-                      Giá: {booking.price}đ/1 ngày
+                      Price: {booking.price}$/1 day
                     </h6>
                     <h6 className="font-weight-semibold mb-2">
-                      Tổng: {booking.total_price}đ
+                      Total price: {booking.total_price}$
                     </h6>
                     <h6 className="font-weight-semibold mb-2">
-                      Tình trạng: {booking.status}
+                      Status: {booking.status}
                     </h6>
                     <h6 className="font-weight-semibold mb-2">
-                      Ngày đặt phòng: {booking.date_booking}đ
+                      Booking date: {booking.date_booking}
                     </h6>
                   </div>
 

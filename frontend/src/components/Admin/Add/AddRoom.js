@@ -75,7 +75,7 @@ function AddRoom() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-title text-center mt-3">
-                    <h3>Thêm phòng</h3>
+                    <h3>Add Room</h3>
                   </div>
                   <div className="card-body">
                     {successMessage && (
@@ -92,7 +92,7 @@ function AddRoom() {
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="room_number" className="mr-2">
-                            Số phòng:
+                            Room number
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -100,22 +100,19 @@ function AddRoom() {
                             type="number"
                             className="form-control w-300 addrt"
                             id="room_number"
-                            placeholder="Nhập số phòng"
+                            placeholder="Room number"
                             required
                             style={{ width: 300 }}
                             name="room_number"
                             onChange={handleChange}
                           />
-                          <div className="invalid-feedback">
-                            Số phòng không thể trống !!!
-                          </div>
                         </div>
                       </div>
 
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="roomTypeId" className="mr-2">
-                            Loại phòng:
+                            Roomtype
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -127,23 +124,20 @@ function AddRoom() {
                             name="room_type_id"
                             onChange={handleChange}
                           >
-                            <option value="">-----Chọn loại phòng-----</option>
+                            <option value="">-----Select Roomtype-----</option>
                             {roomTypes.map((roomType) => (
                               <option key={roomType.id} value={roomType.id}>
                                 {roomType.name}
                               </option>
                             ))}
                           </select>
-                          <div className="invalid-feedback">
-                            Loại phòng không thể để trống !!!
-                          </div>
                         </div>
                       </div>
 
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="image" className="mr-2">
-                            Chọn hình ảnh:
+                            Choose image
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -156,7 +150,7 @@ function AddRoom() {
                             style={{ width: 300 }}
                             onChange={(e) => handleImageChange(e)}
                           />
-                          <div className="invalid-feedback">chọn ảnh</div>
+                          <div className="invalid-feedback">Choose image</div>
                         </div>
                       </div>
 
@@ -165,7 +159,7 @@ function AddRoom() {
                         type="button"
                         onClick={handlePost}
                       >
-                        Thêm
+                        Add
                       </button>
                     </form>
                   </div>

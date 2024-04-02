@@ -48,13 +48,13 @@ const Header = () => {
                 </li>
                 <li>
                   <a className="dropdown-item" href="/booking/history/">
-                    Lịch sử booking
+                    Booking history
                   </a>
                 </li>
 
                 <li>
                   <a className="dropdown-item" href="" onClick={logoutUser}>
-                    Đăng xuất
+                    Logout
                   </a>
                 </li>
               </ul>

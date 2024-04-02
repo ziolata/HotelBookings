@@ -33,7 +33,9 @@ function Footer() {
             </div>
             <div className="col-12">
               {userinfo.role_name !== "User" && (
-                <a href="/dashboard">Bấm vào đây để vô trang Quản trị</a>
+                <a href="/dashboard">
+                  Click here to go to the Administration page
+                </a>
               )}
             </div>
           </div>

@@ -28,18 +28,7 @@ function RoomTypeDetail() {
     setRoomType({ ...roomtype, amenities: selectedAmenities });
   };
   const [roomDetail, setRoomDetail] = useState([]);
-  const [roomtype, setRoomType] = useState({
-    id: "",
-    name: "",
-    image: "",
-    hotel_id: "",
-    description: "",
-    number_of_rooms: "",
-    number_of_guest: "",
-    status: "",
-    price: "",
-    amenity_data: [],
-  });
+  const [roomtype, setRoomType] = useState("");
 
   const getRoom = async () => {
     try {
@@ -126,13 +115,13 @@ function RoomTypeDetail() {
       );
 
       if (response.status === 200) {
-        setSuccessMessage("Thay đổi thông tin thành công.");
+        setSuccessMessage("Successfully updated.");
         setErrorMessage("");
         setImage(null);
       }
     } catch (error) {
-      console.error("Lỗi:", error);
-      setErrorMessage("Có lỗi xảy ra khi thay đổi thông tin.");
+      console.error("Error:", error);
+      setErrorMessage("An error occurred while updating information.");
       setSuccessMessage("");
     }
   };
@@ -147,7 +136,7 @@ function RoomTypeDetail() {
                 <div className="col-12">
                   <div className="card">
                     <div className="card-title text-center mt-3">
-                      <h3>Cập nhật thông tin loại phòng</h3>
+                      <h3>Update info Roomtype</h3>
                     </div>
                     <div className="card-body">
                       {successMessage && (
@@ -164,7 +153,7 @@ function RoomTypeDetail() {
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="roomtypename" className="mr-2">
-                              Tên loại phòng:
+                              Roomtype name
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -172,22 +161,19 @@ function RoomTypeDetail() {
                               type="text"
                               className="form-control w-300 addrt"
                               id="roomtypename"
-                              placeholder="Tên loại phòng"
+                              placeholder="Roomtype name"
                               required
                               style={{ width: 300 }}
                               defaultValue={roomtype.name}
                               name="name"
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              Product Name Can't Be Empty
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="descrition" className="mr-2">
-                              Mô tả:
+                              Description
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -195,22 +181,19 @@ function RoomTypeDetail() {
                               type="text"
                               className="form-control w-300 addrt"
                               id="descrition"
-                              placeholder="Mô tả"
+                              placeholder="Description"
                               required
                               style={{ width: 300 }}
                               name="description"
                               defaultValue={roomtype.description}
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              Product Name Can't Be Empty
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="amenities" className="mr-2">
-                              Tiện nghi
+                              Amenities
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -230,38 +213,32 @@ function RoomTypeDetail() {
                                 name="amenities"
                                 onChange={handleAmenitiesChange}
                               />
-                              <div className="invalid-feedback">
-                                Product Name Can't Be Empty
-                              </div>
                             </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="price" className="mr-2">
-                              Giá:
+                              Price
                             </label>
                           </div>
                           <div className="col-md-8">
                             <input
-                              type="text"
+                              type="number"
                               className="form-control w-300 addrt"
                               id="price"
-                              placeholder="Nhập giá"
+                              placeholder="Price"
                               name="price"
                               defaultValue={roomtype.price}
                               onChange={handleChange}
                               style={{ width: 300 }}
                             />
-                            <div className="invalid-feedback">
-                              Product Name Can't Be Empty
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="number_room" className="mr-2">
-                              Tổng số phòng:
+                              Number of Rooms
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -269,43 +246,37 @@ function RoomTypeDetail() {
                               type="text"
                               className="form-control w-300 addrt"
                               id="number_room"
-                              placeholder="Nhập tổng số phòng"
+                              placeholder="Number of Rooms"
                               name="number_of_rooms"
                               defaultValue={roomtype.number_of_rooms}
                               onChange={handleChange}
                               style={{ width: 300 }}
                             />
-                            <div className="invalid-feedback">
-                              Product Name Can't Be Empty
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="number_of_guests" className="mr-2">
-                              Số người:
+                              Number of guests
                             </label>
                           </div>
                           <div className="col-md-8">
                             <input
-                              type="text"
+                              type="number"
                               className="form-control w-300 addrt"
                               id="number_of_guests"
-                              placeholder="Nhập số người có thể ở"
+                              placeholder="Number of guest"
                               name="number_of_guest"
                               defaultValue={roomtype.number_of_guest}
                               onChange={handleChange}
                               style={{ width: 300 }}
                             />
-                            <div className="invalid-feedback">
-                              Product Name Can't Be Empty
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="number_of_guests" className="mr-2">
-                              Thuộc khách sạn:
+                              Hotel
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -318,23 +289,20 @@ function RoomTypeDetail() {
                               defaultValue={roomTypes.hotel_id}
                               onChange={handleChange}
                             >
-                              <option value="">-----Chọn khách sạn-----</option>
+                              <option value="">-----Select Hotel-----</option>
                               {roomTypes.map((hotel) => (
                                 <option key={hotel.id} value={hotel.id}>
                                   {hotel.name}
                                 </option>
                               ))}
                             </select>
-                            <div className="invalid-feedback">
-                              Product Name Can't Be Empty
-                            </div>
                           </div>
                         </div>
 
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="image" className="mr-2">
-                              Chọn hình ảnh:
+                              Choose image
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -346,7 +314,7 @@ function RoomTypeDetail() {
                               onChange={(e) => handleImageChange(e)}
                               style={{ width: 300 }}
                             />
-                            <div className="invalid-feedback">chọn ảnh</div>
+                            <div className="invalid-feedback">Choose image</div>
                           </div>
                         </div>
 
@@ -355,7 +323,7 @@ function RoomTypeDetail() {
                           type="button"
                           onClick={handlePatchRoom}
                         >
-                          Cập nhật
+                          Update
                         </button>
                       </form>
                     </div>

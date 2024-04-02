@@ -14,7 +14,7 @@ function RoomTypePageI() {
         <div className="seenAll" style={{ marginBottom: 20, marginTop: 20 }}>
           <a href="/room-type/" style={{ color: "black" }}>
             {" "}
-            <h2>KHÁCH SẠN</h2>
+            <h2>HOTEL</h2>
           </a>
         </div>
         <div className="row">
@@ -39,16 +39,16 @@ function RoomTypePageI() {
               }}
             >
               <i className="fas fa-arrow-right " style={{ fontSize: 50 }}></i>
-              <span style={{}}>Xem tất cả</span>
+              <span style={{}}>See all</span>
             </a>
           </div>
         </div>
 
         <div className="section-header" style={{ marginTop: 30 }}>
-          <h2>Loại Phòng</h2>
+          <h2>RoomType</h2>
           <p>
-            Đa dạng các loại phòng cho quý khách hàng lựa chọn cho mình một loại
-            phòng phù hợp nhất.
+            A variety of room types allow customers to choose the most suitable
+            room type for themselves.
           </p>
         </div>
         <RoomTypePage numToShow={4} />
@@ -57,7 +57,7 @@ function RoomTypePageI() {
             <i className="fa-solid fa-arrow-right"></i>
             <a href="/room-type/" style={{ color: "black" }}>
               {" "}
-              Xem tất cả loại phòng
+              See all Roomtype
             </a>
           </div>
         </div>

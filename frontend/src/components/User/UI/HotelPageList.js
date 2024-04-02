@@ -32,7 +32,7 @@ function HotelPageUI() {
         </div>
         <div className="container">
           <div className="row">
-            <h1 className="text-center">Danh sách khách sạn</h1>
+            <h1 className="text-center">Hotel List</h1>
             <HotelPage numToShow={10} />
           </div>
         </div>

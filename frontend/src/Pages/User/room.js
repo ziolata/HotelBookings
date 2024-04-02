@@ -25,10 +25,10 @@ function Room() {
       <div id="rooms" className="mt-5">
         <div className="container">
           <div className="section-header ">
-            <h2>Loại Phòng</h2>
+            <h2>RoomType</h2>
             <p>
-              Đa dạng các loại phòng cho quý khách hàng lựa chọn cho mình một
-              loại phòng phù hợp nhất.
+              A variety of room types allow customers to choose the most
+              suitable room type for themselves.
             </p>
           </div>
           <div className="row">

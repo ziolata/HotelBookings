@@ -73,7 +73,7 @@ function AddHotel() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-title text-center mt-3">
-                    <h3>Thêm khách sạn</h3>
+                    <h3>Add Hotel</h3>
                   </div>
                   <div className="card-body">
                     {successMessage && (
@@ -91,7 +91,7 @@ function AddHotel() {
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="name" className="mr-2">
-                            Tên khách sạn:
+                            Hotel name
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -99,21 +99,18 @@ function AddHotel() {
                             type="text"
                             className="form-control w-300 addrt"
                             id="name"
-                            placeholder="Tên khách sạn"
+                            placeholder="Hotel name"
                             required
                             style={{ width: 300 }}
                             name="name"
                             onChange={handleChange}
                           />
-                          <div className="invalid-feedback">
-                            Tên khách sạn không thể để trống !!!
-                          </div>
                         </div>
                       </div>
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="address" className="mr-2">
-                            Địa chỉ:
+                            Address
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -121,21 +118,18 @@ function AddHotel() {
                             type="text"
                             className="form-control w-300 addrt"
                             id="address"
-                            placeholder="Địa chỉ"
+                            placeholder="Address"
                             required
                             style={{ width: 300 }}
                             name="address"
                             onChange={handleChange}
                           />
-                          <div className="invalid-feedback">
-                            Địa chỉ không thể để trống !!!
-                          </div>
                         </div>
                       </div>
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="province" className="mr-2">
-                            Tỉnh/Thành Phố:
+                            Province
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -146,24 +140,19 @@ function AddHotel() {
                             name="province"
                             onChange={handleChange}
                           >
-                            <option value="">
-                              -----Chọn Tỉnh/Thành Phố-----
-                            </option>
+                            <option value="">-----Select Province-----</option>
                             {provinces.map((province) => (
                               <option key={province} value={province}>
                                 {province}
                               </option>
                             ))}
                           </select>
-                          <div className="invalid-feedback">
-                            Tỉnh/Thành phố không thể để trống !!!
-                          </div>
                         </div>
                       </div>
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="description" className="mr-2">
-                            Mô tả:
+                            Description
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -171,7 +160,7 @@ function AddHotel() {
                             type="text"
                             className="form-control w-300 addrt"
                             id="description"
-                            placeholder="Mô tả"
+                            placeholder="Description"
                             required
                             style={{ width: 300 }}
                             name="description"
@@ -184,7 +173,7 @@ function AddHotel() {
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="rating" className="mr-2">
-                            Số sao:
+                            Rating
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -192,21 +181,18 @@ function AddHotel() {
                             type="text"
                             className="form-control w-300 addrt"
                             id="rating"
-                            placeholder="Số sao của khách sạn"
+                            placeholder="Rating"
                             required
                             style={{ width: 300 }}
                             name="rating"
                             onChange={handleChange}
                           />
-                          <div className="invalid-feedback">
-                            Số sao không thể để trống !!!
-                          </div>
                         </div>
                       </div>
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="image" className="mr-2">
-                            Chọn hình ảnh:
+                            Choose image
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -214,12 +200,12 @@ function AddHotel() {
                             type="file"
                             className="form-control w-300 addrt"
                             id="image"
-                            placeholder=""
+                            placeholder="Choose image"
                             required
                             style={{ width: 300 }}
                             onChange={(e) => handleImageChange(e)}
                           />
-                          <div className="invalid-feedback">chọn ảnh</div>
+                          <div className="invalid-feedback">Choose image</div>
                         </div>
                       </div>
 
@@ -228,7 +214,7 @@ function AddHotel() {
                         type="button"
                         onClick={handlePost}
                       >
-                        Thêm
+                        Add
                       </button>
                     </form>
                   </div>

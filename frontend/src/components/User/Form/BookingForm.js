@@ -132,10 +132,10 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                   className="col-md-12 text-center"
                   style={{ marginTop: 100 }}
                 >
-                  <h1>Đặt phòng thành công!</h1>
-                  <p>Thông tin đặt phòng đã được gửi.</p>
+                  <h1>Booking successful!</h1>
+                  <p>Reservation information has been sent.</p>
                   <a href="/booking/history">
-                    Nhấn vào đây để xem những phòng bạn đã đặt
+                    Click here to see the rooms you have booked
                   </a>
                 </div>
               </div>
@@ -161,16 +161,14 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                               alt=""
                               style={{ width: 400, height: 200 }}
                             />
-                            <p>Loại phòng: {roomData.name}</p>
-                            <p>Số phòng: {roomData.room_number}</p>
-                            <p>Giá phòng(VNĐ): {roomData.price}đ/ngày</p>
-                            <p>Số ngày ở: {Day}</p>
-                            <p>Tổng giá tiền(VNĐ): {roomData.price * Day}đ</p>
+                            <p>Roomtype: {roomData.name}</p>
+                            <p>Room number: {roomData.room_number}</p>
+                            <p>Price: {roomData.price}$/day</p>
+                            <p>Number of days of stay: {Day}</p>
+                            <p>Total price: {roomData.price * Day}$</p>
                           </div>
                         ) : (
-                          <p>
-                            Không có dữ liệu phòng hoặc dữ liệu không hợp lệ.
-                          </p>
+                          <p>No room data or invalid data.</p>
                         )}
                       </div>
                     </div>
@@ -180,7 +178,7 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                           <div className="row">
                             <div className="col-12">
                               <div className="mb-5">
-                                <h2 className="h4 text-center">Đặt phòng</h2>
+                                <h2 className="h4 text-center">Booking</h2>
                               </div>
                             </div>
                           </div>
@@ -196,14 +194,14 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                                     className="form-control"
                                     id="fullname"
                                     name="fullname"
-                                    placeholder="Họ và tên"
+                                    placeholder="fullname"
                                     onChange={handleChange}
                                   />
                                   <label
                                     htmlFor="fullname"
                                     className="form-label"
                                   >
-                                    Họ và tên
+                                    Fullname
                                   </label>
                                 </div>
                               </div>
@@ -214,11 +212,11 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                                     id="phone"
                                     name="phone"
                                     type="number"
-                                    placeholder="Số điện thoại"
+                                    placeholder="Phone number"
                                     onChange={handleChange}
                                   />
                                   <label htmlFor="phone" className="form-label">
-                                    SĐT
+                                    Phone
                                   </label>
                                 </div>
                               </div>
@@ -229,14 +227,14 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                                     name="address"
                                     id="address"
                                     type="text"
-                                    placeholder="Địa chỉ"
+                                    placeholder="address"
                                     onChange={handleChange}
                                   />
                                   <label
                                     htmlFor="address"
                                     className="form-label"
                                   >
-                                    Địa chỉ
+                                    Address
                                   </label>
                                 </div>
                               </div>
@@ -247,14 +245,14 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                                     name="check_in_date"
                                     id="check_in"
                                     type="date"
-                                    placeholder="Ngày nhận phòng"
+                                    placeholder="Check in date"
                                     onChange={handleChange}
                                   />
                                   <label
                                     htmlFor="check_in"
                                     className="form-label"
                                   >
-                                    Ngày nhận phòng
+                                    Check in date
                                   </label>
                                 </div>
                               </div>
@@ -265,14 +263,14 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                                     name="check_out_date"
                                     id="check_out"
                                     type="date"
-                                    placeholder="Ngày trả phòng"
+                                    placeholder="Check out date"
                                     onChange={handleChange}
                                   />
                                   <label
                                     htmlFor="check_out"
                                     className="form-label"
                                   >
-                                    Ngày trả phòng
+                                    Check out date
                                   </label>
                                 </div>
                               </div>
@@ -283,14 +281,14 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                                     id="number_guest"
                                     name="number_of_guests"
                                     type="number"
-                                    placeholder="Số người"
+                                    placeholder="Number of guests"
                                     onChange={handleChange}
                                   />
                                   <label
                                     htmlFor="number_guest"
                                     className="form-label"
                                   >
-                                    Số người
+                                    Number of guest
                                   </label>
                                 </div>
                               </div>
@@ -302,7 +300,7 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                                     type="button"
                                     onClick={handleBookingConfirmed}
                                   >
-                                    Đặt ngay
+                                    Booking
                                   </button>
                                 </div>
                               </div>

@@ -88,7 +88,7 @@ function AddUser() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-title text-center mt-3">
-                    <h3>Thêm người dùng</h3>
+                    <h3>Add User</h3>
                   </div>
                   <div className="card-body">
                     {successMessage && (
@@ -106,7 +106,7 @@ function AddUser() {
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="name" className="mr-2">
-                            Họ và tên
+                            Fullname
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -115,20 +115,17 @@ function AddUser() {
                             className="form-control w-300 addrt"
                             id="name"
                             name="fullname"
-                            placeholder="Nhập họ và tên"
+                            placeholder="Write fullname"
                             required
                             style={{ width: 300 }}
                             onChange={handleChange}
                           />
-                          <div className="invalid-feedback">
-                            Tên khách sạn không thể để trống !!!
-                          </div>
                         </div>
                       </div>
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="address" className="mr-2">
-                            Địa chỉ:
+                            Address
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -137,14 +134,11 @@ function AddUser() {
                             className="form-control w-300 addrt"
                             id="address"
                             name="address"
-                            placeholder="Địa chỉ"
+                            placeholder="Address"
                             required
                             style={{ width: 300 }}
                             onChange={handleChange}
                           />
-                          <div className="invalid-feedback">
-                            Địa chỉ không thể để trống !!!
-                          </div>
                         </div>
                       </div>
                       <div className="form-group d-flex justify-content-center mb-3">
@@ -159,13 +153,10 @@ function AddUser() {
                             className="form-control w-300 addrt"
                             id="Username"
                             name="username"
-                            placeholder="Nhập username"
+                            placeholder="Username"
                             style={{ width: 300 }}
                             onChange={handleChange}
                           />
-                          <div className="invalid-feedback">
-                            Tỉnh/Thành phố không thể để trống !!!
-                          </div>
                         </div>
                       </div>
                       <div className="form-group d-flex justify-content-center mb-3">
@@ -179,7 +170,7 @@ function AddUser() {
                             type="text"
                             className="form-control w-300 addrt"
                             id="email"
-                            placeholder="Nhập email"
+                            placeholder="Email"
                             name="email"
                             required
                             style={{ width: 300 }}
@@ -191,7 +182,7 @@ function AddUser() {
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="password" className="mr-2">
-                            Mật khẩu
+                            Password
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -199,7 +190,7 @@ function AddUser() {
                             type="password"
                             className="form-control w-300 addrt"
                             id="password"
-                            placeholder="Nhập mật khẩu"
+                            placeholder="Password"
                             name="password"
                             style={{ width: 300 }}
                             onChange={handleChange}
@@ -210,16 +201,16 @@ function AddUser() {
 
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
-                          <label htmlFor="rating" className="mr-2">
-                            SĐT
+                          <label htmlFor="phone" className="mr-2">
+                            Phone
                           </label>
                         </div>
                         <div className="col-md-8">
                           <input
                             type="number"
                             className="form-control w-300 addrt"
-                            id="rating"
-                            placeholder="Nhập số điện thoại"
+                            id="phone"
+                            placeholder="Phone number"
                             required
                             name="phone_number"
                             style={{ width: 300 }}
@@ -230,39 +221,13 @@ function AddUser() {
                           </div>
                         </div>
                       </div>
-                      {/* <div className="form-group d-flex justify-content-center mb-3">
-                        <div className="col-md-3">
-                          <label htmlFor="number_of_guests" className="mr-2">
-                            Quyền
-                          </label>
-                        </div>
-                        <div className="col-md-8">
-                          <select
-                            className="form-control w-300 addrt"
-                            id="roomTypeId"
-                            required
-                            style={{ width: 300 }}
-                            value={role_id}
-                            onChange={(e) => setRoleID(e.target.value)}
-                          >
-                            <option value="">-----Chọn Quyền-----</option>
-                            {Role.map((hotel) => (
-                              <option key={hotel.id} value={hotel.id}>
-                                {hotel.name}
-                              </option>
-                            ))}
-                          </select>
-                          <div className="invalid-feedback">
-                            Product Name Can't Be Empty
-                          </div>
-                        </div>
-                      </div> */}
+
                       <button
                         className="btn btn-dark mt-5 mx-auto d-block"
                         type="button"
                         onClick={handlePost}
                       >
-                        Thêm
+                        Add
                       </button>
                     </form>
                   </div>

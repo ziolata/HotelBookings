@@ -59,7 +59,7 @@ function RoomDetailsPage() {
                   </a>
                   <span className="text-black mx-2"> / </span>
                   <a href="#" className="text-dark">
-                    Details
+                    Detail
                   </a>
                   {/* <span className="text-white-50 mx-2"> &gt; </span>
                 <a href="" className="text-white">
@@ -96,18 +96,18 @@ function RoomDetailsPage() {
             <main className="col-lg-6">
               <div className="ps-lg-3">
                 <h4 className="title text-dark">
-                  Phòng: {roomDetail.room_number}
+                  Room: {roomDetail.room_number}
                 </h4>
-                <p>Loại phòng: {roomDetail.name}</p>
+                <p>RoomType: {roomDetail.name}</p>
 
                 <div className="mb-3">
-                  <span> Giá: </span>
+                  <span> Price: </span>
                   <span className="h5">{roomDetail.price}</span>
-                  <span className="text-muted">đ/ngày</span>
+                  <span className="text-muted">$/day</span>
                 </div>
                 {/* <p>{roomDetail.description}</p> */}
                 <div className="row">
-                  <dt className="text-center">Tiện nghi:</dt>
+                  <dt className="text-center">Amenities:</dt>
                   {roomDetail.amenity_data &&
                     roomDetail.amenity_data.map((amenity) => (
                       <dt className="col-md-4">
@@ -146,7 +146,7 @@ function RoomDetailsPage() {
               <div className="px-0 border rounded-2 shadow-0 ">
                 <div className="card">
                   <div className="card-body ">
-                    <h5 className="card-title text-center">Phòng khác</h5>
+                    <h5 className="card-title text-center">Other room</h5>
                     <div className="d-flex">
                       {room.map((item, index) => (
                         <div
@@ -162,8 +162,8 @@ function RoomDetailsPage() {
                           </a>
                           <div className="info">
                             <a href="#" className="nav-link mb-1">
-                              Phòng: {item.room_number} <br />
-                              Loại phòng: {item.name}
+                              Room: {item.room_number} <br />
+                              RoomType: {item.name}
                             </a>
                           </div>
                         </div>

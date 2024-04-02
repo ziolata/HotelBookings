@@ -64,7 +64,7 @@ function RoomTypeDetailsPage() {
                   </a>
                   <span className="text-black mx-2"> / </span>
                   <a href="/room-type/" className="text-dark">
-                    RoomType-Details
+                    Detail
                   </a>
                   {/* <span className="text-white-50 mx-2"> &gt; </span>
                 <a href="" className="text-white">
@@ -103,24 +103,24 @@ function RoomTypeDetailsPage() {
                 <h4 className="title text-dark">{roomDetail.name}</h4>
                 <div className="mb-3">
                   <p>
-                    Thuộc Khách sạn:{" "}
+                    Hotel:{" "}
                     <span style={{ fontWeight: "bold" }}>
                       {roomDetail.hotel_name}
                     </span>
                   </p>
                   <p>
-                    Địa chỉ:{" "}
+                    Address:{" "}
                     <span style={{ fontWeight: "bold" }}>
                       {roomDetail.hotel_adress}, {roomDetail.province}
                     </span>{" "}
                   </p>
-                  <span> Giá: </span>
+                  <span> Price: </span>
                   <span className="h5">{roomDetail.price}</span>
-                  <span className="text-muted">đ/một ngày</span>
+                  <span className="text-muted">$/day</span>
                 </div>
                 <p>{roomDetail.description}</p>
                 <div className="row">
-                  <dt className="text-center">Tiện nghi:</dt>
+                  <dt className="text-center">Amenities:</dt>
                   {roomDetail.amenities_info &&
                     roomDetail.amenities_info.map((amenity) => (
                       <dt className="col-md-4">
@@ -148,7 +148,7 @@ function RoomTypeDetailsPage() {
                   <button className="btn btn-warning shadow-0">
                     <a href="/room-type/" className="btn btn-warning shadow-0">
                       {" "}
-                      Xem các loại phòng khác
+                      See other room types
                     </a>
                   </button>
                 </div>
@@ -165,7 +165,7 @@ function RoomTypeDetailsPage() {
               <div className="px-0 border rounded-2 shadow-0 ">
                 <div className="card">
                   <div className="card-body ">
-                    <h5 className="card-title text-center">Loại phòng khác</h5>
+                    <h5 className="card-title text-center">Other roomtype</h5>
                     <div className="d-flex">
                       {room.map((item, index) => (
                         <div
@@ -181,8 +181,8 @@ function RoomTypeDetailsPage() {
                           </a>
                           <div className="info">
                             <a href="#" className="nav-link mb-1">
-                              Phòng: {item.room_number} <br />
-                              Loại phòng: {item.name}
+                              Room: {item.room_number} <br />
+                              RoomType: {item.name}
                             </a>
                           </div>
                         </div>

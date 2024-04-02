@@ -50,13 +50,13 @@ function Signup() {
                     <div className="row justify-content-center">
                       <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                         <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                          Đăng ký
+                          Signup
                         </p>
                         <form className="mx-1 mx-md-4">
                           <div className="form-group d-flex justify-content-center mb-3">
                             <div className="col-md-3">
                               <label htmlFor="name" className="mr-2">
-                                Họ và tên
+                                Fullname
                               </label>
                             </div>
                             <div className="col-md-9">
@@ -65,14 +65,11 @@ function Signup() {
                                 className="form-control w-300 addrt"
                                 id="name"
                                 name="fullname"
-                                placeholder="Nhập họ và tên"
+                                placeholder="Fullname"
                                 required
                                 style={{ width: 300 }}
                                 onChange={handleChange}
                               />
-                              <div className="invalid-feedback">
-                                Họ và tên không thể để trống !!!
-                              </div>
                             </div>
                           </div>
                           <div className="form-group d-flex justify-content-center mb-3">
@@ -87,13 +84,10 @@ function Signup() {
                                 className="form-control w-300 addrt"
                                 id="Username"
                                 name="username"
-                                placeholder="Nhập username"
+                                placeholder="Username"
                                 style={{ width: 300 }}
                                 onChange={handleChange}
                               />
-                              <div className="invalid-feedback">
-                                Username không thể để trống !!!
-                              </div>
                             </div>
                           </div>
                           <div className="form-group d-flex justify-content-center mb-3">
@@ -107,7 +101,7 @@ function Signup() {
                                 type="text"
                                 className="form-control w-300 addrt"
                                 id="email"
-                                placeholder="Nhập email"
+                                placeholder="Email"
                                 name="email"
                                 required
                                 style={{ width: 300 }}
@@ -119,7 +113,7 @@ function Signup() {
                           <div className="form-group d-flex justify-content-center mb-3">
                             <div className="col-md-3">
                               <label htmlFor="password" className="mr-2">
-                                Mật khẩu
+                                Password
                               </label>
                             </div>
                             <div className="col-md-9">
@@ -127,18 +121,17 @@ function Signup() {
                                 type="password"
                                 className="form-control w-300 addrt"
                                 id="password"
-                                placeholder="Nhập mật khẩu"
+                                placeholder="Password"
                                 name="password"
                                 style={{ width: 300 }}
                                 onChange={handleChange}
                               />
-                              <div className="invalid-feedback"></div>
                             </div>
                           </div>
                           <div className="form-group d-flex justify-content-center mb-3">
                             <div className="col-md-3">
                               <label htmlFor="address" className="mr-2">
-                                Địa chỉ:
+                                Address:
                               </label>
                             </div>
                             <div className="col-md-9">
@@ -147,37 +140,31 @@ function Signup() {
                                 className="form-control w-300 addrt"
                                 id="address"
                                 name="address"
-                                placeholder="Địa chỉ"
+                                placeholder="Address"
                                 required
                                 style={{ width: 300 }}
                                 onChange={handleChange}
                               />
-                              <div className="invalid-feedback">
-                                Địa chỉ không thể để trống !!!
-                              </div>
                             </div>
                           </div>
 
                           <div className="form-group d-flex justify-content-center mb-3">
                             <div className="col-md-3">
-                              <label htmlFor="rating" className="mr-2">
-                                SĐT
+                              <label htmlFor="phone" className="mr-2">
+                                Phone
                               </label>
                             </div>
                             <div className="col-md-9">
                               <input
                                 type="number"
                                 className="form-control w-300 addrt"
-                                id="rating"
-                                placeholder="Nhập số điện thoại"
+                                id="phone"
+                                placeholder="Phone number"
                                 required
                                 name="phone_number"
                                 style={{ width: 300 }}
                                 onChange={handleChange}
                               />
-                              <div className="invalid-feedback">
-                                Số sao không thể để trống !!!
-                              </div>
                             </div>
                           </div>
                           <button
@@ -185,10 +172,12 @@ function Signup() {
                             type="button"
                             onClick={handleSignup}
                           >
-                            Đăng ký
+                            Signup
                           </button>
                         </form>
-                        <a href="/login">Ấn vào đây nếu bạn đã có tài khoản</a>
+                        <a href="/login" className="nav-link">
+                          Click here if you already have an account
+                        </a>
                       </div>
                       <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
                         <img

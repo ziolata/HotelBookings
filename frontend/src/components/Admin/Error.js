@@ -11,9 +11,9 @@ function UnAuthor() {
       }}
     >
       <div style={{ textAlign: "center" }}>
-        <h2>Bạn không đủ quyền truy cập</h2>
+        <h2>You do not have sufficient access rights</h2>
         <p>
-          <a href="/">Ấn vào đây để quay lại trang chủ</a>
+          <a href="/">Click here to return to the home page</a>
         </p>
       </div>
     </div>

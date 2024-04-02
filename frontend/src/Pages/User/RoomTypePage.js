@@ -46,14 +46,14 @@ function RoomTypePage({ numToShow }) {
                 <div className="col-md-7 col-sm-12 col-xs-12">
                   <div className="product-deatil d-flex flex-column justify-content-center h-100">
                     <h5 className="name text-center mb-3">
-                      <span style={{ fontSize: 16 }}>Loại phòng: </span>
+                      <span style={{ fontSize: 16 }}>RoomType: </span>
                       <Link to={`/room-type/${item.id}/`}>
                         {item.name} <span>{item.hotel_name}</span>
                       </Link>
                     </h5>
                     <p className="price-container text-center mb-3">
                       <span>{item.price}</span>
-                      <span className="text-muted">đ/ngày</span>
+                      <span className="text-muted">$/day</span>
                     </p>
                     <div className="description text-center mb-3">
                       <p>{item.description}</p>
@@ -66,7 +66,7 @@ function RoomTypePage({ numToShow }) {
                             to={`/room-type/${item.id}/`}
                             className="btn btn-success"
                           >
-                            Xem chi tiết
+                            See detail
                           </Link>
                         </div>
                       </div>

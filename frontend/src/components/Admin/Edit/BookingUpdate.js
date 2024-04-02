@@ -87,11 +87,11 @@ function BookingUpdate() {
       );
 
       if (response.status === 200) {
-        setSuccessMessage("Cập nhật thông tin thành công.");
+        setSuccessMessage("Successfully updated.");
       }
     } catch (error) {
-      console.error("Lỗi:", error);
-      setErrorMessage("Có lỗi xảy ra khi cập nhật thông tin.");
+      console.error("Error:", error);
+      setErrorMessage("An error occurred while updating information.");
       setSuccessMessage("");
     }
   };
@@ -105,7 +105,7 @@ function BookingUpdate() {
                 <div className="col-12">
                   <div className="card">
                     <div className="card-title text-center mt-3">
-                      <h3>Cập nhật thông tin đặt phòng</h3>
+                      <h3>Update info booking</h3>
                     </div>
                     <div className="card-body">
                       {successMessage && (
@@ -127,7 +127,7 @@ function BookingUpdate() {
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="name" className="mr-2">
-                              Tên khách hàng:
+                              fullname
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -135,22 +135,19 @@ function BookingUpdate() {
                               type="text"
                               className="form-control w-300 addrt"
                               id="name"
-                              placeholder="Tên khách hàng"
+                              placeholder="fullname"
                               required
                               style={{ width: 300 }}
                               name="fullname"
                               defaultValue={BookingInfo.fullname}
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              không thể để trống !!!
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="address" className="mr-2">
-                              Địa chỉ:
+                              Address
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -158,22 +155,19 @@ function BookingUpdate() {
                               type="text"
                               className="form-control w-300 addrt"
                               id="address"
-                              placeholder="Địa chỉ"
+                              placeholder="address"
                               required
                               style={{ width: 300 }}
                               name="address"
                               defaultValue={BookingInfo.address}
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              Địa chỉ không thể để trống !!!
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="phone" className="mr-2">
-                              SĐT
+                              Phone
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -188,15 +182,12 @@ function BookingUpdate() {
                               defaultValue={BookingInfo.phone}
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              không thể để trống !!!
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="checkin" className="mr-2">
-                              Ngày nhận phòng
+                              Check in date
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -218,30 +209,27 @@ function BookingUpdate() {
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="checkout" className="mr-2">
-                              Ngày trả phòng
+                              Check out date
                             </label>
                           </div>
                           <div className="col-md-8">
                             <input
-                              type="text"
+                              type="date"
                               className="form-control w-300 addrt"
                               id="checkout"
-                              placeholder="ngày trả phòng"
+                              placeholder="Checkout"
                               required
                               style={{ width: 300 }}
                               name="check_out_date"
                               defaultValue={BookingInfo.check_out_date}
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              không thể để trống !!!
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="room_name" className="mr-2">
-                              Tên phòng
+                              Room name
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -249,16 +237,13 @@ function BookingUpdate() {
                               type="text"
                               className="form-control w-300 addrt"
                               id="room_name"
-                              placeholder="tên phòng"
+                              placeholder="Room name"
                               required
                               style={{ width: 300 }}
                               name="room_name"
                               defaultValue={BookingInfo.room_name}
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              không thể để trống !!!
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
@@ -279,15 +264,12 @@ function BookingUpdate() {
                               defaultValue={BookingInfo.email}
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              không thể để trống !!!
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="numberOfGuest" className="mr-2">
-                              Số người
+                              Number of guest
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -295,22 +277,19 @@ function BookingUpdate() {
                               type="text"
                               className="form-control w-300 addrt"
                               id="NumberOfGuest"
-                              placeholder="Số người"
+                              placeholder="number of guests"
                               required
                               style={{ width: 300 }}
                               name="number_of_guests"
                               defaultValue={BookingInfo.number_of_guests}
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              không thể để trống !!!
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="totalprice" className="mr-2">
-                              Tổng tiền
+                              Total price
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -318,22 +297,19 @@ function BookingUpdate() {
                               type="text"
                               className="form-control w-300 addrt"
                               id="totalprice"
-                              placeholder="ngày trả phòng"
+                              placeholder="Total price"
                               readonly
                               style={{ width: 300 }}
                               name="total_price"
                               defaultValue={BookingInfo.total_price}
                               //   onChange={(e) => setTotalPrice(e.target.value)}
                             />
-                            <div className="invalid-feedback">
-                              không thể để trống !!!
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="status" className="mr-2">
-                              Trạng thái:
+                              Status
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -345,16 +321,11 @@ function BookingUpdate() {
                               value={status}
                               onChange={(e) => setStatus(e.target.value)}
                             >
-                              <option value="">
-                                -----Chọn trạng thái-----
-                              </option>
-                              <option value="Pending">Chờ phê duyệt</option>
-                              <option value="Confirmed">Đã xác nhận</option>
-                              <option value="Cancelled">Đã hủy</option>
+                              <option value="">-----Select Status-----</option>
+                              <option value="Pending">Pending</option>
+                              <option value="Confirmed">Confirmed</option>
+                              <option value="Cancelled">Cancelled</option>
                             </select>
-                            <div className="invalid-feedback">
-                              Trạng thái không thể để trống !!!
-                            </div>
                           </div>
                         </div>
                         <button
@@ -362,7 +333,7 @@ function BookingUpdate() {
                           type="button"
                           onClick={handlePatchBooking}
                         >
-                          Cập Nhật
+                          Update
                         </button>
                       </form>
                     </div>

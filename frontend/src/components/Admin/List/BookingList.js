@@ -13,7 +13,7 @@ function BookingList() {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ` + String(authTokens.access),
+          Authorization: `Bearer ${authTokens.access}`,
         },
       }
     );
@@ -25,13 +25,13 @@ function BookingList() {
   }, []);
   const handleDeleteClick = async (id) => {
     // Hiển thị hộp thoại xác nhận
-    const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa không?");
+    const confirmDelete = window.confirm("Are you sure you want to delete?");
     if (confirmDelete) {
       try {
         await axios.delete(`http://127.0.0.1:8000/api/hotel/booking/${id}/`, {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ` + String(authTokens.access),
+            Authorization: `Bearer ${authTokens.access}`,
           },
         });
         getHotel();
@@ -49,23 +49,24 @@ function BookingList() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-title text-center mt-3">
-                    <h3>Danh sách đặt phòng</h3>
+                    <h3>Booking List</h3>
                   </div>
 
                   <table className="table table-bordered">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Họ và tên</th>
-                        <th scope="col">SĐT</th>
-                        <th scope="col">Đ/Chỉ</th>
+                        <th scope="col">Fullname</th>
+
+                        <th scope="col">Address</th>
                         <th scope="col">CheckIn</th>
                         <th scope="col">CheckOut</th>
                         {/* <th scope="col">Price</th> */}
-                        <th scope="col">Loại phòng:</th>
-                        <th scope="col">User:</th>
-                        <th scope="col">TT</th>
-                        <th>Edit/delete</th>
+                        <th scope="col">Roomtype:</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Status</th>
+                        <th>Edit</th>
+                        <th>Del</th>
                       </tr>
                     </thead>
                     {hotel.map((item, index) => (
@@ -73,7 +74,7 @@ function BookingList() {
                         <tr>
                           <th scope="row">{item.id}</th>
                           <td>{item.fullname}</td>
-                          <td>{item.phone}</td>
+
                           <td>{item.address}</td>
                           <td>{item.check_in_date}</td>
                           <td>{item.check_out_date}</td>
@@ -87,17 +88,19 @@ function BookingList() {
                                 <i className="fas fa-edit"></i>
                               </a>
                             </div>
+
+                            {/* <Link to={`/room-detail/${item.id}`}>Edit</Link> */}
+                          </td>
+                          <td>
                             <div className="col-md-3">
-                              <p
+                              <a
                                 id="btnDelete"
                                 href=""
                                 onClick={() => handleDeleteClick(item.id)}
                               >
                                 <i className="fa-solid fa-x"></i>
-                              </p>
+                              </a>
                             </div>
-
-                            {/* <Link to={`/room-detail/${item.id}`}>Edit</Link> */}
                           </td>
                         </tr>
                       </tbody>

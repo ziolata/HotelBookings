@@ -17,13 +17,13 @@ function HotelUpdate() {
   }, []);
   const handleDeleteClick = async (id) => {
     // Hiển thị hộp thoại xác nhận
-    const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa không?");
+    const confirmDelete = window.confirm("Are you sure you want to delete?");
     if (confirmDelete) {
       try {
         await axios.delete(`http://127.0.0.1:8000/api/hotel/${id}/`, {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ` + String(authTokens.access),
+            Authorization: `Bearer ${authTokens.access}`,
           },
         });
         getHotel();
@@ -41,7 +41,7 @@ function HotelUpdate() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-title text-center mt-3">
-                    <h3>Danh sách khách sạn</h3>
+                    <h3>Hotel List</h3>
                   </div>
                   <div className="d-flex flex-row-reverse ">
                     <a href="/dashboard/hotel/add/">
@@ -54,7 +54,7 @@ function HotelUpdate() {
                           marginRight: 20,
                         }}
                       >
-                        <i className="fa fa-plus" aria-hidden="true"></i> Thêm
+                        <i className="fa fa-plus" aria-hidden="true"></i> Add
                       </button>
                     </a>
                   </div>
@@ -62,12 +62,24 @@ function HotelUpdate() {
                   <table className="table table-bordered">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Tên KS</th>
-                        <th scope="col">Đ/chỉ</th>
-                        <th scope="col">image</th>
-                        <th scope="col">rating</th>
-                        <th>Edit/delete</th>
+                        <th scope="col" style={{ width: 40 }}>
+                          #
+                        </th>
+                        <th scope="col" style={{ width: 200 }}>
+                          Hotel
+                        </th>
+                        <th scope="col" style={{ width: 250 }}>
+                          Address
+                        </th>
+                        <th scope="col" style={{ width: 120 }}>
+                          image
+                        </th>
+                        <th scope="col" style={{ width: 50 }}>
+                          rating
+                        </th>
+
+                        <th style={{ width: 50 }}>Edit</th>
+                        <th style={{ width: 40 }}>Del</th>
                       </tr>
                     </thead>
                     {hotel.map((item, index) => (
@@ -90,17 +102,19 @@ function HotelUpdate() {
                                 <i className="fas fa-edit"></i>
                               </a>
                             </div>
-                            <div className="col-md-3">
+
+                            {/* <Link to={`/room-detail/${item.id}`}>Edit</Link> */}
+                          </td>
+                          <td>
+                            <div className="col-md-3 ">
                               <a
                                 id="btnDelete"
                                 href=""
                                 onClick={() => handleDeleteClick(item.id)}
                               >
-                                <i className="fa-solid fa-x"></i>
+                                <i className="fa-solid fa-x "></i>
                               </a>
                             </div>
-
-                            {/* <Link to={`/room-detail/${item.id}`}>Edit</Link> */}
                           </td>
                         </tr>
                       </tbody>

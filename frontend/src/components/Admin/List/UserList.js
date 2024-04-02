@@ -11,7 +11,7 @@ function UserList() {
         await axios.delete(`http://127.0.0.1:8000/api/user/${id}/`, {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ` + String(authTokens.access),
+            Authorization: `Bearer ${authTokens.access}`,
           },
         });
         window.location.reload();
@@ -42,7 +42,7 @@ function UserList() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-title text-center mt-3">
-                    <h3>Danh sách người dùng</h3>
+                    <h3>User List</h3>
                   </div>
                   <div className="d-flex flex-row-reverse ">
                     <a href="/dashboard/user/add/">
@@ -55,7 +55,7 @@ function UserList() {
                           marginRight: 20,
                         }}
                       >
-                        <i className="fa fa-plus" aria-hidden="true"></i> Thêm
+                        <i className="fa fa-plus" aria-hidden="true"></i> Add
                       </button>
                     </a>
                   </div>
@@ -64,14 +64,12 @@ function UserList() {
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">Username</th>
-                        <th scope="col">Tên</th>
+                        <th scope="col">Fullname</th>
                         <th scope="col">Email</th>
-                        {/* <th scope="col">SĐT</th> */}
-                        <th scope="col">Địa chỉ</th>
-                        <th scope="col">Quyền</th>
-                        {/* <th scope="col">Nhân viên</th> */}
-
-                        <th>Edit/delete</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Role</th>
+                        <th>Edit</th>
+                        <th>Del</th>
                       </tr>
                     </thead>
                     {userAll.map((user, index) => (
@@ -81,36 +79,27 @@ function UserList() {
                           <td>{user.username}</td>
                           <td>{user.fullname}</td>
                           <td>{user.email}</td>
-                          {/* <td>{user.phone_number}</td> */}
                           <td>{user.address}</td>
                           <td>{user.role_name}</td>
-                          {/* <td>{user.is_staff}</td> */}
-
-                          {/* <td>
-                          <img
-                            src={item.image}
-                            alt="Hotel Image"
-                            style={{ height: 100, width: 100 }}
-                          />
-                        </td> */}
-
                           <td className="d-flex justify-content-center">
                             <div className="col-md-3">
                               <a href={"/dashboard/user/edit/id=" + user.id}>
                                 <i className="fas fa-edit"></i>
                               </a>
                             </div>
+
+                            {/* <Link to={`/room-detail/${item.id}`}>Edit</Link> */}
+                          </td>
+                          <td>
                             <div className="col-md-3">
-                              <p
+                              <a
                                 id="btnDelete"
                                 href=""
                                 onClick={() => handleDeleteClick(user.id)}
                               >
                                 <i className="fa-solid fa-x"></i>
-                              </p>
+                              </a>
                             </div>
-
-                            {/* <Link to={`/room-detail/${item.id}`}>Edit</Link> */}
                           </td>
                         </tr>
                       </tbody>

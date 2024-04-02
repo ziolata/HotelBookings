@@ -68,7 +68,7 @@ function HotelPage({ numToShow }) {
                   href={"/hotel/" + item.id}
                   data-abc="true"
                 >
-                  Xem thêm
+                  See more
                 </a>
               </div>
             </div>

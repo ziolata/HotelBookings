@@ -91,13 +91,13 @@ function HotelDetail() {
       );
 
       if (response.status === 200) {
-        setSuccessMessage("Thay đổi thông tin thành công.");
+        setSuccessMessage("Successfully updated.");
 
         setImage(null);
       }
     } catch (error) {
-      console.error("Lỗi:", error);
-      setErrorMessage("Có lỗi xảy ra khi thay đổi thông tin.");
+      console.error("Error:", error);
+      setErrorMessage("An error occurred while updating information.");
       setSuccessMessage("");
     }
   };
@@ -111,7 +111,7 @@ function HotelDetail() {
                 <div className="col-12">
                   <div className="card">
                     <div className="card-title text-center mt-3">
-                      <h3>Cập nhật thông tin khách sạn</h3>
+                      <h3>Update info hotel</h3>
                     </div>
                     <div className="card-body">
                       {successMessage && (
@@ -133,7 +133,7 @@ function HotelDetail() {
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="name" className="mr-2">
-                              Tên khách sạn:
+                              Hotel name
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -141,16 +141,13 @@ function HotelDetail() {
                               type="text"
                               className="form-control w-300 addrt"
                               id="name"
-                              placeholder="Tên khách sạn"
+                              placeholder="Hotel name"
                               required
                               style={{ width: 300 }}
                               name="name"
                               defaultValue={hotelInfo.name}
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              Tên khách sạn không thể để trống !!!
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
@@ -164,22 +161,19 @@ function HotelDetail() {
                               type="text"
                               className="form-control w-300 addrt"
                               id="address"
-                              placeholder="Địa chỉ"
+                              placeholder="Address"
                               required
                               style={{ width: 300 }}
                               name="address"
                               defaultValue={hotelInfo.address}
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              Địa chỉ không thể để trống !!!
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="province" className="mr-2">
-                              Tỉnh/Thành Phố:
+                              Province
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -191,7 +185,7 @@ function HotelDetail() {
                               onChange={handleChange}
                             >
                               <option value="">
-                                -----Chọn Tỉnh/Thành Phố-----
+                                -----Select Province-----
                               </option>
                               {provinces.map((province) => (
                                 <option key={province} value={province}>
@@ -199,15 +193,12 @@ function HotelDetail() {
                                 </option>
                               ))}
                             </select>
-                            <div className="invalid-feedback">
-                              Tỉnh/Thành phố không thể để trống !!!
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="description" className="mr-2">
-                              Mô tả:
+                              Description
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -215,7 +206,7 @@ function HotelDetail() {
                               type="text"
                               className="form-control w-300 addrt"
                               id="description"
-                              placeholder="Mô tả"
+                              placeholder="Description"
                               required
                               style={{ width: 300 }}
                               name="description"
@@ -229,7 +220,7 @@ function HotelDetail() {
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="rating" className="mr-2">
-                              Số sao:
+                              Rating
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -237,7 +228,7 @@ function HotelDetail() {
                               type="text"
                               className="form-control w-300 addrt"
                               id="rating"
-                              placeholder="Số sao của khách sạn"
+                              placeholder="Rating"
                               required
                               style={{ width: 300 }}
                               name="rating"
@@ -252,7 +243,7 @@ function HotelDetail() {
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="image" className="mr-2">
-                              Chọn hình ảnh:
+                              Choose image
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -265,7 +256,7 @@ function HotelDetail() {
                               style={{ width: 300 }}
                               onChange={(e) => handleImageChange(e)}
                             />
-                            <div className="invalid-feedback">chọn ảnh</div>
+                            <div className="invalid-feedback">Choose image</div>
                           </div>
                         </div>
 
@@ -274,7 +265,7 @@ function HotelDetail() {
                           type="button"
                           onClick={handlePatchHotel}
                         >
-                          Cập nhật
+                          Update
                         </button>
                       </form>
                     </div>

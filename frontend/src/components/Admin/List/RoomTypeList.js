@@ -12,7 +12,7 @@ function RoomTypeList() {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ` + String(authTokens.access),
+          Authorization: `Bearer ${authTokens.access}`,
         },
       }
     );
@@ -23,7 +23,7 @@ function RoomTypeList() {
     getHotel();
   }, []);
   const handleDeleteClick = async (id) => {
-    const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa không?");
+    const confirmDelete = window.confirm("Are you sure you want to delete?");
     if (confirmDelete) {
       try {
         await axios.delete(
@@ -51,7 +51,7 @@ function RoomTypeList() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-title text-center mt-3">
-                    <h3>Danh sách loại phòng</h3>
+                    <h3>Roomtype List</h3>
                   </div>
                   <div className="d-flex flex-row-reverse ">
                     <a href="/dashboard/room-type/add/">
@@ -64,7 +64,7 @@ function RoomTypeList() {
                           marginRight: 20,
                         }}
                       >
-                        <i class="fa fa-plus" aria-hidden="true"></i> Thêm
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add
                       </button>
                     </a>
                   </div>
@@ -72,14 +72,14 @@ function RoomTypeList() {
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Loại Phòng</th>
-                        <th scope="col">Tiện nghi</th>
-                        <th scope="col">Giá</th>
-                        <th scope="col">Tổng phòng</th>
-                        <th scope="col">Số người</th>
-                        <th scope="col">Thuộc K/s</th>
-
-                        <th>Edit/delete</th>
+                        <th scope="col">Roomtype</th>
+                        <th scope="col">Amenities</th>
+                        <th scope="col">Price</th>
+                        <th scope="col" style={{ width: 100 }}>
+                          Hotel
+                        </th>
+                        <th>Edit</th>
+                        <th>Del</th>
                       </tr>
                     </thead>
                     {hotel.map((item, index) => (
@@ -94,8 +94,7 @@ function RoomTypeList() {
                           </td>
 
                           <td>{item.price}</td>
-                          <td>{item.number_of_rooms}</td>
-                          <td>{item.number_of_guest}</td>
+
                           <td>{item.hotel_name}</td>
                           {/* <td>
                             <img
@@ -112,6 +111,10 @@ function RoomTypeList() {
                                 <i class="fas fa-edit"></i>
                               </a>
                             </div>
+
+                            {/* <Link to={`/room-detail/${item.id}`}>Edit</Link> */}
+                          </td>
+                          <td>
                             <div className="col-md-3">
                               <a
                                 id="btnDelete"
@@ -121,8 +124,6 @@ function RoomTypeList() {
                                 <i className="fa-solid fa-x"></i>
                               </a>
                             </div>
-
-                            {/* <Link to={`/room-detail/${item.id}`}>Edit</Link> */}
                           </td>
                         </tr>
                       </tbody>

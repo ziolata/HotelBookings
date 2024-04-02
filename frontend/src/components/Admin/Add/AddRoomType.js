@@ -115,7 +115,7 @@ function AddRoomTypes() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-title text-center mt-3">
-                    <h3>Thêm kiểu phòng</h3>
+                    <h3>Add RoomType</h3>
                   </div>
                   <div className="card-body">
                     {successMessage && (
@@ -132,7 +132,7 @@ function AddRoomTypes() {
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="roomtypename" className="mr-2">
-                            Tên loại phòng:
+                            Roomtype name
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -140,21 +140,18 @@ function AddRoomTypes() {
                             type="text"
                             className="form-control w-300 addrt"
                             id="roomtypename"
-                            placeholder="Tên loại phòng"
+                            placeholder="Roomtype name"
                             required
                             style={{ width: 300 }}
                             name="name"
                             onChange={handleChange}
                           />
-                          <div className="invalid-feedback">
-                            Product Name Can't Be Empty
-                          </div>
                         </div>
                       </div>
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="descrition" className="mr-2">
-                            Mô tả:
+                            Description
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -162,21 +159,18 @@ function AddRoomTypes() {
                             type="text"
                             className="form-control w-300 addrt"
                             id="descrition"
-                            placeholder="Mô tả"
+                            placeholder="Description"
                             required
                             style={{ width: 300 }}
                             name="description"
                             onChange={handleChange}
                           />
-                          <div className="invalid-feedback">
-                            Product Name Can't Be Empty
-                          </div>
                         </div>
                       </div>
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="amenities" className="mr-2">
-                            Tiện nghi
+                            Amenities
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -196,16 +190,13 @@ function AddRoomTypes() {
                               name="amenities"
                               onChange={handleAmenitiesChange}
                             />
-                            <div className="invalid-feedback">
-                              Product Name Can't Be Empty
-                            </div>
                           </div>
                         </div>
                       </div>
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="price" className="mr-2">
-                            Giá:
+                            Price
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -213,20 +204,17 @@ function AddRoomTypes() {
                             type="text"
                             className="form-control w-300 addrt"
                             id="price"
-                            placeholder="Nhập giá"
+                            placeholder="Price"
                             name="price"
                             onChange={handleChange}
                             style={{ width: 300 }}
                           />
-                          <div className="invalid-feedback">
-                            Product Name Can't Be Empty
-                          </div>
                         </div>
                       </div>
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="number_room" className="mr-2">
-                            Tổng số phòng:
+                            Number of Rooms
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -234,20 +222,17 @@ function AddRoomTypes() {
                             type="text"
                             className="form-control w-300 addrt"
                             id="number_room"
-                            placeholder="Nhập tổng số phòng"
+                            placeholder="Number of Rooms"
                             name="number_of_rooms"
                             onChange={handleChange}
                             style={{ width: 300 }}
                           />
-                          <div className="invalid-feedback">
-                            Product Name Can't Be Empty
-                          </div>
                         </div>
                       </div>
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="number_of_guests" className="mr-2">
-                            Số người:
+                            Number of guests
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -255,20 +240,17 @@ function AddRoomTypes() {
                             type="text"
                             className="form-control w-300 addrt"
                             id="number_of_guests"
-                            placeholder="Nhập số người có thể ở"
+                            placeholder="Number of guests"
                             name="number_of_guest"
                             onChange={handleChange}
                             style={{ width: 300 }}
                           />
-                          <div className="invalid-feedback">
-                            Product Name Can't Be Empty
-                          </div>
                         </div>
                       </div>
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="number_of_guests" className="mr-2">
-                            Thuộc khách sạn:
+                            Hotel:
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -280,7 +262,7 @@ function AddRoomTypes() {
                             name="hotel_id"
                             onChange={handleChange}
                           >
-                            <option value="">-----Chọn khách sạn-----</option>
+                            <option value="">-----Select Hotel-----</option>
                             {Hotel.map((hotel) => (
                               <option key={hotel.id} value={hotel.id}>
                                 {hotel.name}
@@ -296,7 +278,7 @@ function AddRoomTypes() {
                       <div className="form-group d-flex justify-content-center mb-3">
                         <div className="col-md-3">
                           <label htmlFor="image" className="mr-2">
-                            Chọn hình ảnh:
+                            Choose image
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -308,7 +290,7 @@ function AddRoomTypes() {
                             onChange={(e) => handleImageChange(e)}
                             style={{ width: 300 }}
                           />
-                          <div className="invalid-feedback">chọn ảnh</div>
+                          <div className="invalid-feedback">Choose image</div>
                         </div>
                       </div>
 
@@ -317,7 +299,7 @@ function AddRoomTypes() {
                         type="button"
                         onClick={handlePost}
                       >
-                        Thêm
+                        Add
                       </button>
                     </form>
                   </div>

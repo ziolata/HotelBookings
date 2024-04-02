@@ -28,7 +28,7 @@ function RoomType() {
         </div>
         <div className="container py-5">
           <div className="section-header pt-4">
-            <h2>Danh sách loại phòng</h2>
+            <h2>Roomtype List</h2>
           </div>
           <RoomTypePage numToShow={10} />
         </div>

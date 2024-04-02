@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
         setAuthTokens(data);
         setUser(jwtDecode(data.access));
         localStorage.setItem("authTokens", JSON.stringify(data));
-        alert("Đăng nhập thành công, nhấn OK để vào trang chủ !!!");
+        alert("Logged in successfully!!!");
         if (
           jwtDecode(data.access).role_id === 2 ||
           jwtDecode(data.access).role_id === 4
@@ -55,8 +55,8 @@ export const AuthProvider = ({ children }) => {
         alert("Đăng nhập thất bại");
       }
     } catch (error) {
-      console.error("Đăng nhập thất bại:", error);
-      alert("Đăng nhập thất bại");
+      console.error("Login failed:", error);
+      alert("Login failed");
     }
   };
   let logoutUser = () => {
@@ -111,8 +111,7 @@ export const AuthProvider = ({ children }) => {
         },
       });
       const userData = response.data;
-      setUserAll(userData); // Cập nhật vai trò của người dùng
-      // setUserInfo(userData.role);
+      setUserAll(userData);
     } catch (error) {}
   };
   useEffect(() => {
@@ -130,12 +129,12 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (authTokens) {
-      UserProfile(); // Gọi UserProfile để lấy thông tin vai trò khi authTokens được cập nhật
+      UserProfile();
     }
-  }, [authTokens]); // Khi authTokens thay đổi, gọi lại UserProfile để cập nhật thông tin vai trò
+  }, [authTokens]);
   useEffect(() => {
     if (authTokens) {
-      User(); // Gọi UserProfile để lấy thông tin vai trò khi authTokens được cập nhật
+      User();
     }
   }, [authTokens]);
 

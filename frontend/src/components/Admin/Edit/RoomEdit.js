@@ -77,7 +77,7 @@ function RoomUpdate() {
       );
 
       if (response.status === 201) {
-        setSuccessMessage("Thay đổi thông tin thành công.");
+        setSuccessMessage("Successfully updated.");
         setErrorMessage("");
         setRoomNumber("");
         setRoom_type_id("");
@@ -85,8 +85,8 @@ function RoomUpdate() {
         setImage(null);
       }
     } catch (error) {
-      console.error("Lỗi:", error);
-      setErrorMessage("Có lỗi xảy ra khi thay đổi thông tin.");
+      console.error("Error:", error);
+      setErrorMessage("An error occurred while updating information.");
       setSuccessMessage("");
     }
   };
@@ -100,7 +100,7 @@ function RoomUpdate() {
                 <div className="col-12">
                   <div className="card">
                     <div className="card-title text-center mt-3">
-                      <h3>Cập nhật thông tin phòng</h3>
+                      <h3>Update info Room</h3>
                     </div>
                     <div className="card-body">
                       {successMessage && (
@@ -117,7 +117,7 @@ function RoomUpdate() {
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="room_number" className="mr-2">
-                              Số phòng:
+                              Room number
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -125,21 +125,18 @@ function RoomUpdate() {
                               type="number"
                               className="form-control w-300 addrt"
                               id="room_number"
-                              placeholder="Nhập số phòng"
+                              placeholder="room number"
                               required
                               style={{ width: 300 }}
                               value={room_number}
                               onChange={(e) => setRoomNumber(e.target.value)}
                             />
-                            <div className="invalid-feedback">
-                              Số phòng không thể trống !!!
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="status" className="mr-2">
-                              Trạng thái:
+                              Status
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -151,22 +148,17 @@ function RoomUpdate() {
                               value={status}
                               onChange={(e) => setStatus(e.target.value)}
                             >
-                              <option value="">
-                                -----Chọn trạng thái-----
-                              </option>
-                              <option value="available">Có sẵn</option>
-                              <option value="booked">Đã đặt</option>
+                              <option value="">-----Select Status-----</option>
+                              <option value="available">available</option>
+                              <option value="booked">booked</option>
                             </select>
-                            <div className="invalid-feedback">
-                              Trạng thái không thể để trống !!!
-                            </div>
                           </div>
                         </div>
 
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="roomTypeId" className="mr-2">
-                              Loại phòng:
+                              Roomtype
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -179,7 +171,7 @@ function RoomUpdate() {
                               onChange={(e) => setRoom_type_id(e.target.value)}
                             >
                               <option value="">
-                                -----Chọn loại phòng-----
+                                -----Select RoomType-----
                               </option>
                               {roomTypes.map((roomType) => (
                                 <option key={roomType.id} value={roomType.id}>
@@ -187,16 +179,13 @@ function RoomUpdate() {
                                 </option>
                               ))}
                             </select>
-                            <div className="invalid-feedback">
-                              Loại phòng không thể để trống !!!
-                            </div>
                           </div>
                         </div>
 
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="image" className="mr-2">
-                              Chọn hình ảnh:
+                              Choose image
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -209,7 +198,7 @@ function RoomUpdate() {
                               style={{ width: 300 }}
                               onChange={(e) => handleImageChange(e)}
                             />
-                            <div className="invalid-feedback">chọn ảnh</div>
+                            <div className="invalid-feedback">Choose image</div>
                           </div>
                         </div>
 
@@ -218,7 +207,7 @@ function RoomUpdate() {
                           type="button"
                           onClick={handlePatchRoom}
                         >
-                          Cập nhật
+                          Update
                         </button>
                       </form>
                     </div>

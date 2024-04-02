@@ -106,12 +106,12 @@ function HotelDetailPage() {
                   </div>
                 </div>
                 <div className="mb-3">
-                  <span> Địa chỉ: {hotelDetail.address}</span>
+                  <span> Address: {hotelDetail.address}</span>
                   {/* <span className="h5">{roomDetail.price}</span> */}
                 </div>
                 {/* <p>{roomDetail.description}</p> */}
                 <div className="row">
-                  <dd className="">Tỉnh/Thành Phố: {hotelDetail.province}</dd>
+                  <dd className="">Province: {hotelDetail.province}</dd>
                 </div>
                 <hr />
               </div>
@@ -121,7 +121,7 @@ function HotelDetailPage() {
                   className="btn btn-warning shadow-0"
                 >
                   {" "}
-                  Xem thêm các khách sạn khác{" "}
+                  See more hotels{" "}
                 </button>
               </div>
             </main>
@@ -136,7 +136,7 @@ function HotelDetailPage() {
               <div className="px-0 border rounded-2 shadow-0 ">
                 <div className="card">
                   <div className="card-body ">
-                    <h5 className="card-title text-center">Khách sạn khác</h5>
+                    <h5 className="card-title text-center">Other hotels</h5>
                     <div className="d-flex">
                       {hotel.map((item, index) => (
                         <div className="col-lg-3 mb-3">
@@ -149,7 +149,7 @@ function HotelDetailPage() {
                           </a>
                           <div className="info">
                             <a href="#" className="nav-link mb-1">
-                              KS: {item.name}
+                              {item.name}
                             </a>
                             <strong className="text-dark">
                               {item.province}

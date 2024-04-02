@@ -34,7 +34,7 @@ const Login = () => {
                     <div className="row">
                       <div className="col-12">
                         <div className="text-center mb-5">
-                          <h1>Đăng Nhập</h1>
+                          <h1>Login</h1>
                         </div>
                       </div>
                     </div>
@@ -97,7 +97,7 @@ const Login = () => {
                               className="btn btn-primary btn-lg"
                               type="submit"
                             >
-                              Đăng nhập
+                              Login
                             </button>
                           </div>
                         </div>
@@ -111,13 +111,13 @@ const Login = () => {
                             href="/signup"
                             className="link-secondary text-decoration-none"
                           >
-                            Tạo tài khoản mới
+                            Create a new account
                           </a>
                           <a
                             href="/forgotpassword"
                             className="link-secondary text-decoration-none"
                           >
-                            Quên mật khẩu
+                            Fogort password ?
                           </a>
                         </div>
                         <div className="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-center text-center">
@@ -125,7 +125,7 @@ const Login = () => {
                             href="/"
                             className="link-secondary text-decoration-none"
                           >
-                            Quay về trang chủ
+                            Back to home page
                           </a>
                         </div>
                       </div>

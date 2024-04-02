@@ -85,11 +85,11 @@ function UserUpdate() {
       );
 
       if (response.status === 200) {
-        setSuccessMessage("Thay đổi thông tin thành công.");
+        setSuccessMessage("Successfully updated.");
       }
     } catch (error) {
       console.error("Lỗi:", error);
-      setErrorMessage("Có lỗi xảy ra khi thay đổi thông tin.");
+      setErrorMessage("An error occurred while updating information.");
       setSuccessMessage("");
     }
   };
@@ -102,13 +102,13 @@ function UserUpdate() {
             Authorization: `Bearer ${authTokens.access}`,
           },
         });
-        setRole(response.data); // Cập nhật trạng thái mới với danh sách các loại phòng từ API
+        setRole(response.data);
       } catch (error) {
-        console.error("Lỗi khi lấy danh sách loại phòng:", error);
+        console.error(error);
       }
     }
 
-    fetchRoomTypes(); // Gọi hàm lấy danh sách loại phòng
+    fetchRoomTypes();
   }, []);
   useEffect(() => {
     if (
@@ -135,7 +135,7 @@ function UserUpdate() {
                 <div className="col-12">
                   <div className="card">
                     <div className="card-title text-center mt-3">
-                      <h3>Cập nhật thông tin người dùng</h3>
+                      <h3>Update info User</h3>
                     </div>
                     <div className="card-body">
                       {successMessage && (
@@ -157,7 +157,7 @@ function UserUpdate() {
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="name" className="mr-2">
-                              Họ và tên:
+                              Fullname
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -165,16 +165,13 @@ function UserUpdate() {
                               type="text"
                               className="form-control w-300 addrt"
                               id="name"
-                              placeholder="Nhập họ và tên"
+                              placeholder="fullname"
                               required
                               style={{ width: 300 }}
                               name="fullname"
                               defaultValue={UserInfo.fullname}
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              Không thể để trống ô này!!!
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
@@ -195,15 +192,12 @@ function UserUpdate() {
                               defaultValue={UserInfo.username}
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              Không thể để trống ô này!!!
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
                             <label htmlFor="address" className="mr-2">
-                              Địa chỉ:
+                              Address
                             </label>
                           </div>
                           <div className="col-md-8">
@@ -211,15 +205,12 @@ function UserUpdate() {
                               type="text"
                               className="form-control w-300 addrt"
                               id="address"
-                              placeholder="Địa chỉ"
+                              placeholder="Address"
                               required
                               style={{ width: 300 }}
                               defaultValue={UserInfo.address}
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              Địa chỉ không thể để trống !!!
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
@@ -233,90 +224,78 @@ function UserUpdate() {
                               type="email"
                               className="form-control w-300 addrt"
                               id="email"
-                              placeholder="Nhập email"
+                              placeholder="email"
                               required
                               style={{ width: 300 }}
                               name="email"
                               defaultValue={UserInfo.email}
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              Không thể để trống ô này!!!
-                            </div>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
-                            <label htmlFor="province" className="mr-2">
-                              Điện thoại
+                            <label htmlFor="phone" className="mr-2">
+                              Phone
                             </label>
                           </div>
                           <div className="col-md-8">
                             <input
-                              type="text"
+                              type="number"
                               className="form-control w-300 addrt"
-                              id="province"
-                              placeholder="Điện thoại"
+                              id="phone"
+                              placeholder="phone"
                               required
                               style={{ width: 300 }}
                               defaultValue={UserInfo.phone_number}
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              Không thể để trống ô này !!!
-                            </div>
                           </div>
                         </div>
 
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
-                            <label htmlFor="number_of_guests" className="mr-2">
-                              Quyền
+                            <label htmlFor="role" className="mr-2">
+                              Role
                             </label>
                           </div>
                           <div className="col-md-8">
                             <select
                               className="form-control w-300 addrt"
-                              id="roomTypeId"
+                              id="role"
                               required
                               style={{ width: 300 }}
                               value={role_id}
                               onChange={(e) => setRoleID(e.target.value)}
                             >
-                              <option value="">-----Chọn Quyền-----</option>
+                              <option value="">-----Select Role-----</option>
                               {Role.map((hotel) => (
                                 <option key={hotel.id} value={hotel.id}>
                                   {hotel.name}
                                 </option>
                               ))}
                             </select>
-                            <div className="invalid-feedback">
-                              Product Name Can't Be Empty
-                            </div>
                           </div>
                         </div>
 
                         <div className="form-group d-flex justify-content-center mb-3">
                           <div className="col-md-3">
-                            <label htmlFor="rating" className="mr-2">
-                              Nhân viên
+                            <label htmlFor="staff" className="mr-2">
+                              Is_Staff
                             </label>
                           </div>
                           <div className="col-md-8">
                             <input
                               type="text"
                               className="form-control w-300 addrt"
-                              id="rating"
-                              placeholder="Số sao của khách sạn"
+                              id="staff"
+                              placeholder="Is staff"
                               required
                               style={{ width: 300 }}
                               name="is_staff"
                               defaultValue={UserInfo.is_staff}
                               onChange={handleChange}
                             />
-                            <div className="invalid-feedback">
-                              Số sao không thể để trống !!!
-                            </div>
                           </div>
                         </div>
 
@@ -325,7 +304,7 @@ function UserUpdate() {
                           type="button"
                           onClick={handlePatchUser}
                         >
-                          Cập nhật
+                          Update
                         </button>
                       </form>
                     </div>

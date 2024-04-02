@@ -15,7 +15,7 @@ function RoomList() {
   }, []);
   const handleDeleteClick = async (id) => {
     // Hiển thị hộp thoại xác nhận
-    const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa không?");
+    const confirmDelete = window.confirm("Are you sure you want to delete?");
     if (confirmDelete) {
       try {
         await axios.delete(
@@ -23,7 +23,7 @@ function RoomList() {
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ` + String(authTokens.access),
+              Authorization: `Bearer ${authTokens.access}`,
             },
           }
         );
@@ -43,7 +43,7 @@ function RoomList() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-title text-center mt-3">
-                    <h3>Danh sách phòng</h3>
+                    <h3>Room List</h3>
                   </div>
                   <div className="d-flex flex-row-reverse ">
                     <a href="/dashboard/room/add/">
@@ -56,7 +56,7 @@ function RoomList() {
                           marginRight: 20,
                         }}
                       >
-                        <i className="fa fa-plus" aria-hidden="true"></i> Thêm
+                        <i className="fa fa-plus" aria-hidden="true"></i> Add
                       </button>
                     </a>
                   </div>
@@ -64,11 +64,12 @@ function RoomList() {
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Số phòng</th>
-                        <th scope="col">Trạng thái</th>
-                        <th scope="col">Thuộc</th>
-                        <th scope="col">Ảnh phòng</th>
-                        <th>Edit/delete</th>
+                        <th scope="col">Room number</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">RoomType</th>
+                        <th scope="col">image</th>
+                        <th>Edit</th>
+                        <th>Del</th>
                       </tr>
                     </thead>
                     {hotel.map((item, index) => (
@@ -92,17 +93,19 @@ function RoomList() {
                                 <i className="fas fa-edit"></i>
                               </a>
                             </div>
+
+                            {/* <Link to={`/room-detail/${item.id}`}>Edit</Link> */}
+                          </td>
+                          <td>
                             <div className="col-md-3">
-                              <p
+                              <a
                                 id="btnDelete"
                                 href=""
                                 onClick={() => handleDeleteClick(item.id)}
                               >
                                 <i className="fa-solid fa-x"></i>
-                              </p>
+                              </a>
                             </div>
-
-                            {/* <Link to={`/room-detail/${item.id}`}>Edit</Link> */}
                           </td>
                         </tr>
                       </tbody>

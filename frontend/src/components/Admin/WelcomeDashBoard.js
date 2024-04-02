@@ -8,16 +8,16 @@ function WelcomeDashBoard() {
       <div className="row flex-nowrap">
         <DashBoardLayOut />
         <div className="col-md-12">
-          <h3 className="text-center">Chào mừng đến với trang quản trị</h3>
+          <h3 className="text-center">Welcome to the admin page</h3>
           <div className="d-flex">
             <div className="col-md-3">
-              <i className="fa-solid fa-user"></i> Tổng số User:
+              <i className="fa-solid fa-user"></i> Total Users:
             </div>
             <div className="col-md-3">
-              <i className="fas fa-file-invoice"></i> Tổng số đơn booking:
+              <i className="fas fa-file-invoice"></i> Total number of bookings:
             </div>
             <div className="col-md-3">
-              <i className="fa-solid fa-hotel"></i> Tổng số phòng:
+              <i className="fa-solid fa-hotel"></i> Total number of rooms:
             </div>
           </div>
         </div>
