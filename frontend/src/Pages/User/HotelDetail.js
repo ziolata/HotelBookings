@@ -1,26 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { getHotel } from "../../utils/Api";
+import { getHotel, getHotelDetail } from "../../utils/Api";
 function HotelDetailPage() {
   const { id } = useParams(); // Access roomId from URL parameter
   const [hotel, setHotel] = useState([]);
   const [hotelDetail, setHotelDetail] = useState([]);
-  const getHotelDetail = async () => {
-    try {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/api/hotel/${id}/`
-      );
-      setHotelDetail(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error fetching room details:", error);
-      setHotelDetail([]);
-    }
-  };
 
   useEffect(() => {
-    getHotelDetail();
+    getHotelDetail(id, setHotelDetail);
   }, []);
   useEffect(() => {
     getHotel(setHotel);
@@ -53,7 +41,7 @@ function HotelDetailPage() {
             </div>
           </div>
         </div>
-        <div className="container">
+        <div className="container mt-3">
           <div className="row gx-5" key={hotelDetail.id}>
             <aside className="col-lg-6">
               <div className="border rounded-4 mb-3 d-flex justify-content-center">
@@ -77,8 +65,6 @@ function HotelDetailPage() {
                 </a>
               </div>
               <div className="d-flex justify-content-center mb-3"></div>
-              {/* thumbs-wrap.// */}
-              {/* gallery-wrap .end// */}
             </aside>
             <main className="col-lg-6">
               <div className="ps-lg-3">

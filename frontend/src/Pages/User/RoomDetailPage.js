@@ -44,7 +44,7 @@ function RoomDetailsPage() {
             </div>
           </div>
         </div>
-        <div className="container">
+        <div className="container mt-3">
           <div className="row gx-5" key={roomDetail.id}>
             <aside className="col-lg-6">
               <div className="border rounded-4 mb-3 d-flex justify-content-center">

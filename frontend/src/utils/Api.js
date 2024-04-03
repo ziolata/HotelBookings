@@ -10,6 +10,16 @@ export const getHotel = async (set) => {
     console.error("Error fetching hotel:", error);
   }
 };
+export const getHotelDetail = async (Id, set) => {
+  try {
+    const response = await axios.get(`http://127.0.0.1:8000/api/hotel/${Id}/`);
+    set(response.data);
+    console.log(response.data);
+  } catch (error) {
+    console.error("Error fetching room details:", error);
+    set([]);
+  }
+};
 /*----- API GET ROOM ----- */
 export const getRoom = async (set) => {
   try {
