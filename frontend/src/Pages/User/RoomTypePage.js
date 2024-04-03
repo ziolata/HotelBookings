@@ -1,32 +1,16 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
-
+import { getRoomType } from "../../utils/Api";
 function RoomTypePage({ numToShow }) {
-  const [hotel, setHotel] = useState([]);
-
-  const getHotel = async () => {
-    const response = await axios.get(
-      "http://127.0.0.1:8000/api/hotel/room-type/"
-    );
-    setHotel(response.data);
-  };
-
+  const [roomType, setRoomType] = useState([]);
   useEffect(() => {
-    getHotel();
+    getRoomType(setRoomType);
   }, []);
-
-  const handleRoomClick = (roomId) => {
-    // Navigate to the room details page using Link component
-    // (assuming you have a route defined for `/room-type/${roomId}/`)
-  };
-
-  const firstTenHotels = hotel.slice(0, numToShow);
-
+  const RoomType = roomType.slice(0, numToShow);
   return (
     <>
       <div className="row">
-        {firstTenHotels.map((item, index) => (
+        {RoomType.map((item, index) => (
           <div
             className="col-md-6 col-lg-6 col-xs-12 col-sm-12 mb-1"
             key={item.id}

@@ -3,26 +3,17 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import Select from "react-select";
 import AuthContext from "../../../context/AuthContext";
+import { useRoomTypeState } from "../../../utils/useHotel_RoomState";
+import { getAmenities, getHotel } from "../../../utils/Api";
 function AddRoomTypes() {
   const csrftoken = Cookies.get("csrftoken");
-  const token = localStorage.getItem("authTokens"); // Lấy token lưu trữ
   const { authTokens } = useContext(AuthContext);
+  const { infoRoomType, setInfoRoomType } = useRoomTypeState;
   const [amenities, setAmenities] = useState([]);
   const [Hotel, setHotel] = useState([]);
   const [image, setImage] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [infoRoomType, setInfoRoomType] = useState({
-    name: "",
-    description: "",
-    price: "",
-    number_of_rooms: "",
-    number_of_guest: "",
-    hotel_id: "",
-    amenities: [],
-  });
-
-  console.log("Giá trị của amenities:", infoRoomType.amenities);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInfoRoomType({ ...infoRoomType, [name]: value });
@@ -32,36 +23,10 @@ function AddRoomTypes() {
     setImage(file);
   };
   useEffect(() => {
-    async function fetchRoomTypes() {
-      try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/hotel/amenity/",
-          {
-            headers: {
-              "Content-Type": `application/json`,
-              Authorization: `Bearer ` + String(authTokens.access),
-            },
-          }
-        );
-        setAmenities(response.data);
-      } catch (error) {
-        console.error("Lỗi khi lấy danh sách loại phòng:", error);
-      }
-    }
-
-    fetchRoomTypes(); //
+    getAmenities(setAmenities);
   }, []);
   useEffect(() => {
-    async function fetchHotel() {
-      try {
-        const response = await axios.get("http://127.0.0.1:8000/api/hotel/");
-        setHotel(response.data);
-      } catch (error) {
-        console.error("Lỗi khi lấy danh sách loại phòng:", error);
-      }
-    }
-
-    fetchHotel();
+    getHotel(setHotel);
   }, []);
   const handleAmenitiesChange = (selectedOptions) => {
     const selectedAmenities = selectedOptions.map((option) => ({

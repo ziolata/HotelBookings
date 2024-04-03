@@ -2,27 +2,14 @@ import React, { useState, useEffect, useContext } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import AuthContext from "../../../context/AuthContext";
+import { useHotelState } from "../../../utils/useHotel_RoomState";
+import { MessageState } from "../../../utils/Message";
 function AddHotel() {
   const { authTokens } = useContext(AuthContext);
   const csrftoken = Cookies.get("csrftoken");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const provinces = [
-    "Tỉnh Đắk Lắk",
-    "Tỉnh Đắk Nông",
-    "Thành Phố Đà Nẵng",
-    "Tỉnh Bình Định",
-    "Tỉnh Khánh Hòa",
-    "Thành Phố Hồ Chí Minh",
-    "Thủ Đô Hà Nội",
-  ];
-  const [infoHotel, setInfoHotel] = useState({
-    name: "",
-    address: "",
-    province: "",
-    description: "",
-    rating: "",
-  });
+  const { successMessage, setSuccessMessage, errorMessage, setErrorMessage } =
+    MessageState;
+  const { infoHotel, setInfoHotel, provinces } = useHotelState();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInfoHotel({ ...infoHotel, [name]: value });
@@ -34,16 +21,16 @@ function AddHotel() {
   };
   const handlePost = async () => {
     try {
+      const formData = new FormData();
+      formData.append("name", infoHotel.name);
+      formData.append("address", infoHotel.address);
+      formData.append("province", infoHotel.province);
+      formData.append("description", infoHotel.description);
+      formData.append("rating", infoHotel.rating);
+      formData.append("image", image);
       const response = await axios.post(
         `http://127.0.0.1:8000/api/hotel/create/`,
-        {
-          name: infoHotel.name,
-          address: infoHotel.address,
-          province: infoHotel.province,
-          description: infoHotel.description,
-          rating: infoHotel.rating,
-          image: image,
-        },
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -54,12 +41,12 @@ function AddHotel() {
       );
 
       if (response.status === 201) {
-        setSuccessMessage("Khách sạn đã được thêm thành công.");
+        setSuccessMessage("The hotel has been successfully added.");
         setErrorMessage("");
       }
     } catch (error) {
-      console.error("Lỗi:", error);
-      setErrorMessage("Có lỗi xảy ra khi thêm khách sạn.");
+      console.error("error:", error);
+      setErrorMessage("An error occurred while adding a hotel.");
       setSuccessMessage("");
     }
   };

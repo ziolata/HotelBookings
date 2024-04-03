@@ -1,22 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { getHotel } from "../../utils/Api";
 
 function HotelPage({ numToShow }) {
   const [hotel, setHotel] = useState([]);
-
-  const getHotel = async () => {
-    const response = await axios.get("http://127.0.0.1:8000/api/hotel/");
-    setHotel(response.data);
-  };
-
   useEffect(() => {
-    getHotel();
+    getHotel(setHotel);
   }, []);
-
-  const handleRoomClick = (id) => {
-    window.location.href = `/hotel/${id}/`;
-  };
 
   const firstTenHotels = hotel.slice(0, numToShow);
 

@@ -1,17 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-import axios from "axios";
+import { getRoom, useRoomEffect } from "../../utils/Api";
 function RoomPage() {
-  const [hotel, setHotel] = useState([]);
-  const getHotel = async () => {
-    const response = await axios.get("http://127.0.0.1:8000/api/hotel/room/");
-    // console(response.data);
-    setHotel(response.data);
-  };
-  useEffect(() => {
-    getHotel();
-  }, []);
+  const [room, setRoom] = useState([]);
+  useRoomEffect(() => getRoom(setRoom));
   const handleRoomClick = (roomId) => {
     window.location.href = `/room/${roomId}/`;
   };
@@ -29,11 +21,6 @@ function RoomPage() {
                 <a href="/room/" className="text-dark">
                   Room
                 </a>
-
-                {/* <span className="text-white-50 mx-2"> &gt; </span>
-                <a href="" className="text-white">
-                  <u>Data</u>
-                </a> */}
               </h6>
             </nav>
           </div>
@@ -41,8 +28,8 @@ function RoomPage() {
       </div>
       <div className="container d-flex mb-50">
         <div className="row" style={{ marginTop: 10 }}>
-          <h2 className="text-center">Room list</h2>
-          {hotel.map((item, index) => (
+          <h2 className="text-center">Room List</h2>
+          {room.map((item, index) => (
             <div className="col-md-4 mt-2" key={item.id}>
               <div className="card">
                 <div className="card-body">

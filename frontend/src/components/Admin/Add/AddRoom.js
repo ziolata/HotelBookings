@@ -2,20 +2,17 @@ import React, { useState, useEffect, useContext } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import AuthContext from "../../../context/AuthContext";
+import { MessageState } from "../../../utils/Message";
+import { useRoomState } from "../../../utils/useHotel_RoomState";
+import { getRoomType, useRoomTypeEffect } from "../../../utils/Api";
 function AddRoom() {
   const { authTokens } = useContext(AuthContext);
+  const { successMessage, setSuccessMessage, errorMessage, setErrorMessage } =
+    MessageState;
+  const { roomInfo, setRoomInfo } = useRoomState;
   const csrftoken = Cookies.get("csrftoken");
-  const token = localStorage.getItem("authTokens");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [roomTypes, setRoomTypes] = useState([]);
   const [image, setImage] = useState(null);
-  const [roomInfo, setRoomInfo] = useState({
-    room_number: "",
-    room_type_id: "",
-    check_in_date: "",
-    check_out_date: "",
-  });
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRoomInfo({ ...roomInfo, [name]: value });
@@ -24,28 +21,16 @@ function AddRoom() {
     const file = e.target.files[0];
     setImage(file);
   };
-  useEffect(() => {
-    async function fetchRoomTypes() {
-      try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/hotel/room-type/"
-        );
-        setRoomTypes(response.data);
-      } catch (error) {
-        console.error("Lỗi khi lấy danh sách loại phòng:", error);
-      }
-    }
-    fetchRoomTypes();
-  }, []);
+  useRoomTypeEffect(() => getRoomType(setRoomTypes));
   const handlePost = async () => {
+    const formData = new FormData();
+    formData.append("room_number", roomInfo.room_number);
+    formData.append("room_type_id", roomInfo.room_type_id);
+    formData.append("image", image);
     try {
       const response = await axios.post(
         `http://127.0.0.1:8000/api/hotel/room/create/`,
-        {
-          image,
-          room_number: roomInfo.room_number,
-          room_type_id: roomInfo.room_type_id,
-        },
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",

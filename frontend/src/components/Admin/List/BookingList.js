@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import Cookies from "js-cookie";
+
 import axios from "axios";
 import AuthContext from "../../../context/AuthContext";
 
 function BookingList() {
   const token = localStorage.getItem("authTokens"); // Lấy token lưu trữ
   const { authTokens } = useContext(AuthContext);
-  const [hotel, setHotel] = useState([]);
-  const getHotel = async () => {
+  const [listBooking, setListBooking] = useState([]);
+  const getListBooking = async () => {
     const response = await axios.get(
       "http://127.0.0.1:8000/api/hotel/booking/",
       {
@@ -17,11 +17,10 @@ function BookingList() {
         },
       }
     );
-    // console(response.data);
-    setHotel(response.data);
+    setListBooking(response.data);
   };
   useEffect(() => {
-    getHotel();
+    getListBooking();
   }, []);
   const handleDeleteClick = async (id) => {
     // Hiển thị hộp thoại xác nhận
@@ -34,7 +33,7 @@ function BookingList() {
             Authorization: `Bearer ${authTokens.access}`,
           },
         });
-        getHotel();
+        getListBooking();
       } catch (error) {
         console.error("Error deleting room:", error);
       }
@@ -69,7 +68,7 @@ function BookingList() {
                         <th>Del</th>
                       </tr>
                     </thead>
-                    {hotel.map((item, index) => (
+                    {listBooking.map((item, index) => (
                       <tbody key={item.id}>
                         <tr>
                           <th scope="row">{item.id}</th>

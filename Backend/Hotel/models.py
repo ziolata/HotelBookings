@@ -48,5 +48,5 @@ class Booking(models.Model):
     total_price = models.IntegerField()
     status = models.CharField(max_length=255, choices=[('pending', 'Pending'), ('confirmed', 'Confirmed'), ('cancelled', 'Cancelled')], default = 'Pending')
     user_id = models.ForeignKey(UserCustom, on_delete=models.CASCADE)
-    room_id = models.ForeignKey(Room, on_delete=models.CASCADE)
+    room_id = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='bookings')
     date_booking = models.DateTimeField(default=timezone.now)

@@ -4,15 +4,18 @@ import { useParams } from "react-router-dom";
 import AuthContext from "../../../context/AuthContext";
 import Cookies from "js-cookie";
 import Select from "react-select";
+import { getAmenities, getHotel, getRoomTypeDetail } from "../../../utils/Api";
+import { MessageState } from "../../../utils/Message";
 function RoomTypeDetail() {
+  const { Id } = useParams();
   const { authTokens } = useContext(AuthContext);
   const csrftoken = Cookies.get("csrftoken");
-  const [amenities1, setAmenities] = useState([]);
+  const [amenities, setAmenities] = useState([]);
   const [image, setImage] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [roomTypes, setRoomTypes] = useState([]);
-  const { Id } = useParams();
+  const [hotel, setHotel] = useState([]);
+  const [roomtype, setRoomType] = useState("");
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRoomType({ ...roomtype, [name]: value });
@@ -27,65 +30,14 @@ function RoomTypeDetail() {
     }));
     setRoomType({ ...roomtype, amenities: selectedAmenities });
   };
-  const [roomDetail, setRoomDetail] = useState([]);
-  const [roomtype, setRoomType] = useState("");
-
-  const getRoom = async () => {
-    try {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/api/hotel/room-type/${Id}/`
-      );
-      setRoomDetail(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error fetching room details:", error);
-
-      setRoomDetail([]);
-    }
-  };
   useEffect(() => {
-    getRoom();
-    setRoomType({ ...roomtype, ...roomDetail });
-  }, [
-    roomDetail.name,
-    roomDetail.price,
-    roomDetail.number_of_rooms,
-    roomDetail.description,
-    roomDetail.number_of_guest,
-    roomDetail.hotel_id,
-    roomDetail.image,
-  ]);
-  useEffect(() => {
-    async function fetchRoomTypes() {
-      try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/hotel/amenity/",
-          {
-            headers: {
-              "Content-Type": `application/json`,
-              Authorization: `Bearer ` + String(authTokens.access),
-            },
-          }
-        );
-        setAmenities(response.data);
-      } catch (error) {
-        console.error("Lỗi khi lấy danh sách loại phòng:", error);
-      }
-    }
-
-    fetchRoomTypes(); //
+    getAmenities(setAmenities);
   }, []);
   useEffect(() => {
-    async function fetchRoomTypes() {
-      try {
-        const response = await axios.get("http://127.0.0.1:8000/api/hotel/");
-        setRoomTypes(response.data);
-      } catch (error) {
-        console.error("Lỗi khi lấy danh sách loại phòng:", error);
-      }
-    }
-
-    fetchRoomTypes();
+    getRoomTypeDetail(Id, setRoomType);
+  }, []);
+  useEffect(() => {
+    getHotel(setHotel);
   }, []);
 
   const handlePatchRoom = async () => {
@@ -203,8 +155,8 @@ function RoomTypeDetail() {
                             >
                               <Select
                                 options={
-                                  amenities1 &&
-                                  amenities1.map((amenity) => ({
+                                  amenities &&
+                                  amenities.map((amenity) => ({
                                     value: amenity.id,
                                     label: amenity.name,
                                   }))
@@ -286,11 +238,11 @@ function RoomTypeDetail() {
                               required
                               style={{ width: 300 }}
                               name="hotel_id"
-                              defaultValue={roomTypes.hotel_id}
+                              defaultValue={hotel.hotel_id}
                               onChange={handleChange}
                             >
                               <option value="">-----Select Hotel-----</option>
-                              {roomTypes.map((hotel) => (
+                              {hotel.map((hotel) => (
                                 <option key={hotel.id} value={hotel.id}>
                                   {hotel.name}
                                 </option>

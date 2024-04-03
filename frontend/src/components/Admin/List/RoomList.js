@@ -1,17 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import AuthContext from "../../../context/AuthContext";
+import { getRoom } from "../../../utils/Api";
 
 function RoomList() {
   const { authTokens } = useContext(AuthContext);
-  const [hotel, setHotel] = useState([]);
-  const getHotel = async () => {
-    const response = await axios.get("http://127.0.0.1:8000/api/hotel/room/");
-    // console(response.data);
-    setHotel(response.data);
-  };
+  const [room, setRoom] = useState([]);
+
   useEffect(() => {
-    getHotel();
+    getRoom(setRoom);
   }, []);
   const handleDeleteClick = async (id) => {
     // Hiển thị hộp thoại xác nhận
@@ -28,7 +25,7 @@ function RoomList() {
           }
         );
         // Sau khi xóa thành công, cập nhật lại danh sách phòng
-        getHotel();
+        getRoom();
       } catch (error) {
         console.error("Error deleting room:", error);
       }
@@ -72,7 +69,7 @@ function RoomList() {
                         <th>Del</th>
                       </tr>
                     </thead>
-                    {hotel.map((item, index) => (
+                    {room.map((item, index) => (
                       <tbody key={item.id}>
                         <tr>
                           <th scope="row">{item.id}</th>

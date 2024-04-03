@@ -2,25 +2,14 @@ import React, { useState, useEffect, useContext } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import AuthContext from "../../../context/AuthContext";
+import { getRoomType } from "../../../utils/Api";
 
 function RoomTypeList() {
   const { authTokens } = useContext(AuthContext);
-  const [hotel, setHotel] = useState([]);
-  const getHotel = async () => {
-    const response = await axios.get(
-      "http://127.0.0.1:8000/api/hotel/room-type/",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authTokens.access}`,
-        },
-      }
-    );
-    // console(response.data);
-    setHotel(response.data);
-  };
+  const [roomType, setRoomType] = useState([]);
+
   useEffect(() => {
-    getHotel();
+    getRoomType(setRoomType);
   }, []);
   const handleDeleteClick = async (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete?");
@@ -35,13 +24,12 @@ function RoomTypeList() {
             },
           }
         );
-        getHotel();
+        getRoomType();
       } catch (error) {
         console.error("Error deleting room:", error);
       }
     }
   };
-  console.log(hotel);
   return (
     <section>
       <div className="container">
@@ -82,7 +70,7 @@ function RoomTypeList() {
                         <th>Del</th>
                       </tr>
                     </thead>
-                    {hotel.map((item, index) => (
+                    {roomType.map((item, index) => (
                       <tbody key={item.id}>
                         <tr>
                           <th scope="row">{item.id}</th>

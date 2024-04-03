@@ -18,7 +18,6 @@ export const AuthProvider = ({ children }) => {
       ? jwtDecode(localStorage.getItem("authTokens"))
       : null
   );
-  let [loading, setLoading] = useState(true);
   let history = useHistory();
   let loginUser = async (e) => {
     e.preventDefault();

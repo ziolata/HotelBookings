@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
+import { getHotel } from "../../utils/Api";
 function HotelDetailPage() {
   const { id } = useParams(); // Access roomId from URL parameter
   const [hotel, setHotel] = useState([]);
@@ -18,19 +18,14 @@ function HotelDetailPage() {
       setHotelDetail([]);
     }
   };
-  const getHotelDifferent = async () => {
-    const response = await axios.get("http://127.0.0.1:8000/api/hotel/");
-    setHotel(response.data);
-  };
+
   useEffect(() => {
     getHotelDetail();
   }, []);
   useEffect(() => {
-    getHotelDifferent();
+    getHotel(setHotel);
   }, [id]); // Chạy lại khi id thay đổi
-  const handleDifferentRoom = (id) => {
-    window.location.href = `/room/${id}/`;
-  };
+
   const handleRoomClick = (id) => {
     window.location.href = `/hotel/`;
   };

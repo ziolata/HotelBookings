@@ -27,7 +27,7 @@ class HoTelDetailUpdate(generics.RetrieveUpdateDestroyAPIView):
 class AmenityList(generics.ListCreateAPIView):
     queryset = Amenity.objects.all()
     serializer_class = AmenitySerializers
-
+    permission_classes = [permissions.AllowAny]
 #----------------------------------RoomType----------------------------
 class RoomTypeList(generics.ListAPIView):
     queryset = RoomType.objects.all()
@@ -134,23 +134,8 @@ class BookingViewSet(generics.ListCreateAPIView):
             available_rooms = Room.objects.filter(bookings__check_in_date=current_date, status='available')
             available_rooms.update(status='booked')
         serializer.save(user_id=user)  
-        
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
     
-    def list(self, request):
-        queryset = self.get_queryset()
-        check_in_date = request.query_params.get('check_in_date', None)
-        check_out_date = request.query_params.get('check_out_date', None)
-        hotel_id = request.query_params.get('hotel_id', None)
-        if check_in_date and check_out_date:
-            check_in_date = datetime.strptime(check_in_date, '%Y-%m-%d').date()
-            check_out_date = datetime.strptime(check_out_date, '%Y-%m-%d').date()
-            queryset = queryset.filter(check_in_date__gte=check_in_date, check_out_date__lte=check_out_date)
-        if hotel_id:
-            queryset = queryset.filter(room_id__hotel_id=hotel_id)
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
     
 class BookingDetailViewSet(generics.RetrieveUpdateDestroyAPIView):
     queryset = Booking.objects.all()

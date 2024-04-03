@@ -1,41 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import {
+  getRoom,
+  getRoomDetail,
+  useRoomDetailEffect,
+  useRoomEffect,
+} from "../../utils/Api";
 
 function RoomDetailsPage() {
-  const { roomId } = useParams(); // Access roomId from URL parameter
+  const { roomId } = useParams();
   const [room, setRoom] = useState([]);
-  const [roomDetail, setRoomDetail] = useState({
-    id: "",
-    name: "",
-    image: "",
-    room_number: "",
-    status: "",
-    price: "",
-    amenity_data: "",
-  });
-  const getRoom = async () => {
-    try {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/api/hotel/room/${roomId}/`
-      );
-      setRoomDetail(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error fetching room details:", error);
-      setRoomDetail([]);
-    }
-  };
-  const getRoomDifferent = async () => {
-    const response = await axios.get("http://127.0.0.1:8000/api/hotel/room/");
-    setRoom(response.data);
-  };
-  useEffect(() => {
-    getRoom();
-  }, []);
-  useEffect(() => {
-    getRoomDifferent();
-  }, [roomId]); // Chạy lại getRoom khi ID phòng thay đổi // Re-run getRoom on roomId change
+  const [roomDetail, setRoomDetail] = useState("");
+  useRoomDetailEffect(() => getRoomDetail(roomId, setRoomDetail), roomId);
+  useRoomEffect(() => getRoom(setRoom));
   const handleDifferentRoom = (roomId) => {
     window.location.href = `/room/${roomId}/`;
   };
@@ -61,10 +39,6 @@ function RoomDetailsPage() {
                   <a href="#" className="text-dark">
                     Detail
                   </a>
-                  {/* <span className="text-white-50 mx-2"> &gt; </span>
-                <a href="" className="text-white">
-                  <u>Data</u>
-                </a> */}
                 </h6>
               </nav>
             </div>

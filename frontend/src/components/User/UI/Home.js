@@ -18,7 +18,7 @@ function RoomTypePageI() {
           </a>
         </div>
         <div className="row">
-          <HotelPage numToShow={4} />
+          <HotelPage numToShow={3} />
           <div className="col-md-3 col-sm-6 d-flex justify-content-center">
             <a
               href="/hotel/"

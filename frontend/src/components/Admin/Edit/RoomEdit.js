@@ -3,18 +3,19 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import AuthContext from "../../../context/AuthContext";
 import Cookies from "js-cookie";
+import { MessageState } from "../../../utils/Message";
+import { getRoomType, useRoomTypeEffect } from "../../../utils/Api";
 function RoomUpdate() {
   const { authTokens } = useContext(AuthContext);
+  const { successMessage, setSuccessMessage, errorMessage, setErrorMessage } =
+    MessageState;
   const csrftoken = Cookies.get("csrftoken");
   const { Id } = useParams(); // Access roomId from URL parameter
-  const [room, setRoom] = useState([]);
   const [roomDetail, setRoomDetail] = useState([]);
   const [room_number, setRoomNumber] = useState("");
   const [room_type_id, setRoom_type_id] = useState("");
   const [status, setStatus] = useState("");
   const [image, setImage] = useState(null);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [roomTypes, setRoomTypes] = useState([]);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -29,8 +30,7 @@ function RoomUpdate() {
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching room details:", error);
-      // Hiển thị thông báo lỗi cho người dùng (tùy chọn)
-      setRoomDetail([]); // Tùy chọn đặt mảng rỗng để kích hoạt thông báo tải
+      setRoomDetail([]);
     }
   };
   useEffect(() => {
@@ -39,23 +39,7 @@ function RoomUpdate() {
     setRoomNumber(roomDetail.room_number);
     setRoom_type_id(roomDetail.room_type_id);
   }, [roomDetail.room_number, roomDetail.status, roomDetail.room_type_id]);
-
-  useEffect(() => {
-    // Hàm gọi API để lấy danh sách các loại phòng khi component được tạo
-    async function fetchRoomTypes() {
-      try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/hotel/room-type/"
-        );
-        setRoomTypes(response.data); // Cập nhật trạng thái mới với danh sách các loại phòng từ API
-      } catch (error) {
-        console.error("Lỗi khi lấy danh sách loại phòng:", error);
-      }
-    }
-
-    fetchRoomTypes(); // Gọi hàm lấy danh sách loại phòng
-  }, []);
-
+  useRoomTypeEffect(() => getRoomType(setRoomTypes));
   const handlePatchRoom = async () => {
     try {
       const formData = new FormData();

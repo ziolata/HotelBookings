@@ -9,12 +9,6 @@ import calculateNumberOfDays from "../../../Pages/Other/caculator";
 const BookingForm = ({ room, onBookingConfirmed }) => {
   const { authTokens } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
-  const [fullname, setFullName] = useState("");
-  const [phone, setCustomerPhone] = useState("");
-  const [address, setCustomerAddress] = useState("");
-  const [check_in_date, setCheckInDate] = useState("");
-  const [check_out_date, setCheckOutDate] = useState("");
-  const [number_of_guests, setNumberOfGuest] = useState("");
   const [bookingInfo, setBookingInfo] = useState({
     fullname: "",
     phone: "",
@@ -151,7 +145,7 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                   <div className="row g-0">
                     <div className="col-12 col-md-6">
                       <div className="mt-4">
-                        <h2 className="h4 text-center">Thông tin phòng</h2>
+                        <h2 className="h4 text-center">Room info</h2>
                       </div>
                       <div className="ms-5">
                         {roomData ? (

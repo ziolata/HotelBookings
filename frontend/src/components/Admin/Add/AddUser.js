@@ -1,18 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import Cookies from "js-cookie";
 import axios from "axios";
 import AuthContext from "../../../context/AuthContext";
 function AddUser() {
-  const csrftoken = Cookies.get("csrftoken");
-  const token = localStorage.getItem("authTokens"); // Lấy token lưu trữ
-  const { authTokens, userinfo } = useContext(AuthContext);
+  const { userinfo } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const history = useHistory();
-  const [role_id, setRoleID] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [Role, setRole] = useState([]);
   const [Signup, setSignup] = useState({
     fullname: "",
     username: "",
@@ -26,15 +21,16 @@ function AddUser() {
     setSignup({ ...Signup, [name]: value });
   };
   const handlePost = async () => {
+    const formData = new FormData();
+    formData.append("fullname", Signup.fullname);
+    formData.append("username", Signup.username);
+    formData.append("email", Signup.email);
+    formData.append("address", Signup.address);
+    formData.append("password", Signup.password);
+    formData.append("phone_number", Signup.phone_number);
     try {
       const response = await axios.post(`http://127.0.0.1:8000/api/signup/`, {
-        fullname: Signup.fullname,
-        username: Signup.username,
-        email: Signup.email,
-        address: Signup.address,
-        password: Signup.password,
-        phone_number: Signup.phone_number,
-        role_id: role_id,
+        formData,
       });
 
       if (response.status === 201) {
@@ -47,23 +43,6 @@ function AddUser() {
       setSuccessMessage("");
     }
   };
-  useEffect(() => {
-    async function fetchRoomTypes() {
-      try {
-        const response = await axios.get("http://127.0.0.1:8000/api/role/", {
-          headers: {
-            "Content-Type": `application/json`,
-            Authorization: `Bearer ` + String(authTokens.access),
-          },
-        });
-        setRole(response.data);
-      } catch (error) {
-        console.error("Lỗi khi lấy danh sách loại phòng:", error);
-      }
-    }
-
-    fetchRoomTypes();
-  }, []);
   useEffect(() => {
     if (
       userinfo.role_name === "Admin" ||

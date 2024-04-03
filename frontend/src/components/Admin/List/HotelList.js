@@ -2,18 +2,15 @@ import React, { useState, useEffect, useContext } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import AuthContext from "../../../context/AuthContext";
+import { getHotel } from "../../../utils/Api";
 
 function HotelUpdate() {
   const token = localStorage.getItem("authTokens"); // Lấy token lưu trữ
   const { authTokens } = useContext(AuthContext);
   const [hotel, setHotel] = useState([]);
-  const getHotel = async () => {
-    const response = await axios.get("http://127.0.0.1:8000/api/hotel/");
-    // console(response.data);
-    setHotel(response.data);
-  };
+
   useEffect(() => {
-    getHotel();
+    getHotel(setHotel);
   }, []);
   const handleDeleteClick = async (id) => {
     // Hiển thị hộp thoại xác nhận

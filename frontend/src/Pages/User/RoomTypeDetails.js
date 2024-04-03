@@ -1,45 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { getRoomType, getRoomTypeDetail } from "../../utils/Api";
 
 function RoomTypeDetailsPage() {
   const { roomId } = useParams();
-  const [room, setRoom] = useState([]);
-  const [roomDetail, setRoomDetail] = useState({
-    name: "",
-    description: "",
-    amenities: "",
-    amenities_info: "",
-    image: "",
-    price: "",
-    number_of_rooms: "",
-    number_of_guest: "",
-    hotel_id: "",
-  });
-  const getRoom = async () => {
-    try {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/api/hotel/room-type/${roomId}/`
-      );
-      setRoomDetail(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error fetching room details:", error);
-      setRoomDetail([]);
-    }
-  };
+  const [roomType, setRoomType] = useState([]);
+  const [roomTypeDetail, setRoomTypeDetail] = useState("");
   useEffect(() => {
-    getRoom();
+    getRoomTypeDetail(roomId, setRoomTypeDetail);
   }, []);
-
-  const getRoomDifferent = async () => {
-    const response = await axios.get(
-      "http://127.0.0.1:8000/api/hotel/room-type/"
-    );
-    setRoom(response.data);
-  };
   useEffect(() => {
-    getRoomDifferent();
+    getRoomType(setRoomType);
   }, [roomId]);
   const handleDifferentRoom = (roomId) => {
     window.location.href = `/room-type/${roomId}/`;
@@ -47,8 +19,6 @@ function RoomTypeDetailsPage() {
 
   return (
     <>
-      {/* Heading */}
-      {/* content */}
       <section className="py-5">
         <div className=" text-center  border-bottom bg-light">
           <div className="">
@@ -76,7 +46,7 @@ function RoomTypeDetailsPage() {
           </div>
         </div>
         <div className="container mt-3">
-          <div className="row gx-5" key={roomDetail.id}>
+          <div className="row gx-5" key={roomTypeDetail.id}>
             <aside className="col-lg-6">
               <div className="border rounded-4 mb-3 d-flex justify-content-center">
                 <a
@@ -84,7 +54,7 @@ function RoomTypeDetailsPage() {
                   className="rounded-4"
                   target="_blank"
                   data-type="image"
-                  href={roomDetail.image}
+                  href={roomTypeDetail.image}
                 >
                   <img
                     style={{
@@ -93,36 +63,36 @@ function RoomTypeDetailsPage() {
                       margin: "auto",
                     }}
                     className="rounded-4 fit"
-                    src={roomDetail.image}
+                    src={roomTypeDetail.image}
                   />
                 </a>
               </div>
             </aside>
             <main className="col-lg-6">
               <div className="ps-lg-3">
-                <h4 className="title text-dark">{roomDetail.name}</h4>
+                <h4 className="title text-dark">{roomTypeDetail.name}</h4>
                 <div className="mb-3">
                   <p>
                     Hotel:{" "}
                     <span style={{ fontWeight: "bold" }}>
-                      {roomDetail.hotel_name}
+                      {roomTypeDetail.hotel_name}
                     </span>
                   </p>
                   <p>
                     Address:{" "}
                     <span style={{ fontWeight: "bold" }}>
-                      {roomDetail.hotel_adress}, {roomDetail.province}
+                      {roomTypeDetail.hotel_adress}, {roomTypeDetail.province}
                     </span>{" "}
                   </p>
                   <span> Price: </span>
-                  <span className="h5">{roomDetail.price}</span>
+                  <span className="h5">{roomTypeDetail.price}</span>
                   <span className="text-muted">$/day</span>
                 </div>
-                <p>{roomDetail.description}</p>
+                <p>{roomTypeDetail.description}</p>
                 <div className="row">
                   <dt className="text-center">Amenities:</dt>
-                  {roomDetail.amenities_info &&
-                    roomDetail.amenities_info.map((amenity) => (
+                  {roomTypeDetail.amenities_info &&
+                    roomTypeDetail.amenities_info.map((amenity) => (
                       <dt className="col-md-4">
                         <div className="amenities d-flex" key={amenity.id}>
                           <img
@@ -167,7 +137,7 @@ function RoomTypeDetailsPage() {
                   <div className="card-body ">
                     <h5 className="card-title text-center">Other roomtype</h5>
                     <div className="d-flex">
-                      {room.map((item, index) => (
+                      {roomType.map((item, index) => (
                         <div
                           onClick={() => handleDifferentRoom(item.id)}
                           className="col-lg-3 mb-3"
