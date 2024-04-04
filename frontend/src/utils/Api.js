@@ -29,6 +29,16 @@ export const getRoom = async (set) => {
     console.error("Error fetching rooms:", error);
   }
 };
+export const getRoomFilter = async (id, set) => {
+  try {
+    const response = await axios.get(
+      `http://127.0.0.1:8000/api/hotel/room/room-type=${id}/`
+    );
+    set(response.data);
+  } catch (error) {
+    console.error("Error fetching rooms:", error);
+  }
+};
 export const useRoomEffect = (getFunction) => {
   useEffect(() => {
     getFunction();

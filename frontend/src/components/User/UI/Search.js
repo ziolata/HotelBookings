@@ -4,9 +4,13 @@ import axios from "axios";
 import Header from "../Layout/header";
 import Footer from "../Layout/footer";
 import RoomList from "../../../Pages/User/RoomList";
-function Search() {
+import RoomPage from "../../../Pages/User/RoomPage";
+import { getRoom } from "../../../utils/Api";
+
+function SearchClient() {
   const [availableRooms, setAvailableRooms] = useState([]);
   const [filteredRooms, setFilteredRooms] = useState([]);
+  const [bookingDates, setBookingDates] = useState([]);
   const [searchParams, setSearchParams] = useState({
     roomTypeName: "",
     checkInDate: "",
@@ -16,63 +20,81 @@ function Search() {
   });
 
   useEffect(() => {
-    const fetchRooms = async () => {
+    getRoom(setAvailableRooms);
+
+    const fetchBookingDates = async () => {
       try {
-        const response = await axios.get("/api/hotel/room/available/");
-        setAvailableRooms(response.data);
+        const response = await axios.get("/api/hotel/booking/date/");
+        setBookingDates(response.data);
         console.log(response.data);
       } catch (error) {
-        console.error("Error fetching available rooms:", error);
+        console.error("Error fetching booking dates:", error);
       }
     };
-    fetchRooms();
-  }, []);
 
+    getRoom();
+    fetchBookingDates();
+  }, []);
+  console.log(availableRooms);
   const handleSearch = (updatedSearchParams) => {
     setSearchParams(updatedSearchParams);
 
-    const filteredRooms = availableRooms.filter((room) => {
-      // Lọc theo loại phòng
-      if (
-        updatedSearchParams.roomTypeName &&
-        room.room_type_name !== updatedSearchParams.roomTypeName
-      ) {
-        return false;
-      }
+    try {
+      // Filter rooms based on search parameters and booking dates
+      const filteredRooms = availableRooms.filter((room) => {
+        // Filter by room type, province, and number of guests
+        if (
+          updatedSearchParams.roomTypeName &&
+          room.name !== updatedSearchParams.roomTypeName
+        ) {
+          return false;
+        }
 
-      // Lọc theo tỉnh/thành phố
-      if (
-        updatedSearchParams.province &&
-        room.province !== updatedSearchParams.province
-      ) {
-        return false;
-      }
+        // Lọc theo tỉnh/thành phố
+        if (
+          updatedSearchParams.province &&
+          room.province !== updatedSearchParams.province
+        ) {
+          return false;
+        }
 
-      // Lọc theo số lượng khách (room.numberOfGuests >= updatedSearchParams.numberOfGuests)
-      if (room.number_of_guest < updatedSearchParams.numberOfGuests) {
-        return false;
-      }
+        // Lọc theo số lượng khách (room.numberOfGuests >= updatedSearchParams.numberOfGuests)
+        if (room.number_of_guest < updatedSearchParams.numberOfGuests) {
+          return false;
+        }
 
-      // Lọc theo ngày tháng
-      if (updatedSearchParams.checkInDate && updatedSearchParams.checkOutDate) {
-        const checkInDate = new Date(updatedSearchParams.checkInDate);
-        const checkOutDate = new Date(updatedSearchParams.checkOutDate);
+        // Filter by check-in and check-out dates
+        if (
+          updatedSearchParams.checkInDate &&
+          updatedSearchParams.checkOutDate
+        ) {
+          const checkInDate = new Date(updatedSearchParams.checkInDate);
+          const checkOutDate = new Date(updatedSearchParams.checkOutDate);
 
-        const roomCheckInDate = new Date(room.check_in_date);
-        const roomCheckOutDate = new Date(room.check_out_date);
+          // Check if room is booked during the specified period
+          const isBooked = bookingDates.filter((bookingDate) => {
+            const bookedCheckInDate = new Date(bookingDate.check_in_date);
+            const bookedCheckOutDate = new Date(bookingDate.check_out_date);
 
-        // Hiển thị phòng có:
-        // - check_out_date (data) < check_in_date (form)
-        // - check_in_date và check_out_date (data) null (Phòng trống)
-        return (
-          roomCheckOutDate < checkInDate ||
-          (!roomCheckInDate && !roomCheckOutDate)
-        );
-      }
-      return true;
-    });
+            return (
+              room.id === bookingDate.room_id &&
+              !(
+                checkInDate >= bookedCheckOutDate ||
+                checkOutDate <= bookedCheckInDate
+              )
+            );
+          });
 
-    setFilteredRooms(filteredRooms);
+          return isBooked.length === 0;
+        }
+
+        return true;
+      });
+
+      setFilteredRooms(filteredRooms);
+    } catch (error) {
+      console.error("Error handling search:", error);
+    }
   };
 
   const handleBookNow = (roomId) => {
@@ -89,4 +111,4 @@ function Search() {
   );
 }
 
-export default Search;
+export default SearchClient;

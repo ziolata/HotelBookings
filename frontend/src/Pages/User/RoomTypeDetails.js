@@ -16,7 +16,7 @@ function RoomTypeDetailsPage() {
   const handleDifferentRoom = (roomId) => {
     window.location.href = `/room-type/${roomId}/`;
   };
-
+  const RoomTypeOtherType = roomType.slice(0, 4);
   return (
     <>
       <section className="py-5">
@@ -105,20 +105,16 @@ function RoomTypeDetailsPage() {
                         </div>
                       </dt>
                     ))}
-                  {/* <dd className="col-9">Regular</dd>
-                    <dt className="col-3">Color</dt>
-                    <dd className="col-9">Brown</dd>
-                    <dt className="col-3">Material</dt>
-                    <dd className="col-9">Cotton, Jeans</dd>
-                    <dt className="col-3">Brand</dt>
-                    <dd className="col-9">Reebook</dd> */}
                 </div>
                 <hr />
                 <div className="ps-lg-3 d-flex justify-content-center">
                   <button className="btn btn-warning shadow-0">
-                    <a href="/room-type/" className="btn btn-warning shadow-0">
+                    <a
+                      href={"/room/roomtype/" + roomTypeDetail.id}
+                      className="btn btn-warning shadow-0"
+                    >
                       {" "}
-                      See other room types
+                      see rooms in the room type {roomTypeDetail.name}
                     </a>
                   </button>
                 </div>
@@ -137,7 +133,7 @@ function RoomTypeDetailsPage() {
                   <div className="card-body ">
                     <h5 className="card-title text-center">Other roomtype</h5>
                     <div className="d-flex">
-                      {roomType.map((item, index) => (
+                      {RoomTypeOtherType.map((item, index) => (
                         <div
                           onClick={() => handleDifferentRoom(item.id)}
                           className="col-lg-3 mb-3"

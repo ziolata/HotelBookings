@@ -3,7 +3,7 @@ import Header from "../Layout/header";
 import Footer from "../Layout/footer";
 import HotelPage from "../../../Pages/User/HotelPage";
 
-function HotelPageUI() {
+function HotelClient() {
   return (
     <>
       <Header />
@@ -42,4 +42,4 @@ function HotelPageUI() {
     </>
   );
 }
-export default HotelPageUI;
+export default HotelClient;

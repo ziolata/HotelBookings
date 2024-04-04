@@ -4,7 +4,7 @@ import Header from "../Layout/header";
 import Footer from "../Layout/footer";
 import RoomTypePage from "../../../Pages/User/RoomTypePage";
 
-function RoomType() {
+function RoomTypeClient() {
   return (
     <>
       <Header />
@@ -38,4 +38,4 @@ function RoomType() {
     </>
   );
 }
-export default RoomType;
+export default RoomTypeClient;

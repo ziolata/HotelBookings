@@ -5,7 +5,7 @@ import HeaderSlide from "../Layout/headerSlide";
 import RoomTypePage from "../../../Pages/User/RoomTypePage";
 import HotelPage from "../../../Pages/User/HotelPage";
 
-function RoomTypePageI() {
+function HomeClient() {
   return (
     <>
       <Header />
@@ -66,4 +66,4 @@ function RoomTypePageI() {
     </>
   );
 }
-export default RoomTypePageI;
+export default HomeClient;

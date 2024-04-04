@@ -4,7 +4,7 @@ import Header from "../Layout/header";
 import Footer from "../Layout/footer";
 import RoomTypeDetailsPage from "../../../Pages/User/RoomTypeDetails";
 
-function RoomTypeDetailI() {
+function RoomTypeDetailClient() {
   return (
     <>
       <Header />
@@ -13,4 +13,4 @@ function RoomTypeDetailI() {
     </>
   );
 }
-export default RoomTypeDetailI;
+export default RoomTypeDetailClient;

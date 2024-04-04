@@ -157,6 +157,9 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                             />
                             <p>Roomtype: {roomData.name}</p>
                             <p>Room number: {roomData.room_number}</p>
+                            <p>
+                              Address: {roomData.address}, {roomData.province}
+                            </p>
                             <p>Price: {roomData.price}$/day</p>
                             <p>Number of days of stay: {Day}</p>
                             <p>Total price: {roomData.price * Day}$</p>

@@ -1,21 +1,6 @@
 import React, { Component, useEffect, useState, useContext } from "react";
-import {
-  MDBContainer,
-  MDBInput,
-  MDBCheckbox,
-  MDBBtn,
-  MDBIcon,
-} from "mdb-react-ui-kit";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
 import AuthContext from "../../../context/AuthContext";
-axios.defaults.xsrfCookieName = "csrftoken";
-axios.defaults.xsrfHeaderName = "X-CSRFToken";
-axios.defaults.withCredentials = true;
-const client = axios.create({
-  baseURL: "http://127.0.0.1:8000",
-});
-
 const Login = () => {
   const { loginUser, user } = useContext(AuthContext);
 

@@ -3,7 +3,7 @@ import Header from "../Layout/header";
 import Footer from "../Layout/footer";
 import RoomDetailsPage from "../../../Pages/User/RoomDetailPage";
 
-function RoomDetailUI() {
+function RoomDetailClient() {
   return (
     <>
       <Header />
@@ -12,4 +12,4 @@ function RoomDetailUI() {
     </>
   );
 }
-export default RoomDetailUI;
+export default RoomDetailClient;

@@ -20,6 +20,8 @@ function RoomDetailsPage() {
   const handleRoomClick = (roomId) => {
     window.location.href = `/booking/roomid=${roomId}/`;
   };
+  const RoomOther = room.slice(0, 4);
+
   return (
     <>
       <section className="py-5">
@@ -122,10 +124,10 @@ function RoomDetailsPage() {
                   <div className="card-body ">
                     <h5 className="card-title text-center">Other room</h5>
                     <div className="d-flex">
-                      {room.map((item, index) => (
+                      {RoomOther.map((item, index) => (
                         <div
                           onClick={() => handleDifferentRoom(item.id)}
-                          className="col-lg-3 mb-3"
+                          className="col-lg-3 col-md-3 col-xs-6 col-sm-3"
                         >
                           <a href="#" className="me-3">
                             <img

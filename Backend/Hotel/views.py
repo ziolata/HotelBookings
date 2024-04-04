@@ -60,6 +60,13 @@ class RoomDetail(generics.RetrieveAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
     permission_classes = [permissions.AllowAny]
+class RoomFilterRoomType(generics.ListAPIView):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+    permission_classes = [permissions.AllowAny]
+    def get_queryset(self):
+        room_type_id = self.kwargs['room_type_id']  # Lấy room_type_id từ URL
+        return Room.objects.filter(room_type_id=room_type_id)
 class RoomDetailUpdate(generics.RetrieveUpdateDestroyAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
@@ -136,13 +143,15 @@ class BookingViewSet(generics.ListCreateAPIView):
         serializer.save(user_id=user)  
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
-    
 class BookingDetailViewSet(generics.RetrieveUpdateDestroyAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
     permission_classes = [AdminGroup]
 
-
+class BookingDateView(generics.ListAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = BookingDateSerializer
+    permission_classes = [permissions.AllowAny]
 
 class BookingHistoryViewSet(generics.ListAPIView):
     queryset = Booking.objects.all()

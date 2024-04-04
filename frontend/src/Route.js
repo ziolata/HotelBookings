@@ -1,20 +1,7 @@
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-} from "react-router-dom";
-import React, { Component, useContext } from "react";
-import HomePage from "./components/User/UI/Home";
-import Room from "./components/User/UI/Room";
-import RoomTypeDetailI from "./components/User/UI/RoomTypeDetails";
-import RoomDetailUI from "./components/User/UI/RoomDetails";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React from "react";
 import Booking from "./components/User/UI/Booking";
-import Search from "./components/User/UI/Search";
-import AuthContext, { AuthProvider } from "./context/AuthContext";
-
-import ViewHotel from "./components/Admin/List/HotelList";
+import { AuthProvider } from "./context/AuthContext";
 import Hotel from "./components/Admin/View/Hotel";
 import RoomTypeAD from "./components/Admin/View/RoomType";
 import RoomAD from "./components/Admin/View/Room";
@@ -34,36 +21,38 @@ import Signup from "./components/User/Auth/Signup";
 import Login from "./components/User/Auth/Login";
 import BookingHistory from "./components/User/UI/BookingHistory";
 import UnAuthor from "./components/Admin/Error";
-import RoomType from "./components/User/UI/RoomType";
-import HotelDetail from "./Pages/User/HotelDetail";
-import HotelDetailUI from "./components/User/UI/HotelDetail";
-import HotelPageUI from "./components/User/UI/HotelPageList";
+import HomeClient from "./components/User/UI/Home";
+import SearchClient from "./components/User/UI/Search";
+import RoomTypeClient from "./components/User/UI/RoomType";
+import RoomTypeDetailClient from "./components/User/UI/RoomTypeDetails";
+import RoomClient from "./components/User/UI/Room";
+import HotelClient from "./components/User/UI/HotelPageList";
+import HotelDetailClient from "./components/User/UI/HotelDetail";
+import RoomDetailClient from "./components/User/UI/RoomDetails";
+
+import RoomFilterClient from "./components/User/UI/RoomFilter";
 
 function Routers() {
   return (
     <Router>
       <AuthProvider>
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/" component={HomeClient} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/test" component={ViewHotel} />
           <Route exact path="/booking/history" component={BookingHistory} />
           <Route exact path="/booking/roomid=:roomId/" component={Booking} />
-          <Route exact path="/search" component={Search} />
-          {/* <Route exact path="/room-details" component={RoomDetails} /> */}
-          <Route exact path="/hotel/" component={HotelPageUI} />
-          <Route exact path="/hotel/:id/" component={HotelDetailUI} />
-          <Route exact path="/room-type/" component={RoomType} />
-
-          <Route exact path="/room/" component={Room} />
-          <Route exact path="/room/:roomId/" component={RoomDetailUI} />
-          <Route path="/room-type/:roomId/" component={RoomTypeDetailI} />
-
+          <Route exact path="/search" component={SearchClient} />
+          <Route exact path="/hotel/" component={HotelClient} />
+          <Route exact path="/hotel/:id/" component={HotelDetailClient} />
+          <Route exact path="/room-type/" component={RoomTypeClient} />
+          <Route path="/room-type/:roomId/" component={RoomTypeDetailClient} />
+          <Route exact path="/room/" component={RoomClient} />
+          <Route exact path="/room/:roomId/" component={RoomDetailClient} />
+          <Route path="/room/roomtype/:id/" component={RoomFilterClient} />
           {/* DashBoard Router*/}
           <Route exact path="/dashboard/" component={WelcomeDashBoard} />
           <Route exact path="/unauthor/" component={UnAuthor} />
-
           <Route exact path="/dashboard/hotel" component={Hotel} />
           <Route exact path="/dashboard/room-type" component={RoomTypeAD} />
           <Route exact path="/dashboard/room" component={RoomAD} />

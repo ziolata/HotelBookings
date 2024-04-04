@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
         }
         // UserProfile();
       } else {
-        alert("Đăng nhập thất bại");
+        alert("Login failed !");
       }
     } catch (error) {
       console.error("Login failed:", error);

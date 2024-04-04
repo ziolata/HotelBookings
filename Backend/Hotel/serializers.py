@@ -34,10 +34,12 @@ class RoomTypeSerializer(serializers.ModelSerializer):
 class RoomSerializer(serializers.ModelSerializer):
     name = serializers.ReadOnlyField(source='room_type_id.name')
     price = serializers.ReadOnlyField(source='room_type_id.price')
+    address = serializers.ReadOnlyField(source='room_type_id.hotel_id.address')
+    province = serializers.ReadOnlyField(source='room_type_id.hotel_id.province')
     amenity_data = AmenitySerializers(source='room_type_id.amenities', many=True, read_only=True)
     class Meta:
         model = Room
-        fields = ('id','image','room_number','status','room_type_id','check_in_date','check_out_date','name','price','amenity_data')
+        fields = ('id','image','room_number','status','room_type_id','check_in_date','check_out_date','name','price','amenity_data','address','province')
 class BookingSerializer(serializers.ModelSerializer):
     status = serializers.CharField(required=False)
     price = serializers.ReadOnlyField(source='room_id.room_type_id.price')
@@ -52,12 +54,17 @@ class BookingSerializer(serializers.ModelSerializer):
             room = instance.room_id
             room.check_in_date = instance.check_in_date
             room.check_out_date = instance.check_out_date
+            room.status = instance.status = 'Booked'
             room.save()
         return super().update(instance, validated_data)
     
     class Meta:
         model = Booking
         fields = ('id','fullname','phone','address','check_in_date','check_out_date','total_price','number_of_guests','price','room_id','user_id','email','room_name','status')
+class BookingDateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = ('check_in_date','check_out_date','room_id')
 class BookingHistorySerializer(serializers.ModelSerializer):
     price = serializers.ReadOnlyField(source='room_id.room_type_id.price')
     user_id = serializers.PrimaryKeyRelatedField(read_only=True)

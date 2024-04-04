@@ -17,6 +17,7 @@ function HotelDetailPage() {
   const handleRoomClick = (id) => {
     window.location.href = `/hotel/`;
   };
+  const HotelOther = hotel.slice(0, 4);
   return (
     <>
       <section className="py-5">
@@ -119,7 +120,7 @@ function HotelDetailPage() {
                   <div className="card-body ">
                     <h5 className="card-title text-center">Other hotels</h5>
                     <div className="d-flex">
-                      {hotel.map((item, index) => (
+                      {HotelOther.map((item, index) => (
                         <div className="col-lg-3 mb-3">
                           <a href={"/hotel/" + item.id} className="me-3">
                             <img

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useHotelState } from "../../../utils/useHotel_RoomState";
+import { getRoomType } from "../../../utils/Api";
 const SearchForm = ({
   onSearch,
   roomTypeName,
@@ -8,25 +10,10 @@ const SearchForm = ({
   numberOfGuests,
   province,
 }) => {
-  const roomTypes = ["Standard Single", "Standard Double"];
-  const provinces = [
-    "Tỉnh Đắk Lắk",
-    "Tỉnh Đắk Nông",
-    "Thành Phố Đà Nẵng",
-    "Tỉnh Bình Định",
-    "Tỉnh Khánh Hòa",
-    "Thành Phố Hồ Chí Minh",
-    "Thủ Đô Hà Nội",
-  ];
+  const { provinces } = useHotelState();
   const [roomType, setRoomType] = useState([]);
-  const getRoomDifferent = async () => {
-    const response = await axios.get(
-      "http://127.0.0.1:8000/api/hotel/room-type/"
-    );
-    setRoomType(response.data);
-  };
   useEffect(() => {
-    getRoomDifferent();
+    getRoomType(setRoomType);
   }, []);
 
   const [formData, setFormData] = useState({
