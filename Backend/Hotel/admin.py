@@ -9,7 +9,7 @@ class RoomTypeAdmin(admin.ModelAdmin):
     list_display = ('id','name','description','image','price', 'number_of_rooms','hotel_id')
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
-    list_display = ('image','room_number','check_in_date','check_out_date','room_type_id')
+    list_display = ('image','room_number','room_type_id')
 @admin.register(models.Amenity)
 class AmenityAdmin(admin.ModelAdmin):
     list_display = ('name','icon')

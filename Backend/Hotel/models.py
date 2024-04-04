@@ -34,8 +34,7 @@ class Room(models.Model):
     room_number = models.CharField(max_length=255, unique = True)
     status = models.CharField(max_length=255, choices=[('available', 'Available'), ('booked', 'Booked')], default = 'available')
     room_type_id = models.ForeignKey(RoomType, on_delete=models.CASCADE)
-    check_in_date = models.DateField(null=True, blank=True)
-    check_out_date = models.DateField(null=True, blank=True)
+
 
 class Booking(models.Model):
     id = models.AutoField(primary_key=True)

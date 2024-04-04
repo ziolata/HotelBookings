@@ -63,7 +63,7 @@ class UserProfileView(generics.ListAPIView):
 class User(generics.ListAPIView):
     queryset = UserCustom.objects.all()
     serializer_class = UserProfileSerializers
-    permission_classes = [IsSuperAdmin]
+    permission_classes = [IsAuthenticated]
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserCustom.objects.all()
     serializer_class = UserProfileSerializers

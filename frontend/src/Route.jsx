@@ -19,18 +19,18 @@ import UserAddView from "./components/Admin/View/Add/UserAddView";
 import WelcomeDashBoard from "./components/Admin/WelcomeDashBoard";
 import Signup from "./components/User/Auth/Signup";
 import Login from "./components/User/Auth/Login";
-import BookingHistory from "./components/User/UI/BookingHistory";
+import BookingHistory from "./components/User/Client/BookingHistory";
 import UnAuthor from "./components/Admin/Error";
-import HomeClient from "./components/User/UI/Home";
-import SearchClient from "./components/User/UI/Search";
-import RoomTypeClient from "./components/User/UI/RoomType";
-import RoomTypeDetailClient from "./components/User/UI/RoomTypeDetails";
-import RoomClient from "./components/User/UI/Room";
-import HotelClient from "./components/User/UI/HotelPageList";
-import HotelDetailClient from "./components/User/UI/HotelDetail";
-import RoomDetailClient from "./components/User/UI/RoomDetails";
+import HomeClient from "./components/User/Client/Home";
+import SearchClient from "./components/User/Client/Search";
+import RoomTypeClient from "./components/User/Client/RoomType";
+import RoomTypeDetailClient from "./components/User/Client/RoomTypeDetails";
+import RoomClient from "./components/User/Client/Room";
+import HotelClient from "./components/User/Client/HotelPageList";
+import HotelDetailClient from "./components/User/Client/HotelDetail";
+import RoomDetailClient from "./components/User/Client/RoomDetails";
 
-import RoomFilterClient from "./components/User/UI/RoomFilter";
+import RoomFilterClient from "./components/User/Client/RoomFilter";
 
 function Routers() {
   return (

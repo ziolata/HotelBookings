@@ -97,15 +97,11 @@ function SearchClient() {
     }
   };
 
-  const handleBookNow = (roomId) => {
-    // Fetch room details based on roomId
-  };
-
   return (
     <div className="App">
       <Header />
       <SearchForm onSearch={handleSearch} {...searchParams} />
-      <RoomList rooms={filteredRooms} onBookNow={handleBookNow} />
+      <RoomList rooms={filteredRooms} />
       <Footer />
     </div>
   );

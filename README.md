@@ -36,26 +36,16 @@ CÁC CHỨC NĂNG
 
     - Sau khi hoàn thành việc đặt phòng, nếu đặt phòng thành công hệ thống sẽ xác nhận đặt phòng thành công, trong thời gian mới đặt phòng, đơn đặt phòng sẽ ở trong trạng thái chờ đợi (quản trị viên có thể sẽ duyệt đơn và hủy đơn) và sẽ lưu vào lịch sử đặt phòng. Nếu thất bại hệ thống sẽ nêu ra lỗi thất bại.
 
-  - Quản lý đặt phòng
-
-    - Xem, huỷ đặt phòng hiện tại
-
-  - Xem lịch sử đặt phòng
-
-    - Lịch sử đặt phòng bao gồm tất cả đơn đặt phòng của tài khoản người dùng sử dụng với các thông tin như: Họ tên, số điện thoại, địa chỉ, ngày check in, ngày check out và tổng tiền.
-
 - Chức năng của Quản trị viên:
 
   - Quản lý lịch đặt phòng.
 
-  - Xem và quản lý việc đặt phòng
+    - Xem và quản lý việc đặt phòng
 
-  - Bao gồm xác nhận đặt phòng, hủy bỏ đặt phòng, và sửa đổi thông tin đặt phòng.
+    - Bao gồm xác nhận đặt phòng, hủy bỏ đặt phòng, và sửa đổi thông tin đặt phòng.
 
 - Chức năng của Quản trị viên Super Admin:
 
-  - Quản lý Khách sạn, loại phòng, phòng
-
-  - Quản lý người dùng (thêm, xóa, sửa, tìm kiếm người dùng)
+  - Quản lý người dùng (thêm, xóa, sửa)
 
   - Có thể xem toàn bô khách sạn, phòng trong hệ thống

@@ -25,14 +25,29 @@ function RoomPage() {
             <div className="card-body bg-light text-center">
               <div className="mb-2">
                 <h6 className="font-weight-semibold mb-2">
-                  <a href="#" className="text-default mb-2" data-abc="true">
+                  <a
+                    href={"/room/" + item.id}
+                    className="text-default mb-2"
+                    data-abc="true"
+                  >
                     Room: {item.room_number}
                   </a>
                 </h6>
-                <a href="#" className="text-muted" data-abc="true">
+                <a
+                  href={"/room/" + item.id}
+                  className="text-muted"
+                  data-abc="true"
+                >
                   RoomType: {item.name}
                 </a>
               </div>
+              <a
+                href={"/room/" + item.id}
+                className="text-muted"
+                data-abc="true"
+              >
+                Status: {item.status}
+              </a>
               <h3 className="mb-0 font-weight-semibold">{item.price}$</h3>
               <div className="mt-3">
                 <Link

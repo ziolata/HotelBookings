@@ -72,53 +72,8 @@ class RoomDetailUpdate(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = RoomSerializer
     permission_classes = [AdminGroup]
 
-# ----------------------------------Search------------------------------
-class SearchAvailableRoomsView(APIView):
-    permission_classes = [permissions.AllowAny]
-    def get(self, request):
-        # lấy data
-        room_type_name = request.query_params.get('room_type_name')
-        check_in_date = request.query_params.get('check_in_date')
-        check_out_date = request.query_params.get('check_out_date')
-        number_of_guest = request.query_params.get('number_of_guest')
-        # province = request.query_params.get('province')
+# ----------------------------------Booking------------------------------
 
-        # Filter theo trạng thái phòng 
-        available_rooms = Room.objects.filter(
-            Q(status='available') &
-            (
-                Q(booking__isnull=True) |  # No bookings
-                Q(  # Bookings outside check-in/check-out window
-                    Q(booking__check_out_date__lt=check_in_date) |
-                    Q(booking__check_in_date__gt=check_out_date)
-                ) if check_in_date and check_out_date else Q()  # No filtering if no dates
-            )
-        )
-        # if room_type_name is not None:
-        #     available_rooms = available_rooms.filter(room_type_name__icontains=room_type_name)
-        # if number_of_guest is not None:
-        #     available_rooms = available_rooms.filter(room_type_id__number_of_guest__gte=number_of_guest)
-
-        # Filter tỉnh thành phố
-        # if province is not None:
-        #     available_rooms = available_rooms.filter(room_type_id__hotel_id__province=province)
-
-        # Filter check_in và check_out
-        # if check_in_date and check_out_date:
-        #     booked_rooms = Room.objects.filter(
-        #         Q(status='booked') &
-        #         Q(booking__isnull=False) &
-        #         ~Q(
-        #             booking__check_out_date__lt=check_in_date,
-        #             booking__check_in_date__gt=check_out_date
-        #         )
-        #     )
-        #     available_rooms = available_rooms.difference(booked_rooms)
-
-        #data
-        serializer = AvailableRoomSerializer(available_rooms, many=True)
-        return Response(serializer.data)
-        
 
 
 class BookingViewSet(generics.ListCreateAPIView):

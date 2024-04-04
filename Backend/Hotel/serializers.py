@@ -39,7 +39,7 @@ class RoomSerializer(serializers.ModelSerializer):
     amenity_data = AmenitySerializers(source='room_type_id.amenities', many=True, read_only=True)
     class Meta:
         model = Room
-        fields = ('id','image','room_number','status','room_type_id','check_in_date','check_out_date','name','price','amenity_data','address','province')
+        fields = ('id','image','room_number','status','room_type_id','name','price','amenity_data','address','province')
 class BookingSerializer(serializers.ModelSerializer):
     status = serializers.CharField(required=False)
     price = serializers.ReadOnlyField(source='room_id.room_type_id.price')
@@ -50,10 +50,7 @@ class BookingSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         status = validated_data.get('status', instance.status)
         if status == 'Confirmed':
-            # Gắn check_in_date và check_out_date của Booking vào phòng tương ứng
             room = instance.room_id
-            room.check_in_date = instance.check_in_date
-            room.check_out_date = instance.check_out_date
             room.status = instance.status = 'Booked'
             room.save()
         return super().update(instance, validated_data)
@@ -73,14 +70,3 @@ class BookingHistorySerializer(serializers.ModelSerializer):
         model = Booking
         fields = ('id','fullname','phone','address','check_in_date','check_out_date','total_price','number_of_guests','price','room_id','user_id','status','date_booking')
 
-class AvailableRoomSerializer(serializers.ModelSerializer):
-    room_type_name = serializers.CharField(source='room_type_id.name')
-    number_of_guest = serializers.CharField(source='room_type_id.number_of_guest')
-    check_in_date = serializers.DateField()
-    check_out_date = serializers.DateField()
-    province = serializers.CharField(source='room_type_id.hotel_id.province')
-    image = serializers.CharField(source='room_type_id.image')
-    price = serializers.IntegerField(source='room_type_id.price')
-    class Meta:
-        model = Room
-        fields = ('id', 'room_number', 'room_type_id', 'room_type_name','number_of_guest','check_in_date','check_out_date','province','image','price')

@@ -50,7 +50,7 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
     getRoom();
   }, [roomId]);
   const csrftoken = Cookies.get("csrftoken");
-  console.log(roomData.price);
+
   const handleBookingConfirmed = async () => {
     try {
       const response = await axios.post(
@@ -165,7 +165,7 @@ const BookingForm = ({ room, onBookingConfirmed }) => {
                             <p>Total price: {roomData.price * Day}$</p>
                           </div>
                         ) : (
-                          <p>No room data or invalid data.</p>
+                          <p>Please login to be able to booking.</p>
                         )}
                       </div>
                     </div>

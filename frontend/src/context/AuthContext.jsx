@@ -6,20 +6,20 @@ const AuthContext = createContext();
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
-  let [authTokens, setAuthTokens] = useState(() =>
+  const [authTokens, setAuthTokens] = useState(() =>
     localStorage.getItem("authTokens")
       ? JSON.parse(localStorage.getItem("authTokens"))
       : null
   );
-  let [userinfo, setUserInfo] = useState([]);
-  let [userAll, setUserAll] = useState([]);
-  let [user, setUser] = useState(() =>
+  const [userinfo, setUserInfo] = useState([]);
+  const [userAll, setUserAll] = useState([]);
+  const [user, setUser] = useState(() =>
     localStorage.getItem("authTokens")
       ? jwtDecode(localStorage.getItem("authTokens"))
       : null
   );
-  let history = useHistory();
-  let loginUser = async (e) => {
+  const history = useHistory();
+  const loginUser = async (e) => {
     e.preventDefault();
     try {
       let response = await axios.post(
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
         }
       );
 
-      let data = response.data;
+      const data = response.data;
       if (response.status === 200) {
         setAuthTokens(data);
         setUser(jwtDecode(data.access));
@@ -58,13 +58,13 @@ export const AuthProvider = ({ children }) => {
       alert("Login failed");
     }
   };
-  let logoutUser = () => {
+  const logoutUser = () => {
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem("authTokens");
     history.push("/login");
   };
-  let updateToken = async () => {
+  const updateToken = async () => {
     console.log("Update Token Called!");
     let response = await fetch("http://127.0.0.1:8000/api/token/refresh/", {
       method: "POST",
@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
         refresh: authTokens.refresh,
       }),
     });
-    let data = await response.json();
+    const data = await response.json();
     if (response.status === 200) {
       setAuthTokens(data);
       setUser(jwtDecode(data.access));
@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  let UserProfile = async () => {
+  const UserProfile = async () => {
     try {
       const response = await axios.get(
         `http://127.0.0.1:8000/api/userprofile/`,
@@ -101,7 +101,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {}
   };
   // Lấy thông tin về User
-  let User = async () => {
+  const User = async () => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/api/user/`, {
         headers: {
@@ -116,7 +116,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     User();
   }, []);
-  let contextData = {
+  const contextData = {
     user: user,
     loginUser: loginUser,
     authTokens: authTokens,
